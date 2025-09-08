@@ -1,0 +1,74 @@
+# --- Conda -- 
+.env/yml
+environment.yml
+/.conda
+
+# --- data (never commit big matrices) ---
+data/
+*.h5ad
+*.loom
+*.mtx
+*.h5
+*.zarr
+*.npz
+*.npy
+*.rds
+*.rdata
+*.feather
+*.parquet
+*.fastq*
+*.bam
+*.bai
+*.gz
+*.zip
+*.tar
+
+# --- job logs / scratch ---
+outs/
+*.out
+*.err
+.scratch/
+.cache/
+.tmp/
+**/__pycache__/
+*.pyc
+*.pyo
+
+# --- notebooks aux / OS crap ---
+.ipynb_checkpoints/
+*.nbconvert.ipynb
+.DS_Store
+
+# --- ignore everything under results ...
+results/**
+
+# ...but keep directory structure so we can whitelist things
+!results/**/
+
+# ...and keep EVERYTHING under any figures/ folder
+!results/**/figures/**
+
+# ...except drop exploratory/test outputs anywhere in figures
+results/**/figures/**/*testp*.*
+results/**/figures/*testp*.*
+
+# CSV/TXT: ignore by default (you can whitelist later if needed)
+*.csv
+*.txt
+
+*.h5ad
+
+# Ignore all CSVs
+*.csv
+
+# But keep QC summaries or tables
+!results/**/qc/*.csv
+!results/**/summary*.csv
+!results/**/tables/*.csv
+
+notebooks/
+
+# IDE
+.vscode/
+.idea/
+results/system_qc/Lateral_plate_mesoderm/figures/umap_Lateral_plate_mesoderm_genes_umap.pdf
