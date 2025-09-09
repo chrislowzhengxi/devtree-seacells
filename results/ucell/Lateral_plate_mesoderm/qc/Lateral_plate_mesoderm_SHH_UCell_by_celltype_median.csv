@@ -1,28 +1,29 @@
 celltype_new,SHH_UCell_score
-Gut mesenchyme,0.3123888888888889
-Foregut mesenchyme,0.28805555555555556
-Lung mesenchyme,0.27805555555555556
-Hepatic mesenchyme,0.08694444444444444
-Leydig cells,0.08144444444444443
-Cardiopharyngeal mesoderm,0.019555555555555548
-Splanchnic mesoderm,0.01622222222222225
-Allantois,0.0
-Airway smooth muscle cells,0.0
-Atrial cardiomyocytes,0.0
-Adrenocortical cells,0.0
-Gonad progenitor cells,0.0
-Gastrointestinal smooth muscle cells,0.0
-First heart field,0.0
-Extraembryonic mesoderm,0.0
+Gut mesenchyme,0.3114444444444444
+Lung mesenchyme,0.2786666666666666
+Foregut mesenchyme,0.24744444444444447
+Hepatic mesenchyme,0.04988888888888887
+Gastrointestinal smooth muscle cells,0.040722222222222215
 Amniotic mesoderm,0.0
+Atrial cardiomyocytes,0.0
+Cardiopharyngeal mesoderm,0.0
+First heart field,0.0
+Allantois,0.0
+Adrenocortical cells,0.0
+Airway smooth muscle cells,0.0
+Granulosa cells,0.0
+Gonad progenitor cells,0.0
+Extraembryonic mesoderm,0.0
+Leydig cells,0.0
 Limb mesenchyme progenitors,0.0
-Mesothelial cells,0.0
 Meninges,0.0
+Mesothelial cells,0.0
 Proepicardium,0.0
 Renal stromal cells,0.0
-Sertoli cells,0.0
 Second heart field,0.0
+Sertoli cells,0.0
 Somatic mesoderm,0.0
+Splanchnic mesoderm,0.0
 Vascular smooth muscle cells,0.0
 Vascular smooth muscle cells (Pparg+),0.0
 Ventricular cardiomyocytes,0.0
