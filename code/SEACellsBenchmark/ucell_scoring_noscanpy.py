@@ -238,118 +238,6 @@ def _pick_rowlabels_for_ucell(adata):
 
 
 
-
-# def run_ucell_scores_shh(adata: ad.AnnData, shh_genes=SHH_GENES, ncores: int = 1, use_layer: str | None = None) -> pd.Series:
-#     """
-#     Build a genes x cells matrix for UCell (genes in ROWNAMES, cells in COLNAMES),
-#     map requested genes to the EXACT rowname case, verify presence in R, score,
-#     and return a per-cell vector of length adata.n_obs.
-#     """
-#     from scipy import sparse as sp
-#     ucell = _ensure_ucell_installed()
-
-
-#     # --- choose matrix (cells x genes) ---
-#     if use_layer:
-#         if use_layer not in adata.layers:
-#             raise ValueError(f"Requested layer '{use_layer}' not found in adata.layers")
-#         X = adata.layers[use_layer]
-#         src_for_rows = adata  # rowlabels must align to adata.var_names
-#         print(f"[INPUT] using layer='{use_layer}' (cells x genes={X.shape})")
-#     else:
-#         # ---- 1) Use RAW when available; get labels we will use as rownames ----
-#         raw = adata.raw.to_adata() if adata.raw is not None else adata
-#         X = raw.X
-#         src_for_rows = raw
-#         print(f"[INPUT] using {'adata.raw.X' if adata.raw is not None else 'adata.X'} (cells x genes={X.shape})")
-
-    
-#     cells = list(map(str, adata.obs_names))   # colnames
-#     rowlabels, src_col = _pick_rowlabels_for_ucell(adata)  # length == #genes (from RAW)
-#     rowlabels = list(map(str, rowlabels))     # preserve original case
-
-#     # ---- 2) Map requested genes to the EXACT case used in rowlabels ----
-#     lut = {}
-#     for g in rowlabels:
-#         up = g.upper()
-#         if up not in lut:
-#             lut[up] = g
-#     feats_exact = [lut[g.upper()] for g in shh_genes if g.upper() in lut]
-
-#     print(f"[UCELL] rownames source: {src_col or 'var_names'}")
-#     print(f"[UCELL] SHH genes requested: {shh_genes}")
-#     print(f"[UCELL] SHH genes present  : {feats_exact} ({len(feats_exact)}/{len(shh_genes)})")
-#     if not feats_exact:
-#         print("⚠️  No requested SHH genes matched rownames — returning zeros.")
-#         return pd.Series(0.0, index=adata.obs_names, name="SHH_UCell_score")
-
-#     # ---- 3) Build M in R (genes x cells) WITHOUT densifying if sparse ----
-#     if sp.issparse(X):
-#         Xgc = X.T.tocoo(copy=False)  # genes x cells (COO)
-#         from rpy2.robjects.vectors import IntVector, FloatVector
-#         ro.globalenv["i"] = IntVector((Xgc.row + 1).astype(np.int32))   # 1-based for R
-#         ro.globalenv["j"] = IntVector((Xgc.col + 1).astype(np.int32))
-#         ro.globalenv["x"] = FloatVector(Xgc.data.astype(np.float32))
-#         ro.globalenv["dims"] = IntVector([Xgc.shape[0], Xgc.shape[1]])
-#         ro.globalenv["G"] = StrVector(rowlabels)
-#         ro.globalenv["C"] = StrVector(cells)
-#         ro.r("""
-#             suppressMessages(library(Matrix))
-#             M <- sparseMatrix(i=i, j=j, x=x, dims=dims)
-#             rownames(M) <- G; colnames(M) <- C
-#         """)
-#     else:
-#         X_T = np.asarray(X, dtype=np.float32).T  # genes x cells
-#         r_mat = ro.r["as.matrix"](X_T)
-#         ro.globalenv["M"] = r_mat
-#         ro.globalenv["G"] = StrVector(rowlabels)
-#         ro.globalenv["C"] = StrVector(cells)
-#         ro.r("rownames(M) <- G; colnames(M) <- C")
-
-#     # ---- 4) Safety on rownames & presence sanity ----
-#     ro.r("""
-#         rn <- rownames(M)
-#         if (is.null(rn)) stop('M rownames are NULL')
-#         if (anyNA(rn)) stop('M rownames contain NA')
-#         if (any(duplicated(rn))) rownames(M) <- make.unique(rn)
-#     """)
-#     ro.globalenv["FEATS"] = StrVector(feats_exact)
-#     ro.r('cat("Check presence:", sum(rownames(M) %in% FEATS), "of", length(FEATS), "present\\n")')
-#     ro.r('stopifnot(all(FEATS %in% rownames(M)))')
-
-#     # ---- 5) Precompute ranks and score (version-safe path) ----
-#     ro.r("ranks <- UCell::StoreRankings_UCell(M)")
-#     res = ucell.ScoreSignatures_UCell(
-#         **{'precalc.ranks': ro.globalenv["ranks"]},
-#         features=ListVector({"SHH": StrVector(feats_exact)}),
-#         ncores=int(ncores)
-#     )
-
-#     # ---- 6) Convert R -> pandas (1 col per signature, 1 row per cell) ----
-#     try:
-#         res_df_r = ro.r("as.data.frame")(res)
-#         res_pd = pandas2ri.rpy2py(res_df_r)
-#         colname = "SHH_UCell" if "SHH_UCell" in res_pd.columns else ("SHH" if "SHH" in res_pd.columns else res_pd.columns[0])
-#         vals = res_pd[colname].to_numpy()
-#     except Exception:
-#         arr = numpy2ri.rpy2py(res)
-#         cols = list(ro.r("colnames")(res))
-#         if "SHH_UCell" in cols:
-#             idx = cols.index("SHH_UCell"); vals = np.asarray(arr)[:, idx]
-#         elif "SHH" in cols:
-#             idx = cols.index("SHH"); vals = np.asarray(arr)[:, idx]
-#         else:
-#             vals = np.asarray(arr).ravel()
-
-#     if len(vals) != adata.n_obs:
-#         raise ValueError(f"UCell returned {len(vals)} scores, expected {adata.n_obs} (per cell).")
-
-#     # Optional guard against accidental all-zeros
-#     if not np.any(vals):
-#         raise RuntimeError("UCell returned all zeros. Check features/rownames or UCell version.")
-
-#     return pd.Series(vals, index=adata.obs_names, name="SHH_UCell_score")
-
 def run_ucell_scores_shh(adata: ad.AnnData, shh_genes=SHH_GENES, ncores: int = 1, use_layer: str | None = None) -> pd.Series:
     from scipy import sparse as sp
     ucell = _ensure_ucell_installed()
@@ -499,7 +387,7 @@ def ensure_log1p_cpm_layer(adata, layer_name="log1p_cpm", target_sum=1_000_000):
 
 def save_outputs(adata: ad.AnnData, out_dir: Path, system: str):
     out_dir.mkdir(parents=True, exist_ok=True)
-    suffix = f"_{UCELL_INPUT_LAYER}" if UCELL_INPUT_LAYER else ""
+    suffix = run_suffix()
     h5_out = out_dir / f"{system}{suffix}_adata_with_ucell.h5ad"
     csv_out = out_dir / f"{system}{suffix}_SHH_UCell_scores.csv"
     adata.write_h5ad(str(h5_out))
@@ -549,9 +437,14 @@ def _xticklabels_with_ids(system: str, labels: list[str]) -> list[str]:
         out.append(f"{lab}\nID {nid}" if nid is not None else lab)
     return out
 
-def plot_shh_for_system(system: str, out_root: Path, layer_suffix: str | None):
+def _run_suffix():
+    s_layer = f"_{UCELL_INPUT_LAYER}" if UCELL_INPUT_LAYER else ""
+    s_run   = "_test" if SUBSAMPLE_FRAC < 1.0 else ""
+    return f"{s_layer}{s_run}"
+
+def plot_shh_for_system(system: str, out_root: Path):
     qcdir = (out_root / system / "qc")
-    suffix = f"_{layer_suffix}" if layer_suffix else ""
+    suffix = _run_suffix()
     # csv = qcdir / f"{system}{suffix}_cardiac_gold_standard_summary.csv"
 
     csv_all = qcdir / f"{system}{suffix}_ALL_labels_summary.csv"
@@ -648,6 +541,69 @@ def plot_shh_for_system(system: str, out_root: Path, layer_suffix: str | None):
 
 
 
+def integrate_shh_with_edges(system_tag: str, outdir: Path):
+    """
+    - Subset the linkage to LPM ("system")
+    - Manually add second heart field, atrial cardiomyocytes, as a new row
+    - Use your calculated uscore mean value as sh_x, sh_y (add as new columns for edge_filtered.txt)
+    - Calculate absolute delta, add it as a new column
+    - Plot it into graph (igraph). x_name, y_name will be labels of the node, node 
+    colored by the SHH score (sh_score). Edge width by abs delta. Title the graph with system ID 
+
+    Merge SHH scores with lineage edges for one system and save extended table.
+    """
+    # Inputs
+    suffix = run_suffix()
+    score_csv = outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv"
+    edge_file = Path("/project/xyang2/SHH/Qiu_TimeLapse/Holly_desktop/edges_filtered.txt")
+
+    if not score_csv.exists():
+        print(f"[EDGE] Missing score file: {score_csv}")
+        return
+
+    scores = pd.read_csv(score_csv)[["celltype_new", "mean"]]
+    scores = scores.rename(columns={"mean": "sh_score"})
+
+    edges = pd.read_csv(edge_file, sep="\t")
+    edges = edges.loc[edges["system"] == system_tag].copy()
+
+    # --- Manual addition: Second heart field → Atrial cardiomyocytes ---
+    new_row = {
+        "system": system_tag,
+        "x": "L_M22",  # fill with x_number or symbol if available
+        "y": "L_M5",
+        "x_name": "Second heart field",
+        "y_name": "Atrial cardiomyocytes",
+        "edge_type": "Developmental progression",
+        "x_number": None, "y_number": None, "x_id": None, "y_id": None,
+    }
+
+    need_manual = ~((edges["x_name"] == "Second heart field") & 
+                (edges["y_name"] == "Atrial cardiomyocytes")).any()
+    if need_manual:
+        edges = pd.concat([edges, pd.DataFrame([new_row])], ignore_index=True)
+
+    # --- Merge SHH scores ---
+    edges = edges.merge(scores.rename(columns={"celltype_new": "x_name", "sh_score": "sh_x"}),
+                        on="x_name", how="left")
+    edges = edges.merge(scores.rename(columns={"celltype_new": "y_name", "sh_score": "sh_y"}),
+                        on="y_name", how="left")
+
+    # --- Delta ---
+    edges["abs_delta"] = (edges["sh_x"] - edges["sh_y"]).abs()
+
+    # --- Save ---
+    out_file = outdir / f"{system_tag}_edge_filtered_with_shh.csv"
+    edges.to_csv(out_file, index=False)
+    print(f"[EDGE] wrote merged edges with SHH: {out_file}")
+
+
+def run_suffix():
+    s_layer = f"_{UCELL_INPUT_LAYER}" if UCELL_INPUT_LAYER else ""
+    s_run   = "_test" if SUBSAMPLE_FRAC < 1.0 else ""
+    return f"{s_layer}{s_run}"
+
+
 
 def main():
     print("== UCELL SHH scoring (no Scanpy) ==")
@@ -659,8 +615,6 @@ def main():
 
     _ensure_ucell_installed()
 
-    suffix_run = "_test" if SUBSAMPLE_FRAC < 1.0 else ""
-
     for system_tag in SYSTEMS:
         h5_file = H5_ROOT / f"{system_tag}_adata_scale.h5ad"
         if not h5_file.exists():
@@ -671,6 +625,10 @@ def main():
         adata = maybe_subsample(adata, SUBSAMPLE_FRAC, seed=0)
         sanitize_anndata_for_h5ad(adata)
 
+        # ensure per-cell system is available for joins
+        if "system" not in adata.obs.columns:
+            adata.obs["system"] = system_tag
+
         # If we want to use log1p CPM, create the layer once (non-destructive)
         if UCELL_INPUT_LAYER:
             if UCELL_INPUT_LAYER not in adata.layers:
@@ -679,11 +637,10 @@ def main():
 
 
         # >>> INSERT DEBUG PRINTS HERE <<<
-        X_T, _, cell_names = _matrix_from_adata_for_ucell(adata)
-        rowlabels, _ = _pick_rowlabels_for_ucell(adata)
-        print("Matrix shape genes x cells:", X_T.shape)
-        print("Example rownames (genes):", rowlabels[:5])
-        print("Example colnames (cells):", list(map(str, cell_names))[:5])
+        raw_dbg = adata.raw.to_adata() if adata.raw is not None else adata
+        print("Matrix shape genes x cells:", (raw_dbg.n_vars, raw_dbg.n_obs))
+        print("Example rownames (genes):", list(map(str, raw_dbg.var_names[:5])))
+        print("Example colnames (cells):", list(map(str, adata.obs_names[:5])))
         # <<< END DEBUG PRINTS >>>
 
         # >>> INSERT DIAGNOSTICS HERE <<<
@@ -719,75 +676,33 @@ def main():
         rowlabels, _ = _pick_rowlabels_for_ucell(adata)
         print("[CHECK] Any exact-case hits?", [g for g in ["Gli1","Ptch1","Hhip"] if g in rowlabels])
 
-        shh = run_ucell_scores_shh(adata, shh_genes=SHH_GENES, ncores=NCORES, use_layer=UCELL_INPUT_LAYER)
-        adata.obs["SHH_UCell_score"] = shh.values
+        suffix = run_suffix()
+        summary_csv = outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv"
 
-        print(f"[UCELL] {system_tag}: summary\n{adata.obs['SHH_UCell_score'].describe()}")
+        if not summary_csv.exists():
+            shh = run_ucell_scores_shh(adata, shh_genes=SHH_GENES, ncores=NCORES, use_layer=UCELL_INPUT_LAYER)
+            adata.obs["SHH_UCell_score"] = shh.values
 
-        # --- Optional QC: summarize scores by celltype_new ---
-        if "celltype_new" in adata.obs:
-            summary = (adata.obs[["celltype_new", "SHH_UCell_score"]]
-                .groupby("celltype_new", observed=False)["SHH_UCell_score"]
-                .median().sort_values(ascending=False))
-            (outdir / "qc").mkdir(parents=True, exist_ok=True)
+            print(f"[UCELL] {system_tag}: summary\n{adata.obs['SHH_UCell_score'].describe()}")
 
-            suffix = f"_{UCELL_INPUT_LAYER}" if UCELL_INPUT_LAYER else ""
-            summary.to_csv(outdir / "qc" / f"{system_tag}{suffix}_SHH_UCell_by_celltype_median.csv")
-            for label in ["Second heart field", "Atrial cardiomyocytes", "atrial CM"]:
-                if label in summary.index:
-                    print(f"[QC] {label}: median SHH_UCell_score = {summary.loc[label]:.4f}")
+            # --- Optional QC: summarize scores by celltype_new ---
+            if "celltype_new" in adata.obs:
+                summary = (adata.obs[["celltype_new", "SHH_UCell_score"]]
+                    .groupby("celltype_new", observed=False)["SHH_UCell_score"]
+                    .median().sort_values(ascending=False))
+                (outdir / "qc").mkdir(parents=True, exist_ok=True)
 
-        save_outputs(adata, outdir, system_tag)
-
-        # --- CARDIAC-FOCUSED QC (place after save_outputs) ---
-        # if "celltype_new" in adata.obs:
-        #     df = adata.obs[["celltype_new", "SHH_UCell_score"]].copy()
-
-        #     # Count cells per label
-        #     counts = df["celltype_new"].value_counts().sort_values(ascending=False)
-        #     print("[QC] cell counts (top 15):\n", counts.head(15))
-
-        #     # Less-sparse summaries
-        #     mean_by = df.groupby("celltype_new", observed=False)["SHH_UCell_score"].mean().sort_values(ascending=False)
-        #     q90_by  = df.groupby("celltype_new", observed=False)["SHH_UCell_score"].quantile(0.90).sort_values(ascending=False)
-        #     fracpos = (df.assign(pos=(df["SHH_UCell_score"] > 0).astype(float))
-        #                 .groupby("celltype_new", observed=False)["pos"].mean().sort_values(ascending=False))
-
-        #     print("[QC] Mean (top 10):\n", mean_by.head(10))
-        #     print("[QC] 90th percentile (top 10):\n", q90_by.head(10))
-        #     print("[QC] Fraction >0 (top 10):\n", fracpos.head(10))
-
-        #     # Direct gold-standard check
-        #     targets = ["Second heart field", "Atrial cardiomyocytes", "atrial CM",
-        #             "First heart field", "Cardiopharyngeal mesoderm", "Ventricular cardiomyocytes"]
-        #     def safe_get(s, k): return float(s.get(k)) if k in s.index else float("nan")
-        #     rows = []
-        #     for lab in targets:
-        #         rows.append({
-        #             "celltype_new": lab,
-        #             "n_cells": int(counts.get(lab, 0)),
-        #             "median": float(df.loc[df["celltype_new"]==lab, "SHH_UCell_score"].median()
-        #                             if lab in df["celltype_new"].values else float("nan")),
-        #             "mean": safe_get(mean_by, lab),
-        #             "q90":  safe_get(q90_by, lab),
-        #             "frac>0": safe_get(fracpos, lab),
-        #         })
-        #     import pandas as pd
-        #     table = pd.DataFrame(rows).set_index("celltype_new")
-        #     print("[QC] Cardiac summary:\n", table)
-
-        #     # Write CSVs so you don't need to hunt logs
-        #     (outdir / "qc").mkdir(parents=True, exist_ok=True)
-
-        #     suffix = f"_{UCELL_INPUT_LAYER}" if UCELL_INPUT_LAYER else ""
-        #     mean_by.to_csv(outdir / "qc" / f"{system_tag}{suffix}_by_celltype_mean.csv")
-        #     q90_by.to_csv(outdir / "qc" / f"{system_tag}{suffix}_by_celltype_q90.csv")
-        #     fracpos.to_csv(outdir / "qc" / f"{system_tag}{suffix}_by_celltype_fracpos.csv")
-        #     table.to_csv(outdir / "qc" / f"{system_tag}{suffix}_cardiac_gold_standard_summary.csv")
-
+                suffix = run_suffix()
+                summary.to_csv(outdir / "qc" / f"{system_tag}{suffix}_SHH_UCell_by_celltype_median.csv")
+                for label in ["Second heart field", "Atrial cardiomyocytes", "atrial CM"]:
+                    if label in summary.index:
+                        print(f"[QC] {label}: median SHH_UCell_score = {summary.loc[label]:.4f}")
+            save_outputs(adata, outdir, system_tag)
+        else:
+            print(f"[SKIP] Using existing summaries: {summary_csv}")
 
         # --- GENERAL QC (all labels) ---
-        if "celltype_new" in adata.obs:
+        if "celltype_new" in adata.obs and "SHH_UCell_score" in adata.obs:
             df = adata.obs[["celltype_new", "SHH_UCell_score"]].copy()
             counts  = df["celltype_new"].value_counts().sort_index()
             grp     = df.groupby("celltype_new", observed=False)["SHH_UCell_score"]
@@ -800,19 +715,18 @@ def main():
                 "frac>0":  grp.apply(lambda s: (s > 0).mean()).reindex(counts.index).values,
             })
             (outdir / "qc").mkdir(parents=True, exist_ok=True)
-            suffix = f"_{UCELL_INPUT_LAYER}" if UCELL_INPUT_LAYER else ""
+            suffix = run_suffix()
             summary.to_csv(outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv", index=False)
             print("[QC] wrote:", outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv")
+        else:
+            print("[QC] Skipping general QC: SHH_UCell_score not in adata.obs")
 
+        integrate_shh_with_edges(system_tag, outdir)  
 
         try:
-            plot_shh_for_system(system_tag, OUT_ROOT, UCELL_INPUT_LAYER)
+            plot_shh_for_system(system_tag, OUT_ROOT)
         except Exception as e:
             print(f"[PLOT] Error plotting {system_tag}: {e}")
-
-
-
-
 
         del adata
 
