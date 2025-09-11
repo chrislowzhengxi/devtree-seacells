@@ -18,6 +18,7 @@ import pandas as pd
 import anndata as ad
 from scipy import sparse
 import scanpy as sc
+import networkx as nx
 
 # rpy2 / R bridge
 import rpy2.robjects as ro
@@ -598,6 +599,160 @@ def integrate_shh_with_edges(system_tag: str, outdir: Path):
     print(f"[EDGE] wrote merged edges with SHH: {out_file}")
 
 
+def plot_shh_graph(edges_df: pd.DataFrame, system_tag: str, outdir: Path,
+                   scores: pd.DataFrame, file_stem: str = None):
+    """
+    Plot a graph where:
+      - nodes are unique cell types (x_name, y_name)
+      - node color encodes SHH score (from scores table)
+      - edge width encodes abs_delta
+    Saves PNG and PDF.
+    """
+    outdir.mkdir(parents=True, exist_ok=True)
+    if file_stem is None:
+        file_stem = f"{system_tag}_shh_graph"
+
+    # Build node list
+    node_names = pd.unique(pd.concat([edges_df["x_name"], edges_df["y_name"]], ignore_index=True))
+    node_names = [n for n in node_names if pd.notna(n)]
+
+    # Map node -> sh_score
+    score_map = dict(scores[["celltype_new", "sh_score"]].dropna().itertuples(index=False, name=None))
+    node_scores = {n: score_map.get(n, np.nan) for n in node_names}
+
+    # Build graph
+    G = nx.DiGraph()
+    for n in node_names:
+        G.add_node(n, sh_score=node_scores[n])
+
+    # Add edges with abs_delta
+    for r in edges_df.itertuples(index=False):
+        if pd.isna(r.x_name) or pd.isna(r.y_name):
+            continue
+        width = float(r.abs_delta) if pd.notna(r.abs_delta) else 0.0
+        G.add_edge(r.x_name, r.y_name, abs_delta=width)
+
+    # Layout: try topological if DAG, else spring
+    try:
+        order = list(nx.topological_sort(G))
+        pos = nx.kamada_kawai_layout(G, scale=1.0) if not order else nx.spring_layout(G, k=0.6, seed=4)
+    except nx.NetworkXUnfeasible:
+        pos = nx.spring_layout(G, k=0.6, seed=4)
+
+    # Node colors from scores
+    scores_array = np.array([node_scores[n] for n in G.nodes()])
+    vmin = np.nanmin(scores_array) if np.isfinite(np.nanmin(scores_array)) else 0.0
+    vmax = np.nanmax(scores_array) if np.isfinite(np.nanmax(scores_array)) else 1.0
+    norm_scores = [(s - vmin) / (vmax - vmin) if np.isfinite(s) and vmax > vmin else np.nan for s in scores_array]
+
+    cmap = plt.cm.viridis
+    node_colors = [cmap(ns) if np.isfinite(ns) else (0.8, 0.8, 0.8, 1.0) for ns in norm_scores]  # gray for NaN
+
+    # Edge widths scaled
+    abs_deltas = [G.edges[e]["abs_delta"] for e in G.edges()]
+    if len(abs_deltas) and max(abs_deltas) > 0:
+        w = [1.0 + 6.0 * (d / max(abs_deltas)) for d in abs_deltas]
+    else:
+        w = [1.0 for _ in G.edges()]
+
+    fig, ax = plt.subplots(figsize=(10, 8))
+
+    nx.draw_networkx_nodes(
+        G, pos, node_color=node_colors, node_size=900,
+        linewidths=0.8, edgecolors="black", ax=ax
+    )
+    nx.draw_networkx_labels(G, pos, font_size=8, ax=ax)
+    nx.draw_networkx_edges(
+        G, pos, width=w, arrows=True, arrowstyle="-|>", arrowsize=12,
+        connectionstyle="arc3,rad=0.05", ax=ax
+    )
+
+    # Colorbar for SHH scores (bind to this figure/axes)
+    sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=vmax))
+    sm.set_array([])
+    cbar = fig.colorbar(sm, ax=ax, shrink=0.8, pad=0.02)
+    cbar.set_label("SHH UCell score")
+
+    ax.set_title(system_tag)
+    ax.set_axis_off()
+    fig.tight_layout()
+
+    png = outdir / f"{file_stem}.png"
+    pdf = outdir / f"{file_stem}.pdf"
+    fig.savefig(png, dpi=300)
+    fig.savefig(pdf)
+    plt.close(fig)
+    print(f"[PLOT] wrote {png}")
+    print(f"[PLOT] wrote {pdf}")
+
+
+def integrate_shh_with_edges_and_plot(system_tag: str, outdir: Path):
+    """
+    - Subset edges to one system
+    - Ensure 'Second heart field -> Atrial cardiomyocytes' exists
+    - Merge SHH means onto x and y (sh_x, sh_y)
+    - Compute abs_delta
+    - Save CSV and TXT
+    - Plot network graph with node color = sh_score and edge width = abs_delta
+    """
+    suffix = run_suffix()
+    score_csv = outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv"
+    edge_file = Path("/project/xyang2/SHH/Qiu_TimeLapse/Holly_desktop/edges_filtered.txt")
+
+    if not score_csv.exists():
+        print(f"[EDGE] Missing score file: {score_csv}")
+        return
+
+    # Load scores and rename for clarity
+    scores = pd.read_csv(score_csv)[["celltype_new", "mean"]].rename(columns={"mean": "sh_score"})
+    edges = pd.read_csv(edge_file, sep="\t")
+    edges = edges.loc[edges["system"] == system_tag].copy()
+
+    # Manual SHF -> Atrial CM row if missing
+    need_manual = ~((edges["x_name"] == "Second heart field") &
+                    (edges["y_name"] == "Atrial cardiomyocytes")).any()
+    if need_manual:
+        new_row = {
+            "system": system_tag,
+            "x": "L_M22",
+            "y": "L_M5",
+            "x_name": "Second heart field",
+            "y_name": "Atrial cardiomyocytes",
+            "edge_type": "Developmental progression",
+            "x_number": np.nan, "y_number": np.nan, "x_id": np.nan, "y_id": np.nan,
+        }
+        edges = pd.concat([edges, pd.DataFrame([new_row])], ignore_index=True)
+
+    # Merge SHH scores for x and y
+    edges = edges.merge(
+        scores.rename(columns={"celltype_new": "x_name", "sh_score": "sh_x"}),
+        on="x_name", how="left"
+    )
+    edges = edges.merge(
+        scores.rename(columns={"celltype_new": "y_name", "sh_score": "sh_y"}),
+        on="y_name", how="left"
+    )
+
+    # abs_delta
+    edges["abs_delta"] = (edges["sh_x"] - edges["sh_y"]).abs()
+
+    # Save extended table
+    out_csv = outdir / f"{system_tag}_edge_filtered_with_shh.csv"
+    edges.to_csv(out_csv, index=False)
+    print(f"[EDGE] wrote merged edges with SHH: {out_csv}")
+
+    # Also provide a TSV .txt for Holly
+    out_txt = outdir / f"{system_tag}_edge_filtered_with_shh.txt"
+    edges.to_csv(out_txt, sep="\t", index=False, na_rep="")
+    print(f"[EDGE] wrote merged edges with SHH (txt): {out_txt}")
+
+    # Plot network
+    plot_shh_graph(edges, system_tag, outdir, scores,
+                   file_stem=f"{system_tag}_shh_graph")
+
+    return edges
+
+
 def run_suffix():
     s_layer = f"_{UCELL_INPUT_LAYER}" if UCELL_INPUT_LAYER else ""
     s_run   = "_test" if SUBSAMPLE_FRAC < 1.0 else ""
@@ -721,12 +876,13 @@ def main():
         else:
             print("[QC] Skipping general QC: SHH_UCell_score not in adata.obs")
 
-        integrate_shh_with_edges(system_tag, outdir)  
+        # integrate_shh_with_edges(system_tag, outdir)  
 
-        try:
-            plot_shh_for_system(system_tag, OUT_ROOT)
-        except Exception as e:
-            print(f"[PLOT] Error plotting {system_tag}: {e}")
+        # try:
+        #     plot_shh_for_system(system_tag, OUT_ROOT)
+        # except Exception as e:
+        #     print(f"[PLOT] Error plotting {system_tag}: {e}")
+        integrate_shh_with_edges_and_plot(system_tag, outdir)
 
         del adata
 
