@@ -31,8 +31,12 @@ pandas2ri.activate()
 # -------------------- CONFIG --------------------
 H5_ROOT   = Path("/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added")
 OUT_ROOT  = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell")
-# SYSTEMS = ["Lateral_plate_mesoderm", "Renal", "Gut", "PNS_neurons"]
-SYSTEMS = ["Lateral_plate_mesoderm"]
+# SYSTEMS = ["Renal", "Gut", "PNS_neurons"]
+# SYSTEMS = ["PNS_glia", "Notochord", "Eye"]
+SYSTEMS = ["Endothelium","Epithelial_cells", "Blood"]
+# SYSTEMS = ["Neuroectoderm"]
+# SYSTEMS = ["Neurons"]
+# SYSTEMS = ["Other_Brain_spinal_cord"]
 SUBSAMPLE_FRAC = 1.0 # 0.01 for quick test, 1.0 for full
 NCORES = int(os.environ.get("SLURM_CPUS_PER_TASK", "1"))
 SHH_GENES = ["Gli1", "Ptch1", "Hhip"]
@@ -506,7 +510,7 @@ def plot_shh_for_system(system: str, out_root: Path):
     ax1.set_ylim(0, ymax)
     ax1.set_ylabel("SHH UCell score"); ax1.set_title(f"{system} – SHH UCell score by label (mean)")
 
-    ax1.legend(frameon=False, ncol=3); fig1.tight_layout()
+    ax1.legend(frameon=False, ncol=3)
     fig1.savefig(qcdir / f"{system}{suffix}_SHH_UCell_summary.pdf", dpi=300)
     fig1.savefig(qcdir / f"{system}{suffix}_SHH_UCell_summary.png", dpi=300)
 
@@ -522,7 +526,6 @@ def plot_shh_for_system(system: str, out_root: Path):
     ax2.set_ylim(0, float(df["mean"].max()) + 0.1)
     ax2.set_ylabel("Mean SHH UCell"); ax2.set_title(f"{system} – SHH along lineage (mean)")
     ax2.text(xn, m, f"n={int(n)}", fontsize=6, va="bottom", ha="center")
-    fig2.tight_layout()
     fig2.savefig(qcdir / f"{system}{suffix}_SHH_UCell_lineage_mean.pdf", dpi=300)
     fig2.savefig(qcdir / f"{system}{suffix}_SHH_UCell_lineage_mean.png", dpi=300)
 
@@ -579,10 +582,24 @@ def integrate_shh_with_edges(system_tag: str, outdir: Path):
         "x_number": None, "y_number": None, "x_id": None, "y_id": None,
     }
 
-    need_manual = ~((edges["x_name"] == "Second heart field") & 
-                (edges["y_name"] == "Atrial cardiomyocytes")).any()
-    if need_manual:
-        edges = pd.concat([edges, pd.DataFrame([new_row])], ignore_index=True)
+    if system_tag != "Lateral_plate_mesoderm":
+        edges = edges[~((edges["x_name"] == "Second heart field") &
+                        (edges["y_name"] == "Atrial cardiomyocytes"))]
+
+    if system_tag == "Lateral_plate_mesoderm":
+        need_manual = ~((edges["x_name"] == "Second heart field") & 
+                    (edges["y_name"] == "Atrial cardiomyocytes")).any()
+        if need_manual:
+            new_row = {
+                "system": system_tag,
+                "x": "L_M22",
+                "y": "L_M5",
+                "x_name": "Second heart field",
+                "y_name": "Atrial cardiomyocytes",
+                "edge_type": "Developmental progression",
+                "x_number": np.nan, "y_number": np.nan, "x_id": np.nan, "y_id": np.nan,
+            }
+            edges = pd.concat([edges, pd.DataFrame([new_row])], ignore_index=True)
 
     # --- Merge SHH scores ---
     edges = edges.merge(scores.rename(columns={"celltype_new": "x_name", "sh_score": "sh_x"}),
@@ -645,8 +662,8 @@ def plot_shh_graph(edges_df: pd.DataFrame, system_tag: str, outdir: Path,
     vmax = np.nanmax(scores_array) if np.isfinite(np.nanmax(scores_array)) else 1.0
     norm_scores = [(s - vmin) / (vmax - vmin) if np.isfinite(s) and vmax > vmin else np.nan for s in scores_array]
 
-    cmap = plt.cm.viridis
-    node_colors = [cmap(ns) if np.isfinite(ns) else (0.8, 0.8, 0.8, 1.0) for ns in norm_scores]  # gray for NaN
+    cmap = plt.cm.GnBu
+    node_colors = [cmap(ns) if np.isfinite(ns) else (0.9, 0.9, 0.9, 1.0) for ns in norm_scores]  # gray for NaN
 
     # Edge widths scaled
     abs_deltas = [G.edges[e]["abs_delta"] for e in G.edges()]
@@ -655,17 +672,19 @@ def plot_shh_graph(edges_df: pd.DataFrame, system_tag: str, outdir: Path,
     else:
         w = [1.0 for _ in G.edges()]
 
-    fig, ax = plt.subplots(figsize=(10, 8))
+    fig, ax = plt.subplots(figsize=(14, 8), constrained_layout=True)
 
     nx.draw_networkx_nodes(
-        G, pos, node_color=node_colors, node_size=900,
+        G, pos, node_color=node_colors, node_size=500,    # 900
         linewidths=0.8, edgecolors="black", ax=ax
     )
-    nx.draw_networkx_labels(G, pos, font_size=8, ax=ax)
+    nx.draw_networkx_labels(G, pos, font_size=8, font_color="darkred", ax=ax)
     nx.draw_networkx_edges(
         G, pos, width=w, arrows=True, arrowstyle="-|>", arrowsize=12,
         connectionstyle="arc3,rad=0.05", ax=ax
     )
+
+    ax.margins(0.2)
 
     # Colorbar for SHH scores (bind to this figure/axes)
     sm = plt.cm.ScalarMappable(cmap=cmap, norm=plt.Normalize(vmin=vmin, vmax=vmax))
@@ -675,7 +694,6 @@ def plot_shh_graph(edges_df: pd.DataFrame, system_tag: str, outdir: Path,
 
     ax.set_title(system_tag)
     ax.set_axis_off()
-    fig.tight_layout()
 
     png = outdir / f"{file_stem}.png"
     pdf = outdir / f"{file_stem}.pdf"
@@ -708,20 +726,25 @@ def integrate_shh_with_edges_and_plot(system_tag: str, outdir: Path):
     edges = pd.read_csv(edge_file, sep="\t")
     edges = edges.loc[edges["system"] == system_tag].copy()
 
+    if system_tag != "Lateral_plate_mesoderm":
+        edges = edges[~((edges["x_name"] == "Second heart field") &
+                        (edges["y_name"] == "Atrial cardiomyocytes"))]
+
     # Manual SHF -> Atrial CM row if missing
-    need_manual = ~((edges["x_name"] == "Second heart field") &
+    if system_tag == "Lateral_plate_mesoderm":
+        need_manual = ~((edges["x_name"] == "Second heart field") & 
                     (edges["y_name"] == "Atrial cardiomyocytes")).any()
-    if need_manual:
-        new_row = {
-            "system": system_tag,
-            "x": "L_M22",
-            "y": "L_M5",
-            "x_name": "Second heart field",
-            "y_name": "Atrial cardiomyocytes",
-            "edge_type": "Developmental progression",
-            "x_number": np.nan, "y_number": np.nan, "x_id": np.nan, "y_id": np.nan,
-        }
-        edges = pd.concat([edges, pd.DataFrame([new_row])], ignore_index=True)
+        if need_manual:
+            new_row = {
+                "system": system_tag,
+                "x": "L_M22",
+                "y": "L_M5",
+                "x_name": "Second heart field",
+                "y_name": "Atrial cardiomyocytes",
+                "edge_type": "Developmental progression",
+                "x_number": np.nan, "y_number": np.nan, "x_id": np.nan, "y_id": np.nan,
+            }
+            edges = pd.concat([edges, pd.DataFrame([new_row])], ignore_index=True)
 
     # Merge SHH scores for x and y
     edges = edges.merge(
