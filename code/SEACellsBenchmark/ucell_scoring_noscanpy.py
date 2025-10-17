@@ -31,12 +31,20 @@ pandas2ri.activate()
 # -------------------- CONFIG --------------------
 H5_ROOT   = Path("/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added")
 OUT_ROOT  = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell")
-# SYSTEMS = ["Renal", "Gut", "PNS_neurons"]
-# SYSTEMS = ["PNS_glia", "Notochord", "Eye"]
-SYSTEMS = ["Endothelium","Epithelial_cells", "Blood"]
-# SYSTEMS = ["Neuroectoderm"]
-# SYSTEMS = ["Neurons"]
+# SYSTEMS = ["Renal", "Gut", "PNS_neurons", "PNS_glia", "Notochord", "Eye","Endothelium","Epithelial_cells", "Blood"]
 # SYSTEMS = ["Other_Brain_spinal_cord"]
+# SYSTEMS = ["Notochord"]   # Done 
+# SYSTEMS = ["Lateral_plate_mesoderm", "Renal", "Gut", "PNS_neurons"]  # OOM 
+# SYSTEMS = ["PNS_glia"]   # Done 
+# SYSTEMS = ["Eye"]  # Done
+# SYSTEMS = ["Renal"]   # Done
+# SYSTEMS = ["Gut"]   # Done
+# SYSTEMS = ["PNS_neurons"]  # Done
+# SYSTEMS = ["Lateral_plate_mesoderm"]  # Done
+# SYSTEMS = ["Neuroectoderm"]   # amdhm 37758467
+# SYSTEMS = ["Neurons"]    # bigmem 37758528
+# SYSTEMS = ["Other_Brain_spinal_cord"]  # bigmem 37758529
+SYSTEMS = ["Lateral_plate_mesoderm"]  
 SUBSAMPLE_FRAC = 1.0 # 0.01 for quick test, 1.0 for full
 NCORES = int(os.environ.get("SLURM_CPUS_PER_TASK", "1"))
 SHH_GENES = ["Gli1", "Ptch1", "Hhip"]
@@ -137,8 +145,8 @@ def _matrix_from_adata_for_ucell(adata: ad.AnnData):
                     genes = list(adata.var_names.astype(str))
                     break
 
-    if sp.issparse(X):
-        X = X.toarray()
+    # if sp.issparse(X):
+    #     X = X.toarray()
     X = np.asarray(X, dtype=np.float32)
 
     # R expects genes x cells
@@ -704,6 +712,109 @@ def plot_shh_graph(edges_df: pd.DataFrame, system_tag: str, outdir: Path,
     print(f"[PLOT] wrote {pdf}")
 
 
+# def integrate_shh_with_edges_and_plot(system_tag: str, outdir: Path):
+#     """
+#     - Subset edges to one system
+#     - Ensure 'Second heart field -> Atrial cardiomyocytes' exists
+#     - Merge SHH means onto x and y (sh_x, sh_y)
+#     - Compute abs_delta
+#     - Save CSV and TXT
+#     - Plot network graph with node color = sh_score and edge width = abs_delta
+#     """
+#     suffix = run_suffix()
+#     score_csv = outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv"
+#     edge_file = Path("/project/xyang2/SHH/Qiu_TimeLapse/Holly_desktop/edges_filtered.txt")
+
+#     if not score_csv.exists():
+#         print(f"[EDGE] Missing score file: {score_csv}")
+#         return
+
+#     # Load scores and rename for clarity
+#     scores = pd.read_csv(score_csv)[["celltype_new", "mean"]].rename(columns={"mean": "sh_score"})
+#     edges = pd.read_csv(edge_file, sep="\t")
+#     edges = edges.loc[edges["system"] == system_tag].copy()
+
+#     if system_tag != "Lateral_plate_mesoderm":
+#         edges = edges[~((edges["x_name"] == "Second heart field") &
+#                         (edges["y_name"] == "Atrial cardiomyocytes"))]
+
+#     # Manual SHF -> Atrial CM row if missing
+#     if system_tag == "Lateral_plate_mesoderm":
+#         need_manual = ~((edges["x_name"] == "Second heart field") & 
+#                     (edges["y_name"] == "Atrial cardiomyocytes")).any()
+#         if need_manual:
+#             new_row = {
+#                 "system": system_tag,
+#                 "x": "L_M22",
+#                 "y": "L_M5",
+#                 "x_name": "Second heart field",
+#                 "y_name": "Atrial cardiomyocytes",
+#                 "edge_type": "Developmental progression",
+#                 "x_number": np.nan, "y_number": np.nan, "x_id": np.nan, "y_id": np.nan,
+#             }
+#             edges = pd.concat([edges, pd.DataFrame([new_row])], ignore_index=True)
+
+#     # Merge SHH scores for x and y
+#     edges = edges.merge(
+#         scores.rename(columns={"celltype_new": "x_name", "sh_score": "sh_x"}),
+#         on="x_name", how="left"
+#     )
+#     edges = edges.merge(
+#         scores.rename(columns={"celltype_new": "y_name", "sh_score": "sh_y"}),
+#         on="y_name", how="left"
+#     )
+
+#     # abs_delta
+#     edges["abs_delta"] = (edges["sh_x"] - edges["sh_y"]).abs()
+
+#     # Signed delta (already implied by abs_delta, but keep explicitly)
+#     edges["delta"] = edges["sh_y"] - edges["sh_x"]
+
+#     # Percent change relative to source node (sh_x)
+#     # Handle sh_x == 0 safely with an epsilon
+#     eps = 1e-9
+#     denom = edges["sh_x"].copy()
+#     denom = denom.where(denom.abs() > eps, np.nan)  # avoid divide-by-zero
+#     edges["pct_change"] = 100.0 * edges["delta"] / denom
+
+#     # Optional: magnitude of percent change
+#     edges["abs_pct_change"] = edges["pct_change"].abs()
+
+#     # Neat presentation (optional)
+#     edges["pct_change"] = edges["pct_change"].round(2)
+#     edges["abs_pct_change"] = edges["abs_pct_change"].round(2)
+#     edges["delta"] = edges["delta"].round(6)
+#     edges["abs_delta"] = edges["abs_delta"].round(6)
+
+#     # Sort for output by magnitude (as requested)
+#     edges_sorted = edges.sort_values("abs_delta", ascending=False)
+
+#     # Save both the sorted and unsorted (if you want to preserve original)
+#     out_csv = outdir / f"{system_tag}_edge_filtered_with_shh.csv"
+#     out_txt = outdir / f"{system_tag}_edge_filtered_with_shh.txt"
+#     edges_sorted.to_csv(out_csv, index=False)
+#     edges_sorted.to_csv(out_txt, sep="\t", index=False, na_rep="")
+#     print(f"[EDGE] wrote merged edges with SHH (sorted by abs_delta): {out_csv}")
+#     print(f"[EDGE] wrote merged edges with SHH (txt): {out_txt}")
+
+
+#     # Save extended table
+#     out_csv = outdir / f"{system_tag}_edge_filtered_with_shh.csv"
+#     edges.to_csv(out_csv, index=False)
+#     print(f"[EDGE] wrote merged edges with SHH: {out_csv}")
+
+#     # Also provide a TSV .txt for Holly
+#     out_txt = outdir / f"{system_tag}_edge_filtered_with_shh.txt"
+#     edges.to_csv(out_txt, sep="\t", index=False, na_rep="")
+#     print(f"[EDGE] wrote merged edges with SHH (txt): {out_txt}")
+
+#     # Plot network
+#     plot_shh_graph(edges, system_tag, outdir, scores,
+#                    file_stem=f"{system_tag}_shh_graph")
+
+#     return edges
+
+
 def integrate_shh_with_edges_and_plot(system_tag: str, outdir: Path):
     """
     - Subset edges to one system
@@ -723,6 +834,17 @@ def integrate_shh_with_edges_and_plot(system_tag: str, outdir: Path):
 
     # Load scores and rename for clarity
     scores = pd.read_csv(score_csv)[["celltype_new", "mean"]].rename(columns={"mean": "sh_score"})
+    qc = pd.read_csv(score_csv)
+    if "variance" not in qc.columns:
+        qc["variance"] = np.nan
+    qc["std"] = np.sqrt(qc["variance"])  # compute std if missing
+    scores = qc.rename(columns={
+        "celltype_new": "node_name",
+        "mean": "sh_score",
+        "variance": "variance",
+        "std": "std",
+        "n_cells": "n"
+    })
     edges = pd.read_csv(edge_file, sep="\t")
     edges = edges.loc[edges["system"] == system_tag].copy()
 
@@ -746,18 +868,64 @@ def integrate_shh_with_edges_and_plot(system_tag: str, outdir: Path):
             }
             edges = pd.concat([edges, pd.DataFrame([new_row])], ignore_index=True)
 
-    # Merge SHH scores for x and y
     edges = edges.merge(
-        scores.rename(columns={"celltype_new": "x_name", "sh_score": "sh_x"}),
+        scores.rename(columns={
+            "node_name": "x_name",
+            "sh_score": "sh_x",
+            "variance": "variance_x",
+            "std": "std_x",
+            "n": "n_x"
+        }),
         on="x_name", how="left"
     )
     edges = edges.merge(
-        scores.rename(columns={"celltype_new": "y_name", "sh_score": "sh_y"}),
+        scores.rename(columns={
+            "node_name": "y_name",
+            "sh_score": "sh_y",
+            "variance": "variance_y",
+            "std": "std_y",
+            "n": "n_y"
+        }),
         on="y_name", how="left"
     )
 
     # abs_delta
     edges["abs_delta"] = (edges["sh_x"] - edges["sh_y"]).abs()
+
+    # Signed delta (already implied by abs_delta, but keep explicitly)
+    edges["delta"] = edges["sh_y"] - edges["sh_x"]
+
+    pooled_std = np.sqrt((edges["variance_x"] + edges["variance_y"]) / 2.0)
+    edges["cohens_d"] = edges["delta"] / pooled_std.replace(0, np.nan)
+    edges["cohens_d"] = edges["cohens_d"].round(4)
+
+    # Percent change relative to source node (sh_x)
+    # Handle sh_x == 0 safely with an epsilon
+    eps = 1e-9
+    denom = edges["sh_x"].copy()
+    denom = denom.where(denom.abs() > eps, np.nan)  # avoid divide-by-zero
+    edges["pct_change"] = 100.0 * edges["delta"] / denom
+
+    # Optional: magnitude of percent change
+    edges["abs_pct_change"] = edges["pct_change"].abs()
+
+    # Neat presentation (optional)
+    edges["pct_change"] = edges["pct_change"].round(2)
+    edges["abs_pct_change"] = edges["abs_pct_change"].round(2)
+    edges["delta"] = edges["delta"].round(6)
+    edges["abs_delta"] = edges["abs_delta"].round(6)
+
+    # Sort for output by magnitude (as requested)
+    edges_sorted = edges.sort_values("abs_delta", ascending=False)
+
+    # Save both the sorted and unsorted (if you want to preserve original)
+    out_csv = outdir / f"{system_tag}_edge_filtered_with_shh.csv"
+    out_txt = outdir / f"{system_tag}_edge_filtered_with_shh.txt"
+    edges_sorted.to_csv(out_csv, index=False)
+    edges_sorted.to_csv(out_txt, sep="\t", index=False, na_rep="")
+    print(f"[EDGE] wrote merged edges with SHH (sorted by abs_delta): {out_csv}")
+    print(f"[EDGE] wrote merged edges with SHH (txt): {out_txt}")
+
 
     # Save extended table
     out_csv = outdir / f"{system_tag}_edge_filtered_with_shh.csv"
@@ -769,11 +937,13 @@ def integrate_shh_with_edges_and_plot(system_tag: str, outdir: Path):
     edges.to_csv(out_txt, sep="\t", index=False, na_rep="")
     print(f"[EDGE] wrote merged edges with SHH (txt): {out_txt}")
 
+    scores_for_plot = scores.rename(columns={"node_name": "celltype_new"})[["celltype_new", "sh_score"]]
     # Plot network
-    plot_shh_graph(edges, system_tag, outdir, scores,
+    plot_shh_graph(edges, system_tag, outdir, scores_for_plot,
                    file_stem=f"{system_tag}_shh_graph")
 
     return edges
+
 
 
 def run_suffix():
@@ -782,134 +952,467 @@ def run_suffix():
     return f"{s_layer}{s_run}"
 
 
+def plot_shh_violins_for_system(adata, system_tag, out_root):
+    import matplotlib.pyplot as plt, gc
+
+    outdir = out_root / system_tag / "qc"
+    outdir.mkdir(parents=True, exist_ok=True)
+    suffix = run_suffix()
+
+    df = adata.obs[["celltype_new", "SHH_UCell_score"]]  # no copy
+    labels = list(pd.unique(df["celltype_new"]))
+
+    data = [df.loc[df["celltype_new"] == lab, "SHH_UCell_score"].to_numpy() for lab in labels]
+    ns = [len(arr) for arr in data]
+
+    fig, ax = plt.subplots(figsize=(10, 4.8))
+    ax.violinplot(data, showmeans=False, showmedians=False, showextrema=False)
+
+    medians = [np.median(arr) if len(arr) else np.nan for arr in data]
+    q90s = [np.quantile(arr, 0.90) if len(arr) else np.nan for arr in data]
+    x = np.arange(1, len(labels)+1)
+    ax.plot(x, medians, "o", label="Median")
+    ax.plot(x, q90s, "^", label="90th pct")
+
+    for xi, n in zip(x, ns):
+        if len(data[xi-1]):
+            ytop = np.nanmax(data[xi-1])
+            ax.text(xi, ytop + 0.02, f"n={n}", ha="center", va="bottom", fontsize=8)
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(labels, rotation=30, ha="right")
+    ax.set_ylabel("SHH UCell score")
+    ax.set_title(f"{system_tag} – SHH UCell score per node (violin)")
+
+    max_val = max((np.nanmax(arr) if len(arr) else 0.0) for arr in data)
+    ax.set_ylim(0, float(max_val) + 0.1)
+
+    ax.legend(frameon=False, ncol=2)
+    fig.savefig(outdir / f"{system_tag}{suffix}_SHH_UCell_violins.png", dpi=300)
+    fig.savefig(outdir / f"{system_tag}{suffix}_SHH_UCell_violins.pdf", dpi=300)
+    plt.close(fig)
+    plt.close("all")
+    gc.collect()
+    print(f"[PLOT] wrote {outdir}/{system_tag}{suffix}_SHH_UCell_violins.png")
+
+
+# def main():
+#     print("== UCELL SHH scoring (no Scanpy) ==")
+#     print(f"h5-root   : {H5_ROOT}")
+#     print(f"out-root  : {OUT_ROOT}")
+#     print(f"systems   : {SYSTEMS}")
+#     print(f"subsample : {SUBSAMPLE_FRAC}")
+#     print(f"ncores    : {NCORES}")
+
+#     _ensure_ucell_installed()
+
+#     for system_tag in SYSTEMS:
+#         h5_file = H5_ROOT / f"{system_tag}_adata_scale.h5ad"
+#         if not h5_file.exists():
+#             print(f"[SKIP] Missing: {h5_file}")
+#             continue
+#         outdir = OUT_ROOT / system_tag
+#         adata = load_adata(h5_file)
+#         adata = maybe_subsample(adata, SUBSAMPLE_FRAC, seed=0)
+#         sanitize_anndata_for_h5ad(adata)
+
+#         # ensure per-cell system is available for joins
+#         if "system" not in adata.obs.columns:
+#             adata.obs["system"] = system_tag
+
+#         # If we want to use log1p CPM, create the layer once (non-destructive)
+#         if UCELL_INPUT_LAYER:
+#             if UCELL_INPUT_LAYER not in adata.layers:
+#                 ensure_log1p_cpm_layer(adata, layer_name=UCELL_INPUT_LAYER, target_sum=1_000_000)
+#             print(f"[LAYER] Ready: {UCELL_INPUT_LAYER} in adata.layers")
+
+
+#         # >>> INSERT DEBUG PRINTS HERE <<<
+#         raw_dbg = adata.raw.to_adata() if adata.raw is not None else adata
+#         print("Matrix shape genes x cells:", (raw_dbg.n_vars, raw_dbg.n_obs))
+#         print("Example rownames (genes):", list(map(str, raw_dbg.var_names[:5])))
+#         print("Example colnames (cells):", list(map(str, adata.obs_names[:5])))
+#         # <<< END DEBUG PRINTS >>>
+
+#         # >>> INSERT DIAGNOSTICS HERE <<<
+#         from scipy import sparse as sp
+#         raw = adata.raw.to_adata() if adata.raw is not None else adata
+#         rowlabels, _ = _pick_rowlabels_for_ucell(adata)
+#         want = ["Gli1", "Ptch1", "Hhip"]
+#         if not any(g in rowlabels for g in want):
+#             print("[DIAG] None of Gli1/Ptch1/Hhip are in rowlabels (unexpected).")
+#             print("       First 10 rowlabels:", rowlabels[:10])
+
+#         X = raw.X
+#         if sp.issparse(X):
+#             X = X.tocsr()
+#         for g in want:
+#             if g in rowlabels:
+#                 i = rowlabels.index(g)
+#                 col = X[:, i]
+#                 if sp.issparse(col):
+#                     nz = int(col.nnz)
+#                     mean_val = float(col.sum() / raw.n_obs)
+#                 else:
+#                     nz = int((col != 0).sum())
+#                     mean_val = float(col.mean())
+#                 print(f"[DIAG] {g}: nonzero cells={nz} / {raw.n_obs}, mean={mean_val:.4g}")
+#             else:
+#                 print(f"[DIAG] {g}: NOT in rowlabels")
+#         # <<< END DIAGNOSTICS >>>
+
+#         print(f"[UCELL] {system_tag}: computing SHH_UCell_score (cells={adata.n_obs})")
+
+
+#         rowlabels, _ = _pick_rowlabels_for_ucell(adata)
+#         print("[CHECK] Any exact-case hits?", [g for g in ["Gli1","Ptch1","Hhip"] if g in rowlabels])
+
+#         suffix = run_suffix()
+#         summary_csv = outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv"
+
+#         if not summary_csv.exists():
+#             shh = run_ucell_scores_shh(adata, shh_genes=SHH_GENES, ncores=NCORES, use_layer=UCELL_INPUT_LAYER)
+#             adata.obs["SHH_UCell_score"] = shh.values
+
+#             print(f"[UCELL] {system_tag}: summary\n{adata.obs['SHH_UCell_score'].describe()}")
+
+#             # --- Optional QC: summarize scores by celltype_new ---
+#             if "celltype_new" in adata.obs:
+#                 summary = (adata.obs[["celltype_new", "SHH_UCell_score"]]
+#                     .groupby("celltype_new", observed=False)["SHH_UCell_score"]
+#                     .median().sort_values(ascending=False))
+#                 (outdir / "qc").mkdir(parents=True, exist_ok=True)
+
+#                 suffix = run_suffix()
+#                 summary.to_csv(outdir / "qc" / f"{system_tag}{suffix}_SHH_UCell_by_celltype_median.csv")
+#                 for label in ["Second heart field", "Atrial cardiomyocytes", "atrial CM"]:
+#                     if label in summary.index:
+#                         print(f"[QC] {label}: median SHH_UCell_score = {summary.loc[label]:.4f}")
+#             save_outputs(adata, outdir, system_tag)
+#         else:
+#             print(f"[SKIP] Using existing summaries: {summary_csv}")
+
+#         # --- GENERAL QC (all labels) ---
+#         if "celltype_new" in adata.obs and "SHH_UCell_score" in adata.obs:
+#             df = adata.obs[["celltype_new", "SHH_UCell_score"]].copy()
+#             counts  = df["celltype_new"].value_counts().sort_index()
+#             grp     = df.groupby("celltype_new", observed=False)["SHH_UCell_score"]
+#             summary = pd.DataFrame({
+#                 "celltype_new": counts.index,
+#                 "n_cells": counts.values,
+#                 "median":  grp.median().reindex(counts.index).values,
+#                 "mean":    grp.mean().reindex(counts.index).values,
+#                 "q90":     grp.quantile(0.90).reindex(counts.index).values,
+#                 "frac>0":  grp.apply(lambda s: (s > 0).mean()).reindex(counts.index).values,
+#             })
+#             (outdir / "qc").mkdir(parents=True, exist_ok=True)
+#             suffix = run_suffix()
+#             summary.to_csv(outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv", index=False)
+#             print("[QC] wrote:", outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv")
+#         else:
+#             print("[QC] Skipping general QC: SHH_UCell_score not in adata.obs")
+
+#         # integrate_shh_with_edges(system_tag, outdir)  
+
+#         # try:
+#         #     plot_shh_for_system(system_tag, OUT_ROOT)
+#         # except Exception as e:
+#         #     print(f"[PLOT] Error plotting {system_tag}: {e}")
+
+#         # --- VIOLIN plot per node ---
+#         plot_shh_violins_for_system(adata, system_tag, OUT_ROOT)
+
+#         # --- EDGE integration and plotting ---
+#         integrate_shh_with_edges_and_plot(system_tag, outdir)
+
+#         del adata
+
+#     print("✓ Done.")
+
+# def main():
+#     import gc
+
+#     print("== UCELL SHH scoring (no Scanpy) ==")
+#     print(f"h5-root   : {H5_ROOT}")
+#     print(f"out-root  : {OUT_ROOT}")
+#     print(f"systems   : {SYSTEMS}")
+#     print(f"subsample : {SUBSAMPLE_FRAC}")
+#     print(f"ncores    : {NCORES}")
+#     print(f"suffix    : '{run_suffix()}'  (UCELL_INPUT_LAYER={UCELL_INPUT_LAYER!r})")
+
+#     _ensure_ucell_installed()
+
+#     for system_tag in SYSTEMS:
+#         suffix = run_suffix()
+#         outdir = OUT_ROOT / system_tag
+#         qcdir = outdir / "qc"
+#         summary_csv = qcdir / f"{system_tag}{suffix}_ALL_labels_summary.csv"
+#         h5_scored = outdir / f"{system_tag}{suffix}_adata_with_ucell.h5ad"
+#         raw_h5 = H5_ROOT / f"{system_tag}_adata_scale.h5ad"
+
+#         print("\n" + "=" * 60)
+#         print(f"[SYSTEM] {system_tag}")
+#         print(f"[CHECK] summary: {summary_csv}  exists={summary_csv.exists()}")
+#         print(f"[CHECK] scored h5: {h5_scored}  exists={h5_scored.exists()}")
+
+#         # ---------- FAST PATH: summaries already exist ----------
+#         if summary_csv.exists():
+#             # If we can, load the lighter scored h5 just to make violins; otherwise skip violins.
+#             adata = None
+#             try:
+#                 if h5_scored.exists():
+#                     print("[FAST] Using scored h5 for violins (no recompute).")
+#                     adata = load_adata(h5_scored)
+#                     # Light subsample if requested
+#                     adata = maybe_subsample(adata, SUBSAMPLE_FRAC, seed=0)
+#                     sanitize_anndata_for_h5ad(adata)
+#                     # Violin plot per node
+#                     try:
+#                         plot_shh_violins_for_system(adata, system_tag, OUT_ROOT)
+#                     except Exception as e:
+#                         print(f"[WARN] Violin plot failed (continuing): {e}")
+#                 else:
+#                     print("[FAST] No scored h5 present; skipping violins to avoid loading raw matrix.")
+#                 # Edge integration & network plot only needs CSVs
+#                 integrate_shh_with_edges_and_plot(system_tag, outdir)
+#             finally:
+#                 del adata
+#                 gc.collect()
+#             continue  # go to next system
+
+#         # ---------- SLOW PATH: need to compute scores & summaries ----------
+#         if not raw_h5.exists():
+#             print(f"[SKIP] Missing raw h5ad: {raw_h5}")
+#             continue
+
+#         adata = None
+#         try:
+#             # Load original big object and do the minimal transforms
+#             adata = load_adata(raw_h5)
+#             adata = maybe_subsample(adata, SUBSAMPLE_FRAC, seed=0)
+#             sanitize_anndata_for_h5ad(adata)
+
+#             # Ensure per-cell system for joins
+#             if "system" not in adata.obs.columns:
+#                 adata.obs["system"] = system_tag
+
+#             # Optional layer (beware: changes suffix)
+#             if UCELL_INPUT_LAYER:
+#                 if UCELL_INPUT_LAYER not in adata.layers:
+#                     ensure_log1p_cpm_layer(adata, layer_name=UCELL_INPUT_LAYER, target_sum=1_000_000)
+#                 print(f"[LAYER] Ready: {UCELL_INPUT_LAYER} in adata.layers")
+
+#             # Quick diagnostics (cheap)
+#             from scipy import sparse as sp
+#             raw_dbg = adata.raw.to_adata() if adata.raw is not None else adata
+#             print("Matrix shape genes x cells:", (raw_dbg.n_vars, raw_dbg.n_obs))
+#             print("Example rownames (genes):", list(map(str, raw_dbg.var_names[:5])))
+#             print("Example colnames (cells):", list(map(str, adata.obs_names[:5])))
+
+#             # Compute UCell only if missing
+#             print(f"[UCELL] {system_tag}: computing SHH_UCell_score (cells={adata.n_obs})")
+#             shh = run_ucell_scores_shh(
+#                 adata,
+#                 shh_genes=SHH_GENES,
+#                 ncores=NCORES,
+#                 use_layer=UCELL_INPUT_LAYER
+#             )
+#             adata.obs["SHH_UCell_score"] = shh.values
+#             print(f"[UCELL] {system_tag}: summary\n{adata.obs['SHH_UCell_score'].describe()}")
+
+#             # Per-label summaries
+#             if "celltype_new" in adata.obs:
+#                 # general QC table (median/mean/q90/frac>0 + n_cells)
+#                 df = adata.obs[["celltype_new", "SHH_UCell_score"]].copy()
+#                 counts = df["celltype_new"].value_counts().sort_index()
+#                 grp = df.groupby("celltype_new", observed=False)["SHH_UCell_score"]
+#                 summary = pd.DataFrame({
+#                     "celltype_new": counts.index,
+#                     "n_cells": counts.values,
+#                     "median":  grp.median().reindex(counts.index).values,
+#                     "mean":    grp.mean().reindex(counts.index).values,
+#                     "q90":     grp.quantile(0.90).reindex(counts.index).values,
+#                     "frac>0":  grp.apply(lambda s: (s > 0).mean()).reindex(counts.index).values,
+#                 })
+#                 qcdir.mkdir(parents=True, exist_ok=True)
+#                 summary.to_csv(summary_csv, index=False)
+#                 print("[QC] wrote:", summary_csv)
+
+#             # Save lighter scored h5 and per-cell CSV
+#             save_outputs(adata, outdir, system_tag)
+
+#             # Violin plot per node
+#             try:
+#                 plot_shh_violins_for_system(adata, system_tag, OUT_ROOT)
+#             except Exception as e:
+#                 print(f"[WARN] Violin plot failed (continuing): {e}")
+
+#             # Edge integration & network plot
+#             integrate_shh_with_edges_and_plot(system_tag, outdir)
+
+#         finally:
+#             del adata
+#             gc.collect()
+
+#     print("\n✓ Done.")
+
 
 def main():
+    import gc
+
     print("== UCELL SHH scoring (no Scanpy) ==")
     print(f"h5-root   : {H5_ROOT}")
     print(f"out-root  : {OUT_ROOT}")
     print(f"systems   : {SYSTEMS}")
     print(f"subsample : {SUBSAMPLE_FRAC}")
     print(f"ncores    : {NCORES}")
+    print(f"suffix    : '{run_suffix()}'  (UCELL_INPUT_LAYER={UCELL_INPUT_LAYER!r})")
 
     _ensure_ucell_installed()
 
     for system_tag in SYSTEMS:
-        h5_file = H5_ROOT / f"{system_tag}_adata_scale.h5ad"
-        if not h5_file.exists():
-            print(f"[SKIP] Missing: {h5_file}")
-            continue
-        outdir = OUT_ROOT / system_tag
-        adata = load_adata(h5_file)
-        adata = maybe_subsample(adata, SUBSAMPLE_FRAC, seed=0)
-        sanitize_anndata_for_h5ad(adata)
+        suffix   = run_suffix()
+        outdir   = OUT_ROOT / system_tag
+        qcdir    = outdir / "qc"
+        summary_csv = qcdir / f"{system_tag}{suffix}_ALL_labels_summary.csv"
+        h5_scored  = outdir / f"{system_tag}{suffix}_adata_with_ucell.h5ad"
+        raw_h5     = H5_ROOT / f"{system_tag}_adata_scale.h5ad"
 
-        # ensure per-cell system is available for joins
-        if "system" not in adata.obs.columns:
-            adata.obs["system"] = system_tag
+        print("\n" + "=" * 60)
+        print(f"[SYSTEM] {system_tag}")
+        print(f"[CHECK] summary:   {summary_csv}  exists={summary_csv.exists()}")
+        print(f"[CHECK] scored h5: {h5_scored}  exists={h5_scored.exists()}")
 
-        # If we want to use log1p CPM, create the layer once (non-destructive)
-        if UCELL_INPUT_LAYER:
-            if UCELL_INPUT_LAYER not in adata.layers:
-                ensure_log1p_cpm_layer(adata, layer_name=UCELL_INPUT_LAYER, target_sum=1_000_000)
-            print(f"[LAYER] Ready: {UCELL_INPUT_LAYER} in adata.layers")
+        # ---------- FAST PATH: summary already exists ----------
+        if summary_csv.exists():
+            # 2a) If the summary is legacy (missing variance/std), upgrade in-place using the scored h5 if available
+            try:
+                head = pd.read_csv(summary_csv, nrows=1)
+            except Exception:
+                head = pd.DataFrame()
 
+            needs_upgrade = ("variance" not in head.columns) or ("std" not in head.columns)
 
-        # >>> INSERT DEBUG PRINTS HERE <<<
-        raw_dbg = adata.raw.to_adata() if adata.raw is not None else adata
-        print("Matrix shape genes x cells:", (raw_dbg.n_vars, raw_dbg.n_obs))
-        print("Example rownames (genes):", list(map(str, raw_dbg.var_names[:5])))
-        print("Example colnames (cells):", list(map(str, adata.obs_names[:5])))
-        # <<< END DEBUG PRINTS >>>
+            if needs_upgrade and h5_scored.exists():
+                try:
+                    print("[QC] Upgrading existing summary to include variance/std (using scored h5)…")
+                    adata = load_adata(h5_scored)
+                    adata = maybe_subsample(adata, SUBSAMPLE_FRAC, seed=0)
+                    sanitize_anndata_for_h5ad(adata)
 
-        # >>> INSERT DIAGNOSTICS HERE <<<
-        from scipy import sparse as sp
-        raw = adata.raw.to_adata() if adata.raw is not None else adata
-        rowlabels, _ = _pick_rowlabels_for_ucell(adata)
-        want = ["Gli1", "Ptch1", "Hhip"]
-        if not any(g in rowlabels for g in want):
-            print("[DIAG] None of Gli1/Ptch1/Hhip are in rowlabels (unexpected).")
-            print("       First 10 rowlabels:", rowlabels[:10])
+                    if ("celltype_new" in adata.obs) and ("SHH_UCell_score" in adata.obs):
+                        df   = adata.obs[["celltype_new", "SHH_UCell_score"]].copy()
+                        counts = df["celltype_new"].value_counts().sort_index()
+                        grp  = df.groupby("celltype_new", observed=False)["SHH_UCell_score"]
+                        summary = pd.DataFrame({
+                            "celltype_new": counts.index,
+                            "n_cells": counts.values,
+                            "median":  grp.median().reindex(counts.index).values,
+                            "mean":    grp.mean().reindex(counts.index).values,
+                            "q90":     grp.quantile(0.90).reindex(counts.index).values,
+                            "frac>0":  grp.apply(lambda s: (s > 0).mean()).reindex(counts.index).values,
+                            "variance": grp.var(ddof=1).reindex(counts.index).values,
+                            "std":      grp.std(ddof=1).reindex(counts.index).values,
+                        })
+                        qcdir.mkdir(parents=True, exist_ok=True)
+                        summary.to_csv(summary_csv, index=False)
+                        print("[QC] wrote (upgraded):", summary_csv)
+                finally:
+                    try:
+                        del adata
+                    except NameError:
+                        pass
+                    gc.collect()
 
-        X = raw.X
-        if sp.issparse(X):
-            X = X.tocsr()
-        for g in want:
-            if g in rowlabels:
-                i = rowlabels.index(g)
-                col = X[:, i]
-                if sp.issparse(col):
-                    nz = int(col.nnz)
-                    mean_val = float(col.sum() / raw.n_obs)
+            # 2b) Violin plots: use the scored (lighter) h5 if present; otherwise skip violins
+            adata = None
+            try:
+                if h5_scored.exists():
+                    print("[FAST] Using scored h5 for violins (no recompute).")
+                    adata = load_adata(h5_scored)
+                    adata = maybe_subsample(adata, SUBSAMPLE_FRAC, seed=0)
+                    sanitize_anndata_for_h5ad(adata)
+                    try:
+                        plot_shh_violins_for_system(adata, system_tag, OUT_ROOT)
+                    except Exception as e:
+                        print(f"[WARN] Violin plot failed (continuing): {e}")
                 else:
-                    nz = int((col != 0).sum())
-                    mean_val = float(col.mean())
-                print(f"[DIAG] {g}: nonzero cells={nz} / {raw.n_obs}, mean={mean_val:.4g}")
-            else:
-                print(f"[DIAG] {g}: NOT in rowlabels")
-        # <<< END DIAGNOSTICS >>>
+                    print("[FAST] No scored h5 present; skipping violins to avoid loading raw matrix.")
+                # 2c) Edge integration + graph only needs the CSVs
+                integrate_shh_with_edges_and_plot(system_tag, outdir)
+            finally:
+                del adata
+                gc.collect()
+            continue  # next system
 
-        print(f"[UCELL] {system_tag}: computing SHH_UCell_score (cells={adata.n_obs})")
+        # ---------- SLOW PATH: need to compute scores & summaries ----------
+        if not raw_h5.exists():
+            print(f"[SKIP] Missing raw h5ad: {raw_h5}")
+            continue
 
+        adata = None
+        try:
+            # Load original big object and do minimal transforms
+            adata = load_adata(raw_h5)
+            adata = maybe_subsample(adata, SUBSAMPLE_FRAC, seed=0)
+            sanitize_anndata_for_h5ad(adata)
 
-        rowlabels, _ = _pick_rowlabels_for_ucell(adata)
-        print("[CHECK] Any exact-case hits?", [g for g in ["Gli1","Ptch1","Hhip"] if g in rowlabels])
+            if "system" not in adata.obs.columns:
+                adata.obs["system"] = system_tag
 
-        suffix = run_suffix()
-        summary_csv = outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv"
+            # Optional normalized/log layer (does not densify)
+            if UCELL_INPUT_LAYER:
+                if UCELL_INPUT_LAYER not in adata.layers:
+                    ensure_log1p_cpm_layer(adata, layer_name=UCELL_INPUT_LAYER, target_sum=1_000_000)
+                print(f"[LAYER] Ready: {UCELL_INPUT_LAYER} in adata.layers")
 
-        if not summary_csv.exists():
-            shh = run_ucell_scores_shh(adata, shh_genes=SHH_GENES, ncores=NCORES, use_layer=UCELL_INPUT_LAYER)
+            # Compute UCell (sparse → R COO path; avoids densifying Python-side)
+            print(f"[UCELL] {system_tag}: computing SHH_UCell_score (cells={adata.n_obs})")
+            shh = run_ucell_scores_shh(
+                adata,
+                shh_genes=SHH_GENES,
+                ncores=NCORES,
+                use_layer=UCELL_INPUT_LAYER
+            )
             adata.obs["SHH_UCell_score"] = shh.values
-
             print(f"[UCELL] {system_tag}: summary\n{adata.obs['SHH_UCell_score'].describe()}")
 
-            # --- Optional QC: summarize scores by celltype_new ---
+            # Per-label QC summary WITH variance/std
             if "celltype_new" in adata.obs:
-                summary = (adata.obs[["celltype_new", "SHH_UCell_score"]]
-                    .groupby("celltype_new", observed=False)["SHH_UCell_score"]
-                    .median().sort_values(ascending=False))
-                (outdir / "qc").mkdir(parents=True, exist_ok=True)
+                df   = adata.obs[["celltype_new", "SHH_UCell_score"]].copy()
+                counts = df["celltype_new"].value_counts().sort_index()
+                grp  = df.groupby("celltype_new", observed=False)["SHH_UCell_score"]
+                summary = pd.DataFrame({
+                    "celltype_new": counts.index,
+                    "n_cells": counts.values,
+                    "median":  grp.median().reindex(counts.index).values,
+                    "mean":    grp.mean().reindex(counts.index).values,
+                    "q90":     grp.quantile(0.90).reindex(counts.index).values,
+                    "frac>0":  grp.apply(lambda s: (s > 0).mean()).reindex(counts.index).values,
+                    "variance": grp.var(ddof=1).reindex(counts.index).values,
+                    "std":      grp.std(ddof=1).reindex(counts.index).values,
+                })
+                qcdir.mkdir(parents=True, exist_ok=True)
+                summary.to_csv(summary_csv, index=False)
+                print("[QC] wrote:", summary_csv)
 
-                suffix = run_suffix()
-                summary.to_csv(outdir / "qc" / f"{system_tag}{suffix}_SHH_UCell_by_celltype_median.csv")
-                for label in ["Second heart field", "Atrial cardiomyocytes", "atrial CM"]:
-                    if label in summary.index:
-                        print(f"[QC] {label}: median SHH_UCell_score = {summary.loc[label]:.4f}")
+            # Save lighter scored h5 and per-cell CSV for future fast path
             save_outputs(adata, outdir, system_tag)
-        else:
-            print(f"[SKIP] Using existing summaries: {summary_csv}")
 
-        # --- GENERAL QC (all labels) ---
-        if "celltype_new" in adata.obs and "SHH_UCell_score" in adata.obs:
-            df = adata.obs[["celltype_new", "SHH_UCell_score"]].copy()
-            counts  = df["celltype_new"].value_counts().sort_index()
-            grp     = df.groupby("celltype_new", observed=False)["SHH_UCell_score"]
-            summary = pd.DataFrame({
-                "celltype_new": counts.index,
-                "n_cells": counts.values,
-                "median":  grp.median().reindex(counts.index).values,
-                "mean":    grp.mean().reindex(counts.index).values,
-                "q90":     grp.quantile(0.90).reindex(counts.index).values,
-                "frac>0":  grp.apply(lambda s: (s > 0).mean()).reindex(counts.index).values,
-            })
-            (outdir / "qc").mkdir(parents=True, exist_ok=True)
-            suffix = run_suffix()
-            summary.to_csv(outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv", index=False)
-            print("[QC] wrote:", outdir / "qc" / f"{system_tag}{suffix}_ALL_labels_summary.csv")
-        else:
-            print("[QC] Skipping general QC: SHH_UCell_score not in adata.obs")
+            # Violin plot per node
+            try:
+                plot_shh_violins_for_system(adata, system_tag, OUT_ROOT)
+            except Exception as e:
+                print(f"[WARN] Violin plot failed (continuing): {e}")
 
-        # integrate_shh_with_edges(system_tag, outdir)  
+            # Edge integration & network plot
+            integrate_shh_with_edges_and_plot(system_tag, outdir)
 
-        # try:
-        #     plot_shh_for_system(system_tag, OUT_ROOT)
-        # except Exception as e:
-        #     print(f"[PLOT] Error plotting {system_tag}: {e}")
-        integrate_shh_with_edges_and_plot(system_tag, outdir)
+        finally:
+            del adata
+            gc.collect()
 
-        del adata
-
-    print("✓ Done.")
+    print("\n✓ Done.")
 
 
 if __name__ == "__main__":
