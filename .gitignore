@@ -3,6 +3,8 @@
 environment.yml
 /.conda
 
+.ehcache/
+
 # --- data (never commit big matrices) ---
 data/
 *.h5ad
@@ -52,6 +54,8 @@ results/**
 results/**/figures/**/*testp*.*
 results/**/figures/*testp*.*
 
+results/ucell/Lateral_plate_mesoderm/figures/
+results/shendure_test_small/figures/
 # CSV/TXT: ignore by default (you can whitelist later if needed)
 *.csv
 *.txt
