@@ -26,8 +26,8 @@ plt.rcParams['pdf.fonttype'] = 42   # Editable text in PDFs
 plt.rcParams['ps.fonttype'] = 42
 plt.rcParams['figure.dpi'] = 300  # 300 dpi for publication quality
 
-# I/O paths: – EDIT HERE if running on another machine (LOOP?)
-INPUT_FILE  = '/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added/Renal_adata_scale.h5ad'
+# I/O paths: – EDIT HERE if running on another machine (LOOP?) # Lateral_plate_mesoderm_adata_scale.h5ad
+INPUT_FILE  = '/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added/Gut_adata_scale.h5ad'
 RESULTS_DIR = '/project/imoskowitz/xyang2/chrislowzhengxi/results/shendure_test_small'
 SYSTEM_TAG = os.path.basename(INPUT_FILE).split("_")[0]        # e.g. "Eye"
 FIG_DIR     = os.path.join(RESULTS_DIR, 'figures')
@@ -517,26 +517,26 @@ def main():
         "metadata CSV not found"
 
     adata = initialize_data(INPUT_FILE)  # subsample 5% for quick test
-    # model = run_seacells(adata)
+    model = run_seacells(adata)
 
 
-    # adata.obs['SEACell'] = np.argmax(model.A_, axis=0)
+    adata.obs['SEACell'] = np.argmax(model.A_, axis=0)
 
-    # # avoid h5ad write‐out conflict by giving the var index its own name
-    # adata.var.index.name = "var_index"
-    # if adata.raw is not None:
-    #     adata.raw.var.index.name = "var_index"
+    # avoid h5ad write‐out conflict by giving the var index its own name
+    adata.var.index.name = "var_index"
+    if adata.raw is not None:
+        adata.raw.var.index.name = "var_index"
         
-    # # write out the metacell‐annotated AnnData (quick test)
-    # adata.write(os.path.join(RESULTS_DIR, tag("with_SEACells_full.h5ad")))
-    # print("→ wrote test AnnData", flush=True)
+    # write out the metacell‐annotated AnnData (quick test)
+    adata.write(os.path.join(RESULTS_DIR, tag("with_SEACells_full.h5ad")))
+    print("→ wrote test AnnData", flush=True)
 
-    # summarize_and_evaluate(adata, model)
-    # write_mappings(adata, model)
-    # write_metacell_composition(adata, RESULTS_DIR)
-    # aggregate_metacells_by_timepoint(adata, RESULTS_DIR,
-    #                              time_key="day")
-    # print("→ all outputs generated", flush=True)
+    summarize_and_evaluate(adata, model)
+    write_mappings(adata, model)
+    write_metacell_composition(adata, RESULTS_DIR)
+    aggregate_metacells_by_timepoint(adata, RESULTS_DIR,
+                                 time_key="day")
+    print("→ all outputs generated", flush=True)
 
 if __name__=='__main__':
     main()
