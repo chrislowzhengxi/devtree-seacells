@@ -296,97 +296,99 @@ def add_ucell_scores_to_obs(
 
 
 # --------------------------- Plots -----------------------------
-# def save_histograms(adata, cluster_col, score_col, outdir, system_label="LPM", focus_clusters=None):
-#     figdir = os.path.join(outdir, "figures")
-#     os.makedirs(figdir, exist_ok=True)
-#     df = adata.obs[[cluster_col, score_col]].dropna().copy()
-#     df[cluster_col] = df[cluster_col].astype(str)
-
-#     # Plot only focus clusters for clarity
-#     if focus_clusters:
-#         df_focus = df[df[cluster_col].isin(focus_clusters)].copy()
-#     else:
-#         df_focus = df.copy()
-
-#     # Faceted overview of focus clusters
-#     try:
-#         g = sns.displot(
-#             data=df_focus, x=score_col, col=cluster_col, col_wrap=3,
-#             binwidth=0.02, height=2.8, facet_kws={"sharex": True, "sharey": False}
-#         )
-#         g.set_axis_labels("SHH UCell score", "Cell count")
-#         g.fig.subplots_adjust(top=0.9)
-#         g.fig.suptitle(f"{system_label}: SHH UCell score distributions (focus clusters)", y=1.02)
-#         out_pdf = os.path.join(figdir, f"{system_label}_SHH_histograms_focus.pdf")
-#         g.savefig(out_pdf, dpi=300)
-#         plt.close(g.fig)
-#     except Exception as e:
-#         print(f"[warn] Facet histograms skipped: {e}")
-
-#     # Individual histograms with median and q90 lines
-#     for c in sorted(df_focus[cluster_col].unique(), key=lambda x: (x.lower(), x)):
-#         sub = df_focus[df_focus[cluster_col] == c]
-#         if sub.empty:
-#             continue
-#         plt.figure(figsize=(3.5, 2.6))
-#         sns.histplot(sub[score_col], bins=np.arange(0, 1.001, 0.02))
-#         sns.despine()
-#         plt.xlim(0, 1)
-#         median = float(sub[score_col].median())
-#         q90 = float(sub[score_col].quantile(0.90))
-#         plt.axvline(median, ls="--", lw=1, color="black")
-#         plt.axvline(q90, ls=":", lw=1, color="black")
-#         plt.title(f"{c} (n={len(sub)})", fontsize=9)
-#         plt.xlabel("SHH UCell score")
-#         plt.ylabel("Cell count")
-#         plt.tight_layout()
-#         safe = c.replace(" ", "_").replace("/", "_")
-#         plt.savefig(os.path.join(figdir, f"{system_label}_hist_{safe}.pdf"), dpi=300)
-#         plt.close()
-#     return figdir
-
-def save_histograms(adata, cluster_col, score_col, outdir, system_label="LPM"):
+def save_histograms(adata, cluster_col, score_col, outdir, system_label="LPM", focus_clusters=None):
     figdir = os.path.join(outdir, "figures")
     os.makedirs(figdir, exist_ok=True)
-
     df = adata.obs[[cluster_col, score_col]].dropna().copy()
     df[cluster_col] = df[cluster_col].astype(str)
 
-    # --- NEW: log10(score + 1) transform for histograms ---
-    df["score_log10p1"] = np.log10(df[score_col].astype(float) + 1.0)
-    log_max = np.log10(2.0)  # scores in [0,1] -> log10 in [0, ~0.301]
+    # Plot only focus clusters for clarity
+    if focus_clusters:
+        df_focus = df[df[cluster_col].isin(focus_clusters)].copy()
+    else:
+        df_focus = df.copy()
 
-    # Faceted overview
+    # Faceted overview of focus clusters
     try:
         g = sns.displot(
-            data=df, x="score_log10p1", col=cluster_col, col_wrap=5,
-            bins=100, binrange=(0, log_max), height=2.0,
-            facet_kws={"sharex": True, "sharey": False}
+            data=df_focus, x=score_col, col=cluster_col, col_wrap=3,
+            binwidth=0.02, height=2.8, facet_kws={"sharex": True, "sharey": False}
         )
-        g.set_axis_labels("log10(SHH UCell + 1)", "Cell count")
+        g.set_axis_labels("SHH UCell score", "Cell count")
         g.fig.subplots_adjust(top=0.9)
-        g.fig.suptitle(f"{system_label}: log10 histograms by cluster", y=1.02)
-        g.savefig(os.path.join(figdir, f"{system_label}_SHH_histograms_facet_log10p1.pdf"), dpi=300)
+        g.fig.suptitle(f"{system_label}: SHH UCell score distributions (focus clusters)", y=1.02)
+        out_pdf = os.path.join(figdir, f"{system_label}_SHH_histograms_focus.pdf")
+        g.savefig(out_pdf, dpi=300)
         plt.close(g.fig)
     except Exception as e:
         print(f"[warn] Facet histograms skipped: {e}")
 
-    # Per-cluster PDFs/PNGs
-    for c in sorted(df[cluster_col].unique(), key=lambda x: (x.lower(), x)):
-        sub = df[df[cluster_col] == c]
+    # Individual histograms with median and q90 lines
+    for c in sorted(df_focus[cluster_col].unique(), key=lambda x: (x.lower(), x)):
+        sub = df_focus[df_focus[cluster_col] == c]
         if sub.empty:
             continue
-        plt.figure(figsize=(3.2, 2.4))
-        sns.histplot(sub["score_log10p1"], bins=100, binrange=(0, log_max))
+        plt.figure(figsize=(3.5, 2.6))
+        sns.histplot(sub[score_col], bins=np.arange(0, 1.001, 0.02))
         sns.despine()
+        plt.xlim(0, 1)
+        median = float(sub[score_col].median())
+        q90 = float(sub[score_col].quantile(0.90))
+        plt.axvline(median, ls="--", lw=1, color="black")
+        plt.axvline(q90, ls=":", lw=1, color="black")
         plt.title(f"{c} (n={len(sub)})", fontsize=9)
-        plt.xlabel("log10(SHH UCell + 1)"); plt.ylabel("Cell count")
+        plt.xlabel("SHH UCell score")
+        plt.ylabel("Cell count")
         plt.tight_layout()
         safe = c.replace(" ", "_").replace("/", "_")
-        plt.savefig(os.path.join(figdir, f"{system_label}_hist_{safe}_log10p1.pdf"), dpi=300)
-        plt.savefig(os.path.join(figdir, f"{system_label}_hist_{safe}_log10p1.png"), dpi=300)
+        plt.savefig(os.path.join(figdir, f"{system_label}_hist_{safe}.pdf"), dpi=300)
         plt.close()
     return figdir
+
+
+
+# def save_histograms(adata, cluster_col, score_col, outdir, system_label="LPM"):
+#     figdir = os.path.join(outdir, "figures")
+#     os.makedirs(figdir, exist_ok=True)
+
+#     df = adata.obs[[cluster_col, score_col]].dropna().copy()
+#     df[cluster_col] = df[cluster_col].astype(str)
+
+#     # --- NEW: log10(score + 1) transform for histograms ---
+#     df["score_log10p1"] = np.log10(df[score_col].astype(float) + 1.0)
+#     log_max = np.log10(2.0)  # scores in [0,1] -> log10 in [0, ~0.301]
+
+#     # Faceted overview
+#     try:
+#         g = sns.displot(
+#             data=df, x="score_log10p1", col=cluster_col, col_wrap=5,
+#             bins=100, binrange=(0, log_max), height=2.0,
+#             facet_kws={"sharex": True, "sharey": False}
+#         )
+#         g.set_axis_labels("log10(SHH UCell + 1)", "Cell count")
+#         g.fig.subplots_adjust(top=0.9)
+#         g.fig.suptitle(f"{system_label}: log10 histograms by cluster", y=1.02)
+#         g.savefig(os.path.join(figdir, f"{system_label}_SHH_histograms_facet_log10p1.pdf"), dpi=300)
+#         plt.close(g.fig)
+#     except Exception as e:
+#         print(f"[warn] Facet histograms skipped: {e}")
+
+#     # Per-cluster PDFs/PNGs
+#     for c in sorted(df[cluster_col].unique(), key=lambda x: (x.lower(), x)):
+#         sub = df[df[cluster_col] == c]
+#         if sub.empty:
+#             continue
+#         plt.figure(figsize=(3.2, 2.4))
+#         sns.histplot(sub["score_log10p1"], bins=100, binrange=(0, log_max))
+#         sns.despine()
+#         plt.title(f"{c} (n={len(sub)})", fontsize=9)
+#         plt.xlabel("log10(SHH UCell + 1)"); plt.ylabel("Cell count")
+#         plt.tight_layout()
+#         safe = c.replace(" ", "_").replace("/", "_")
+#         plt.savefig(os.path.join(figdir, f"{system_label}_hist_{safe}_log10p1.pdf"), dpi=300)
+#         plt.savefig(os.path.join(figdir, f"{system_label}_hist_{safe}_log10p1.png"), dpi=300)
+#         plt.close()
+#     return figdir
 
 
 def save_histograms_focus(adata, cluster_col, score_col, focus_clusters, outdir, system_label="LPM"):
@@ -498,10 +500,10 @@ def main():
     plt.rcParams["ps.fonttype"]  = 42
     plt.rcParams["figure.dpi"]   = 300
 
-    # save_histograms(adata, args.cluster_col, "ucell_score", args.outdir,
-    #                 system_label=args.system_label)
-    save_histograms_focus(adata, args.cluster_col, "ucell_score", args.focus,
-                      args.outdir, system_label=args.system_label)
+    save_histograms(adata, args.cluster_col, "ucell_score", args.outdir,
+                    system_label=args.system_label)
+    # save_histograms_focus(adata, args.cluster_col, "ucell_score", args.focus,
+    #                   args.outdir, system_label=args.system_label)
     save_umap_plots(adata, args.cluster_col, "ucell_score", args.focus,
                     args.outdir, system_label=args.system_label)
     print("✓ Done. All figures in:", os.path.join(args.outdir, "figures"))
