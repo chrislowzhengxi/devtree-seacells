@@ -27,7 +27,7 @@ plt.rcParams['ps.fonttype'] = 42
 plt.rcParams['figure.dpi'] = 300  # 300 dpi for publication quality
 
 # I/O paths: – EDIT HERE if running on another machine (LOOP?) # Lateral_plate_mesoderm_adata_scale.h5ad
-INPUT_FILE  = '/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added/Eye_adata_scale.h5ad'
+INPUT_FILE  = '/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added/PNS_neurons_adata_scale.h5ad'
 RESULTS_DIR = '/project/imoskowitz/xyang2/chrislowzhengxi/results/shendure_test_small'
 SYSTEM_TAG = os.path.basename(INPUT_FILE).split("_")[0]        # e.g. "Eye"
 FIG_DIR     = os.path.join(RESULTS_DIR, 'figures')
@@ -339,14 +339,34 @@ def run_seacells(adata):
     # Lower density: 1 metacell per 100 cells
     n_SEACells = max(10, adata.n_obs // 100)   
 
+    ######
+    safe_k = max(5, min(30, adata.n_obs - 1))
+    
     model = SEACells.core.SEACells(
         adata,
         build_kernel_on='X_pca',
         n_SEACells=n_SEACells,
+        # n_neighbors=safe_k,    ### 
         n_waypoint_eigs=10,
         convergence_epsilon=1e-5,
         use_sparse = True
     )
+
+
+
+    # # Option A: if your SEACells version accepts this kwarg:
+    # try:
+    #     model.construct_kernel_matrix(n_neighbors=safe_k, graph_construction='knn')
+    # except TypeError:
+    #     # Option B: monkey-patch the rbf method to clamp k
+    #     import SEACells.build_graph as _bg
+    #     _orig_rbf = _bg.KernelModel.rbf
+    #     def _safe_rbf(self, n_neighbors, graph_construction='knn'):
+    #         k = max(5, min(30, (n_neighbors or 5)))
+    #         return _orig_rbf(self, k, graph_construction=graph_construction)
+    #     _bg.KernelModel.rbf = _safe_rbf
+    # ###### 
+
     model.construct_kernel_matrix()
     print("→ kernel built", flush=True)
 
