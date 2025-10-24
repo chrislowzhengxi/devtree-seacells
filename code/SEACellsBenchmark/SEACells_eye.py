@@ -27,7 +27,7 @@ plt.rcParams['ps.fonttype'] = 42
 plt.rcParams['figure.dpi'] = 300  # 300 dpi for publication quality
 
 # I/O paths: – EDIT HERE if running on another machine (LOOP?) # Lateral_plate_mesoderm_adata_scale.h5ad
-INPUT_FILE  = '/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added/Gut_adata_scale.h5ad'
+INPUT_FILE  = '/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added/Eye_adata_scale.h5ad'
 RESULTS_DIR = '/project/imoskowitz/xyang2/chrislowzhengxi/results/shendure_test_small'
 SYSTEM_TAG = os.path.basename(INPUT_FILE).split("_")[0]        # e.g. "Eye"
 FIG_DIR     = os.path.join(RESULTS_DIR, 'figures')
