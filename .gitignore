@@ -47,6 +47,8 @@ results/**
 # ...but keep directory structure so we can whitelist things
 !results/**/
 
+results/ucell/Lateral_plate_mesoderm/qc/Lateral_plate_mesoderm_obs_with_SHH_UCell_score.csv
+
 # ...and keep EVERYTHING under any figures/ folder
 !results/**/figures/**
 
