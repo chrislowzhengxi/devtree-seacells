@@ -35,6 +35,70 @@ def summarize_gene(df, gene, low_thr, high_thr):
     out["pct_pos"] = np.where(out["n_total"] > 0, 100.0 * out["n_pos"] / out["n_total"], np.nan)
     return out
 
+def _cell_ids(df):
+    if "cell_id" in df.columns:
+        return df["cell_id"].astype(str).values
+    return df.index.astype(str).values
+
+def _sets_by_gene_in_bin(df, genes, bin_label, low_thr, high_thr):
+    # Make the bin once
+    bins = bin_shh(df["SHH_UCell_score"], low_thr=low_thr, high_thr=high_thr)
+    id_col = _cell_ids(df)
+    sub = df.copy()
+    sub["__id__"] = id_col
+    sub["__bin__"] = bins
+
+    S = {}
+    for g in genes:
+        pos_mask = pd.to_numeric(sub[f"{g}_raw"], errors="coerce").fillna(0.0).values > 0
+        if bin_label == "MidHigh":
+            bin_mask = (sub["__bin__"] == "Middle") | (sub["__bin__"] == "High")
+        else:
+            bin_mask = (sub["__bin__"] == bin_label)
+        S[g] = set(sub.loc[pos_mask & bin_mask, "__id__"].tolist())
+    return S
+
+def _overlap_counts_3(SA, SB, SC, a, b, c):
+    onlyA = len(SA - SB - SC)
+    onlyB = len(SB - SA - SC)
+    onlyC = len(SC - SA - SB)
+    AB = len((SA & SB) - SC)
+    AC = len((SA & SC) - SB)
+    BC = len((SB & SC) - SA)
+    ABC = len(SA & SB & SC)
+    total = len(SA | SB | SC)
+    return pd.DataFrame({
+        "region": [a, b, c, f"{a}&{b}", f"{a}&{c}", f"{b}&{c}", f"{a}&{b}&{c}", "union_total"],
+        "count":  [onlyA, onlyB, onlyC, AB, AC, BC, ABC, total]
+    })
+
+def write_overlap_tables(df, outdir, genes, low_thr, high_thr):
+    bins = ["0", "Low", "Middle", "High", "MidHigh"]  # last one is combined Middle+High
+    for bin_label in bins:
+        Smap = _sets_by_gene_in_bin(df, genes, bin_label, low_thr, high_thr)
+        SA, SB, SC = Smap[genes[0]], Smap[genes[1]], Smap[genes[2]]
+        tab = _overlap_counts_3(SA, SB, SC, genes[0], genes[1], genes[2])
+        path = outdir / f"venn_counts_{bin_label}.tsv"
+        tab.to_csv(path, sep="\t", index=False)
+        print(f"[save] {path}")
+
+        # Optional plot if matplotlib_venn is installed
+        try:
+            from matplotlib_venn import venn3
+            import matplotlib.pyplot as plt
+            plt.figure(figsize=(5,5))
+            venn3([SA, SB, SC], set_labels=genes)
+            plt.title(f"Overlap of raw>0 in SHH bin: {bin_label}")
+            png = outdir / f"venn_{bin_label}.png"
+            pdf = outdir / f"venn_{bin_label}.pdf"
+            plt.savefig(png, dpi=300)
+            plt.savefig(pdf)
+            plt.close()
+            print(f"[save] {png}")
+        except Exception:
+            # No plotting library. TSVs are still written.
+            pass
+
 
 def main():
     ap = argparse.ArgumentParser(description="Build SHH bin tables for Gli1/Ptch1/Hhip from extended_obs.tsv")
@@ -78,6 +142,8 @@ def main():
         tt = comb[comb["gene"] == g].set_index("shh_bin").reindex(order)
         print(f"\n{g}:")
         print(tt[["n_total","n_pos","n_neg","pct_pos"]].to_string())
+    
+    write_overlap_tables(df, outdir, args.genes, args.low_thr, args.high_thr)
 
 
 if __name__ == "__main__":

@@ -183,6 +183,25 @@ def _draw_graph(G, pos, node_values: dict, title: str, out_png: Path, vlabel: st
     fig.savefig(out_pdf)
     plt.close(fig)
 
+def _ensure_manual_edges(edges: pd.DataFrame, system_tag: str) -> pd.DataFrame:
+    edges = edges.copy()
+    if system_tag == "Lateral_plate_mesoderm":
+        need = ~((edges["x_name"] == "Second heart field") &
+                 (edges["y_name"] == "Atrial cardiomyocytes")).any()
+        if need:
+            new_row = {
+                "system": system_tag,
+                "x": "L_M22",
+                "y": "L_M5",
+                "x_name": "Second heart field",
+                "y_name": "Atrial cardiomyocytes",
+                "edge_type": "Developmental progression",
+                "x_number": np.nan, "y_number": np.nan,
+                "x_id": np.nan, "y_id": np.nan,
+            }
+            edges = pd.concat([edges, pd.DataFrame([new_row])], ignore_index=True)
+    return edges
+
 def main():
     ap = argparse.ArgumentParser(description="Lineage graphs colored by SHH bins and raw-positives.")
     ap.add_argument("--extended-tsv", required=True, help=".../<system>/qc/<system>_extended_obs.tsv")
@@ -198,6 +217,7 @@ def main():
     outdir.mkdir(parents=True, exist_ok=True)
 
     df, edges = load_inputs(ext, Path(args.edges), args.system)
+    edges = _ensure_manual_edges(edges, args.system)
 
     merged, tblA, tblB, tblC = aggregate_per_node(df, args.low_thr, args.high_thr, args.gene)
 
