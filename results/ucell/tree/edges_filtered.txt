@@ -1,0 +1,363 @@
+"system"	"x"	"y"	"x_name"	"y_name"	"edge_type"	"x_number"	"y_number"	"x_id"	"y_id"
+"Pre_gastrulation"	"PGa_M1"	"PGa_M2"	"Oocyte"	"1-cell"	"Developmental progression"	1	2	181	1
+"Pre_gastrulation"	"PGa_M2"	"PGa_M3"	"1-cell"	"2-cell"	"Developmental progression"	2	3	1	2
+"Pre_gastrulation"	"PGa_M3"	"PGa_M4"	"2-cell"	"4-cell"	"Developmental progression"	3	4	2	3
+"Pre_gastrulation"	"PGa_M4"	"PGa_M5"	"4-cell"	"8-cell"	"Developmental progression"	4	5	3	4
+"Pre_gastrulation"	"PGa_M5"	"PGa_M6"	"8-cell"	"Morula"	"Developmental progression"	5	6	4	153
+"Pre_gastrulation"	"PGa_M6"	"PGa_M7"	"Morula"	"Inner cell mass"	"Developmental progression"	6	7	153	121
+"Pre_gastrulation"	"PGa_M6"	"PGa_M8"	"Morula"	"Trophectoderm"	"Developmental progression"	6	8	153	254
+"Pre_gastrulation"	"PGa_M8"	"PGa_M9"	"Trophectoderm"	"Extraembryonic ectoderm"	"Developmental progression"	8	9	254	87
+"Pre_gastrulation"	"PGa_M7"	"PGa_M10"	"Inner cell mass"	"Hypoblast"	"Developmental progression"	7	10	121	117
+"Pre_gastrulation"	"PGa_M10"	"PGa_M11"	"Hypoblast"	"Parietal endoderm"	"Developmental progression"	10	11	117	194
+"Pre_gastrulation"	"PGa_M10"	"PGa_M12"	"Hypoblast"	"Visceral endoderm"	"Developmental progression"	10	12	117	262
+"Pre_gastrulation"	"PGa_M12"	"PGa_M13"	"Visceral endoderm"	"Extraembryonic visceral endoderm"	"Developmental progression"	12	13	262	89
+"Pre_gastrulation"	"PGa_M12"	"PGa_M14"	"Visceral endoderm"	"Embryonic visceral endoderm"	"Developmental progression"	12	14	262	81
+"Pre_gastrulation"	"PGa_M7"	"PGa_M15"	"Inner cell mass"	"Epiblast"	"Developmental progression"	7	15	121	86
+"Pre_gastrulation"	"PGa_M15"	"PGa_M16"	"Epiblast"	"Primitive streak"	"Developmental progression"	15	16	86	209
+"Pre_gastrulation"	"PGa_M14"	"Ga_M4"	"Embryonic visceral endoderm"	"Embryonic visceral endoderm"	"Dataset equivalence"	14	20	81	81
+"Pre_gastrulation"	"PGa_M9"	"Ga_M1"	"Extraembryonic ectoderm"	"Extraembryonic ectoderm"	"Dataset equivalence"	9	17	87	87
+"Pre_gastrulation"	"PGa_M15"	"Ga_M5"	"Epiblast"	"Epiblast"	"Dataset equivalence"	15	21	86	86
+"Pre_gastrulation"	"PGa_M13"	"Ga_M3"	"Extraembryonic visceral endoderm"	"Extraembryonic visceral endoderm"	"Dataset equivalence"	13	19	89	89
+"Pre_gastrulation"	"PGa_M16"	"Ga_M6"	"Primitive streak"	"Primitive streak"	"Dataset equivalence"	16	22	209	209
+"Pre_gastrulation"	"PGa_M11"	"Ga_M2"	"Parietal endoderm"	"Parietal endoderm"	"Dataset equivalence"	11	18	194	194
+"Gastrulation"	"Ga_M10"	"Ga_M16"	"Anterior primitive streak"	"Definitive endoderm"	"Developmental progression"	26	32	22	69
+"Gastrulation"	"Ga_M11"	"Ga_M33"	"Blood progenitors"	"Primitive erythroid cells"	"Developmental progression"	27	49	35	208
+"Gastrulation"	"Ga_M5"	"Ga_M6"	"Epiblast"	"Primitive streak"	"Developmental progression"	21	22	86	209
+"Gastrulation"	"Ga_M31"	"Ga_M25"	"Paraxial mesoderm (Tbx6+)"	"Intermediate mesoderm"	"Developmental progression"	47	41	192	122
+"Gastrulation"	"Ga_M4"	"Ga_M21"	"Embryonic visceral endoderm"	"Gut"	"Developmental progression"	20	37	81	108
+"Gastrulation"	"Ga_M15"	"Ga_M36"	"Definitive ectoderm"	"Surface ectoderm"	"Developmental progression"	31	52	68	245
+"Gastrulation"	"Ga_M18"	"Ga_M7"	"Extraembryonic mesoderm"	"Allantois"	"Developmental progression"	34	23	88	13
+"Gastrulation"	"Ga_M13"	"Ga_M32"	"Cardiopharyngeal mesoderm"	"Paraxial mesoderm (Tbx6-)"	"Developmental progression"	29	48	45	193
+"Gastrulation"	"Ga_M5"	"Ga_M15"	"Epiblast"	"Definitive ectoderm"	"Developmental progression"	21	31	86	68
+"Gastrulation"	"Ga_M14"	"Ga_M31"	"CLE and NMPs"	"Paraxial mesoderm (Tbx6+)"	"Developmental progression"	30	47	42	192
+"Gastrulation"	"Ga_M15"	"Ga_M35"	"Definitive ectoderm"	"Spinal cord"	"Developmental progression"	31	51	68	230
+"Gastrulation"	"Ga_M28"	"Ga_M31"	"Nascent mesoderm"	"Paraxial mesoderm (Tbx6+)"	"Developmental progression"	44	47	164	192
+"Gastrulation"	"Ga_M15"	"Ga_M27"	"Definitive ectoderm"	"Midbrain"	"Developmental progression"	31	43	68	147
+"Gastrulation"	"Ga_M14"	"Ga_M35"	"CLE and NMPs"	"Spinal cord"	"Developmental progression"	30	51	42	230
+"Gastrulation"	"Ga_M26"	"Ga_M25"	"Lateral plate mesoderm"	"Intermediate mesoderm"	"Developmental progression"	42	41	128	122
+"Gastrulation"	"Ga_M15"	"Ga_M20"	"Definitive ectoderm"	"Forebrain"	"Developmental progression"	31	36	68	96
+"Gastrulation"	"Ga_M6"	"Ga_M28"	"Primitive streak"	"Nascent mesoderm"	"Developmental progression"	22	44	209	164
+"Gastrulation"	"Ga_M23"	"Ga_M11"	"Hematoendothelial progenitors"	"Blood progenitors"	"Developmental progression"	39	27	110	35
+"Gastrulation"	"Ga_M36"	"Ga_M8"	"Surface ectoderm"	"Amniotic ectoderm"	"Developmental progression"	52	24	245	18
+"Gastrulation"	"Ga_M28"	"Ga_M18"	"Nascent mesoderm"	"Extraembryonic mesoderm"	"Developmental progression"	44	34	164	88
+"Gastrulation"	"Ga_M16"	"Ga_M21"	"Definitive endoderm"	"Gut"	"Developmental progression"	32	37	69	108
+"Gastrulation"	"Ga_M18"	"Ga_M22"	"Extraembryonic mesoderm"	"Gut mesenchyme"	"Developmental progression"	34	38	88	109
+"Gastrulation"	"Ga_M23"	"Ga_M17"	"Hematoendothelial progenitors"	"Endothelium"	"Developmental progression"	39	33	110	83
+"Gastrulation"	"Ga_M18"	"Ga_M9"	"Extraembryonic mesoderm"	"Amniotic mesoderm"	"Developmental progression"	34	25	88	19
+"Gastrulation"	"Ga_M36"	"Ga_M14"	"Surface ectoderm"	"CLE and NMPs"	"Developmental progression"	52	30	245	42
+"Gastrulation"	"Ga_M26"	"Ga_M9"	"Lateral plate mesoderm"	"Amniotic mesoderm"	"Developmental progression"	42	25	128	19
+"Gastrulation"	"Ga_M26"	"Ga_M12"	"Lateral plate mesoderm"	"Cardiogenic mesoderm"	"Developmental progression"	42	28	128	44
+"Gastrulation"	"Ga_M15"	"Ga_M24"	"Definitive ectoderm"	"Hindbrain"	"Developmental progression"	31	40	68	115
+"Gastrulation"	"Ga_M7"	"Ga_M23"	"Allantois"	"Hematoendothelial progenitors"	"Developmental progression"	23	39	13	110
+"Gastrulation"	"Ga_M28"	"Ga_M23"	"Nascent mesoderm"	"Hematoendothelial progenitors"	"Developmental progression"	44	39	164	110
+"Gastrulation"	"Ga_M15"	"Ga_M34"	"Definitive ectoderm"	"Primordial germ cells"	"Developmental progression"	31	50	68	210
+"Gastrulation"	"Ga_M15"	"Ga_M29"	"Definitive ectoderm"	"Neural crest"	"Developmental progression"	31	45	68	167
+"Gastrulation"	"Ga_M6"	"Ga_M34"	"Primitive streak"	"Primordial germ cells"	"Developmental progression"	22	50	209	210
+"Gastrulation"	"Ga_M26"	"Ga_M22"	"Lateral plate mesoderm"	"Gut mesenchyme"	"Developmental progression"	42	38	128	109
+"Gastrulation"	"Ga_M10"	"Ga_M30"	"Anterior primitive streak"	"Notochord"	"Developmental progression"	26	46	22	174
+"Gastrulation"	"Ga_M6"	"Ga_M10"	"Primitive streak"	"Anterior primitive streak"	"Developmental progression"	22	26	209	22
+"Gastrulation"	"Ga_M28"	"Ga_M13"	"Nascent mesoderm"	"Cardiopharyngeal mesoderm"	"Developmental progression"	44	29	164	45
+"Gastrulation"	"Ga_M28"	"Ga_M34"	"Nascent mesoderm"	"Primordial germ cells"	"Developmental progression"	44	50	164	210
+"Gastrulation"	"Ga_M35"	"Ga_M19"	"Spinal cord"	"Floor plate"	"Developmental progression"	51	35	230	94
+"Gastrulation"	"Ga_M14"	"Ga_M34"	"CLE and NMPs"	"Primordial germ cells"	"Developmental progression"	30	50	42	210
+"Gastrulation"	"Ga_M28"	"Ga_M26"	"Nascent mesoderm"	"Lateral plate mesoderm"	"Developmental progression"	44	42	164	128
+"Gastrulation"	"Ga_M28"	"Ga_M32"	"Nascent mesoderm"	"Paraxial mesoderm (Tbx6-)"	"Developmental progression"	44	48	164	193
+"Gastrulation_E8.5b"	"Ga_M7"	"L_M3"	"Allantois"	"Allantois"	"Dataset equivalence"	23	174	13	13
+"Gastrulation_E8.5b"	"Ga_M8"	"Ep_M1"	"Amniotic ectoderm"	"Amniotic ectoderm"	"Dataset equivalence"	24	65	18	18
+"Gastrulation_E8.5b"	"Ga_M9"	"L_M4"	"Amniotic mesoderm"	"Amniotic mesoderm"	"Dataset equivalence"	25	175	19	19
+"Gastrulation_E8.5b"	"Ga_M19"	"BS_M1"	"Floor plate"	"Anterior floor plate"	"Dataset equivalence"	35	208	94	20
+"Gastrulation_E8.5b"	"Ga_M25"	"R_M1"	"Intermediate mesoderm"	"Anterior intermediate mesoderm"	"Dataset equivalence"	41	139	122	21
+"Gastrulation_E8.5b"	"Ga_M24"	"BS_M2"	"Hindbrain"	"Anterior roof plate"	"Dataset equivalence"	40	219	115	23
+"Gastrulation_E8.5b"	"Ga_M17"	"En_M1"	"Endothelium"	"Arterial endothelial cells"	"Dataset equivalence"	33	53	83	25
+"Gastrulation_E8.5b"	"Ga_M13"	"L_M6"	"Cardiopharyngeal mesoderm"	"Cardiopharyngeal mesoderm"	"Dataset equivalence"	29	177	45	45
+"Gastrulation_E8.5b"	"Ga_M32"	"M_M7"	"Paraxial mesoderm (Tbx6-)"	"Dermomyotome"	"Dataset equivalence"	48	279	193	73
+"Gastrulation_E8.5b"	"Ga_M20"	"BS_M14"	"Forebrain"	"Diencephalon"	"Dataset equivalence"	36	213	96	76
+"Gastrulation_E8.5b"	"Ga_M17"	"En_M5"	"Endothelium"	"Endothelium"	"Dataset equivalence"	33	60	83	83
+"Gastrulation_E8.5b"	"Ga_M23"	"En_M5"	"Hematoendothelial progenitors"	"Endothelium"	"Dataset equivalence"	39	60	110	83
+"Gastrulation_E8.5b"	"Ga_M18"	"L_M7"	"Extraembryonic mesoderm"	"Extraembryonic mesoderm"	"Dataset equivalence"	34	178	88	88
+"Gastrulation_E8.5b"	"Ga_M3"	"G_M6"	"Extraembryonic visceral endoderm"	"Extraembryonic visceral endoderm"	"Dataset equivalence"	19	121	89	89
+"Gastrulation_E8.5b"	"Ga_M20"	"Ey_M7"	"Forebrain"	"Eye field"	"Dataset equivalence"	36	106	96	90
+"Gastrulation_E8.5b"	"Ga_M32"	"M_M9"	"Paraxial mesoderm (Tbx6-)"	"Facial mesenchyme"	"Dataset equivalence"	48	281	193	91
+"Gastrulation_E8.5b"	"Ga_M29"	"M_M9"	"Neural crest"	"Facial mesenchyme"	"Dataset equivalence"	45	281	167	91
+"Gastrulation_E8.5b"	"Ga_M12"	"L_M8"	"Cardiogenic mesoderm"	"First heart field"	"Dataset equivalence"	28	179	44	93
+"Gastrulation_E8.5b"	"Ga_M26"	"L_M8"	"Lateral plate mesoderm"	"First heart field"	"Dataset equivalence"	42	179	128	93
+"Gastrulation_E8.5b"	"Ga_M21"	"G_M8"	"Gut"	"Gut"	"Dataset equivalence"	37	123	108	108
+"Gastrulation_E8.5b"	"Ga_M22"	"L_M13"	"Gut mesenchyme"	"Gut mesenchyme"	"Dataset equivalence"	38	157	109	109
+"Gastrulation_E8.5b"	"Ga_M23"	"En_M7"	"Hematoendothelial progenitors"	"Hematoendothelial progenitors"	"Dataset equivalence"	39	62	110	110
+"Gastrulation_E8.5b"	"Ga_M17"	"En_M7"	"Endothelium"	"Hematoendothelial progenitors"	"Dataset equivalence"	33	62	83	110
+"Gastrulation_E8.5b"	"Ga_M24"	"BS_M20"	"Hindbrain"	"Hindbrain"	"Dataset equivalence"	40	220	115	115
+"Gastrulation_E8.5b"	"Ga_M20"	"BS_M22"	"Forebrain"	"Hypothalamus"	"Dataset equivalence"	36	222	96	119
+"Gastrulation_E8.5b"	"Ga_M27"	"BS_M25"	"Midbrain"	"Midbrain"	"Dataset equivalence"	43	225	147	147
+"Gastrulation_E8.5b"	"Ga_M31"	"M_M11"	"Paraxial mesoderm (Tbx6+)"	"Mesodermal progenitors (Tbx6+)"	"Dataset equivalence"	47	266	192	142
+"Gastrulation_E8.5b"	"Ga_M27"	"BS_M27"	"Midbrain"	"Midbrain-hindbrain boundary"	"Dataset equivalence"	43	227	147	149
+"Gastrulation_E8.5b"	"Ga_M29"	"PG_M4"	"Neural crest"	"Neural crest (PNS glia)"	"Dataset equivalence"	45	128	167	168
+"Gastrulation_E8.5b"	"Ga_M14"	"BS_M31"	"CLE and NMPs"	"NMPs and spinal cord progenitors"	"Dataset equivalence"	30	232	42	162
+"Gastrulation_E8.5b"	"Ga_M30"	"No_M1"	"Notochord"	"Notochord"	"Dataset equivalence"	46	282	174	174
+"Gastrulation_E8.5b"	"Ga_M36"	"Ep_M14"	"Surface ectoderm"	"Olfactory epithelial cells"	"Dataset equivalence"	52	70	245	177
+"Gastrulation_E8.5b"	"Ga_M36"	"Ep_M16"	"Surface ectoderm"	"Otic epithelial cells"	"Dataset equivalence"	52	72	245	184
+"Gastrulation_E8.5b"	"Ga_M36"	"Ep_M21"	"Surface ectoderm"	"Placodal area"	"Dataset equivalence"	52	78	245	200
+"Gastrulation_E8.5b"	"Ga_M19"	"BS_M34"	"Floor plate"	"Floorplate and p3 domain"	"Dataset equivalence"	35	235	94	95
+"Gastrulation_E8.5b"	"Ga_M35"	"BS_M35"	"Spinal cord"	"Posterior roof plate"	"Dataset equivalence"	51	236	230	204
+"Gastrulation_E8.5b"	"Ga_M36"	"Ep_M22"	"Surface ectoderm"	"Pre-epidermal keratinocytes"	"Dataset equivalence"	52	79	245	205
+"Gastrulation_E8.5b"	"Ga_M33"	"B_M24"	"Primitive erythroid cells"	"Primitive erythroid cells"	"Dataset equivalence"	49	197	208	208
+"Gastrulation_E8.5b"	"Ga_M34"	"Ep_M23"	"Primordial germ cells"	"Primordial germ cells"	"Dataset equivalence"	50	80	210	210
+"Gastrulation_E8.5b"	"Ga_M25"	"R_M10"	"Intermediate mesoderm"	"Posterior intermediate mesoderm"	"Dataset equivalence"	41	140	122	203
+"Gastrulation_E8.5b"	"Ga_M32"	"M_M18"	"Paraxial mesoderm (Tbx6-)"	"Sclerotome"	"Dataset equivalence"	48	273	193	221
+"Gastrulation_E8.5b"	"Ga_M12"	"L_M22"	"Cardiogenic mesoderm"	"Second heart field"	"Dataset equivalence"	28	167	44	222
+"Gastrulation_E8.5b"	"Ga_M26"	"L_M22"	"Lateral plate mesoderm"	"Second heart field"	"Dataset equivalence"	42	167	128	222
+"Gastrulation_E8.5b"	"Ga_M26"	"L_M24"	"Lateral plate mesoderm"	"Somatic mesoderm"	"Dataset equivalence"	42	169	128	224
+"Gastrulation_E8.5b"	"Ga_M35"	"BS_M40"	"Spinal cord"	"Spinal cord/r7/r8"	"Dataset equivalence"	51	242	230	234
+"Gastrulation_E8.5b"	"Ga_M26"	"L_M25"	"Lateral plate mesoderm"	"Splanchnic mesoderm"	"Dataset equivalence"	42	170	128	241
+"Gastrulation_E8.5b"	"Ga_M20"	"BS_M54"	"Forebrain"	"Telencephalon"	"Dataset equivalence"	36	257	96	249
+"Notochord"	"No_M1"	"No_M2"	"Notochord"	"Ciliated nodal cells"	"Developmental progression"	282	283	174	53
+"Blood"	"B_M8"	"B_M9"	"Definitive early erythroblasts (CD36-)"	"Definitive erythroblasts (CD36+)"	"Developmental progression"	206	207	67	70
+"Blood"	"B_M11"	"B_M18"	"Hematopoietic stem cells (Cd34+)"	"Monocytes"	"Developmental progression"	183	190	111	151
+"Blood"	"B_M19"	"B_M23"	"Monocytic myeloid-derived suppressor cells"	"PMN myeloid-derived suppressor cells"	"Developmental progression"	191	196	152	186
+"Blood"	"B_M25"	"B_M26"	"Regulatory T cells"	"T cells"	"Developmental progression"	198	199	213	247
+"Blood"	"B_M26"	"B_M1"	"T cells"	"Activated T cells"	"Developmental progression"	199	181	247	5
+"Blood"	"B_M15"	"B_M8"	"Megakaryocyte-erythroid progenitors"	"Definitive early erythroblasts (CD36-)"	"Developmental progression"	187	206	138	67
+"Blood"	"B_M5"	"B_M17"	"Border-associated macrophages"	"Microglia"	"Developmental progression"	203	189	36	145
+"Blood"	"B_M11"	"B_M5"	"Hematopoietic stem cells (Cd34+)"	"Border-associated macrophages"	"Developmental progression"	183	203	111	36
+"Blood"	"B_M12"	"B_M19"	"Hematopoietic stem cells (Mpo+)"	"Monocytic myeloid-derived suppressor cells"	"Developmental progression"	184	191	112	152
+"Blood"	"B_M11"	"B_M12"	"Hematopoietic stem cells (Cd34+)"	"Hematopoietic stem cells (Mpo+)"	"Developmental progression"	183	184	111	112
+"Blood"	"B_M11"	"B_M7"	"Hematopoietic stem cells (Cd34+)"	"Conventional dendritic cells"	"Developmental progression"	183	205	111	61
+"Blood"	"B_M3"	"B_M4"	"B cell progenitors"	"B cells"	"Developmental progression"	201	202	29	30
+"Blood"	"B_M11"	"B_M8"	"Hematopoietic stem cells (Cd34+)"	"Definitive early erythroblasts (CD36-)"	"Developmental progression"	183	206	111	67
+"Blood"	"B_M5"	"B_M13"	"Border-associated macrophages"	"Kupffer cells"	"Developmental progression"	203	185	36	127
+"Blood"	"B_M27"	"B_M26"	"T-NK progenitors"	"T cells"	"Developmental progression"	200	199	248	247
+"Blood"	"B_M27"	"B_M25"	"T-NK progenitors"	"Regulatory T cells"	"Developmental progression"	200	198	248	213
+"Blood"	"B_M5"	"B_M6"	"Border-associated macrophages"	"Border-associated macrophages (Ms4a8a+)"	"Developmental progression"	203	204	36	37
+"Blood"	"B_M11"	"B_M3"	"Hematopoietic stem cells (Cd34+)"	"B cell progenitors"	"Developmental progression"	183	201	111	29
+"Blood"	"B_M11"	"B_M15"	"Hematopoietic stem cells (Cd34+)"	"Megakaryocyte-erythroid progenitors"	"Developmental progression"	183	187	111	138
+"Blood"	"B_M11"	"B_M22"	"Hematopoietic stem cells (Cd34+)"	"Plasmacytoid dendritic cells"	"Developmental progression"	183	195	111	201
+"Blood"	"B_M18"	"B_M7"	"Monocytes"	"Conventional dendritic cells"	"Developmental progression"	190	205	151	61
+"Blood"	"B_M11"	"B_M10"	"Hematopoietic stem cells (Cd34+)"	"Granulocytes"	"Developmental progression"	183	182	111	106
+"Blood"	"B_M18"	"B_M2"	"Monocytes"	"Adipose tissue macrophages"	"Developmental progression"	190	192	151	8
+"Blood"	"B_M11"	"B_M14"	"Hematopoietic stem cells (Cd34+)"	"Mast cells"	"Developmental progression"	183	186	111	137
+"Blood"	"B_M11"	"B_M27"	"Hematopoietic stem cells (Cd34+)"	"T-NK progenitors"	"Developmental progression"	183	200	111	248
+"Blood"	"B_M5"	"B_M21"	"Border-associated macrophages"	"Osteoclasts"	"Developmental progression"	203	194	36	183
+"Blood"	"B_M11"	"B_M25"	"Hematopoietic stem cells (Cd34+)"	"Regulatory T cells"	"Developmental progression"	183	198	111	213
+"Blood"	"B_M15"	"B_M16"	"Megakaryocyte-erythroid progenitors"	"Megakaryocytes"	"Developmental progression"	187	188	138	139
+"Blood"	"B_M27"	"B_M20"	"T-NK progenitors"	"Natural killer cells"	"Developmental progression"	200	193	248	165
+"Eye"	"Ey_M7"	"Ey_M10"	"Eye field"	"Naive retinal progenitor cells"	"Developmental progression"	106	92	90	163
+"Eye"	"Ey_M10"	"Ey_M16"	"Naive retinal progenitor cells"	"Retinal progenitor cells"	"Developmental progression"	92	98	163	218
+"Eye"	"Ey_M7"	"Ey_M16"	"Eye field"	"Retinal progenitor cells"	"Developmental progression"	106	98	90	218
+"Eye"	"Ey_M16"	"Ey_M2"	"Retinal progenitor cells"	"Amacrine/Horizontal precursor cells"	"Developmental progression"	98	101	218	17
+"Eye"	"Ey_M16"	"Ey_M3"	"Retinal progenitor cells"	"Bipolar precursor cells"	"Developmental progression"	98	102	218	33
+"Eye"	"Ey_M7"	"Ey_M11"	"Eye field"	"Optic stalk"	"Developmental progression"	106	93	90	182
+"Eye"	"Ey_M7"	"Ey_M5"	"Eye field"	"Ciliary margin cells"	"Developmental progression"	106	104	90	52
+"Eye"	"Ey_M11"	"Ey_M18"	"Optic stalk"	"Suprachiasmatic nucleus"	"Developmental progression"	93	100	182	244
+"Eye"	"Ey_M12"	"Ey_M6"	"Photoreceptor precursor cells"	"Cone precursor cells"	"Developmental progression"	94	105	196	58
+"Eye"	"Ey_M10"	"Ey_M5"	"Naive retinal progenitor cells"	"Ciliary margin cells"	"Developmental progression"	92	104	163	52
+"Eye"	"Ey_M12"	"Ey_M17"	"Photoreceptor precursor cells"	"Rod precursor cells"	"Developmental progression"	94	99	196	219
+"Eye"	"Ey_M2"	"Ey_M1"	"Amacrine/Horizontal precursor cells"	"Amacrine cells"	"Developmental progression"	101	91	17	16
+"Eye"	"Ey_M16"	"Ey_M12"	"Retinal progenitor cells"	"Photoreceptor precursor cells"	"Developmental progression"	98	94	218	196
+"Eye"	"Ey_M5"	"Ey_M9"	"Ciliary margin cells"	"Iris pigment epithelium"	"Developmental progression"	104	108	52	126
+"Eye"	"Ey_M16"	"Ey_M14"	"Retinal progenitor cells"	"Retinal ganglion cells"	"Developmental progression"	98	96	218	216
+"Eye"	"Ey_M7"	"Ey_M15"	"Eye field"	"Retinal pigment cells"	"Developmental progression"	106	97	90	217
+"Eye"	"Ey_M2"	"Ey_M8"	"Amacrine/Horizontal precursor cells"	"Horizontal cells"	"Developmental progression"	101	107	17	116
+"Eye"	"Ey_M16"	"Ey_M6"	"Retinal progenitor cells"	"Cone precursor cells"	"Developmental progression"	98	105	218	58
+"Eye"	"Ey_M1"	"Ey_M4"	"Amacrine cells"	"Cholinergic amacrine cells"	"Developmental progression"	91	103	16	48
+"Eye"	"Ey_M14"	"Ey_M13"	"Retinal ganglion cells"	"PV-containing retinal ganglion cells"	"Developmental progression"	96	95	216	187
+"Renal"	"R_M10"	"R_M7"	"Posterior intermediate mesoderm"	"Metanephric mesenchyme"	"Developmental progression"	140	150	203	144
+"Renal"	"R_M8"	"R_M11"	"Nephron progenitors"	"Proximal tubule cells"	"Developmental progression"	151	141	166	212
+"Renal"	"R_M7"	"R_M8"	"Metanephric mesenchyme"	"Nephron progenitors"	"Developmental progression"	150	151	144	166
+"Renal"	"R_M1"	"R_M10"	"Anterior intermediate mesoderm"	"Posterior intermediate mesoderm"	"Developmental progression"	139	140	21	203
+"Renal"	"R_M8"	"R_M9"	"Nephron progenitors"	"Podocytes"	"Developmental progression"	151	152	166	202
+"Renal"	"R_M10"	"R_M12"	"Posterior intermediate mesoderm"	"Renal pericytes and mesangial cells"	"Developmental progression"	140	142	203	214
+"Renal"	"R_M8"	"R_M2"	"Nephron progenitors"	"Ascending loop of Henle"	"Developmental progression"	151	145	166	26
+"Renal"	"R_M1"	"R_M13"	"Anterior intermediate mesoderm"	"Ureteric bud"	"Developmental progression"	139	143	21	256
+"Renal"	"R_M13"	"R_M4"	"Ureteric bud"	"Collecting duct principal cells"	"Developmental progression"	143	147	256	56
+"Renal"	"R_M8"	"R_M6"	"Nephron progenitors"	"Distal convoluted tubule"	"Developmental progression"	151	149	166	77
+"Renal"	"R_M1"	"R_M8"	"Anterior intermediate mesoderm"	"Nephron progenitors"	"Developmental progression"	139	151	21	166
+"Renal"	"R_M13"	"R_M14"	"Ureteric bud"	"Ureteric bud stalk"	"Developmental progression"	143	144	256	257
+"Renal"	"R_M8"	"R_M5"	"Nephron progenitors"	"Connecting tubule"	"Developmental progression"	151	148	166	60
+"Renal"	"R_M4"	"R_M3"	"Collecting duct principal cells"	"Collecting duct intercalated cells"	"Developmental progression"	147	146	56	55
+"Renal"	"R_M5"	"R_M3"	"Connecting tubule"	"Collecting duct intercalated cells"	"Developmental progression"	148	146	60	55
+"Gut"	"G_M8"	"G_M14"	"Gut"	"Midgut/Hindgut epithelial cells"	"Developmental progression"	123	114	108	150
+"Gut"	"G_M13"	"G_M4"	"Lung progenitor cells"	"Alveolar Type 2 cells"	"Developmental progression"	113	119	135	15
+"Gut"	"G_M13"	"G_M3"	"Lung progenitor cells"	"Alveolar Type 1 cells"	"Developmental progression"	113	118	135	14
+"Gut"	"G_M8"	"G_M9"	"Gut"	"Hepatocytes"	"Developmental progression"	123	124	108	114
+"Gut"	"G_M13"	"G_M1"	"Lung progenitor cells"	"Airway club cells"	"Developmental progression"	113	109	135	10
+"Gut"	"G_M8"	"G_M13"	"Gut"	"Lung progenitor cells"	"Developmental progression"	123	113	108	135
+"Gut"	"G_M8"	"G_M7"	"Gut"	"Foregut epithelial cells"	"Developmental progression"	123	122	108	97
+"Gut"	"G_M14"	"G_M11"	"Midgut/Hindgut epithelial cells"	"Intestinal goblet cells"	"Developmental progression"	114	111	150	125
+"Gut"	"G_M9"	"G_M5"	"Hepatocytes"	"Biliary epithelial cells"	"Developmental progression"	124	120	114	32
+"Gut"	"G_M3"	"G_M12"	"Alveolar Type 1 cells"	"Lung cells (Eln+)"	"Developmental progression"	118	112	14	133
+"Gut"	"G_M1"	"G_M2"	"Airway club cells"	"Airway goblet cells"	"Developmental progression"	109	117	10	11
+"Gut"	"G_M8"	"G_M15"	"Gut"	"Pancreatic acinar cells"	"Developmental progression"	123	115	108	188
+"Gut"	"G_M8"	"G_M5"	"Gut"	"Biliary epithelial cells"	"Developmental progression"	123	120	108	32
+"Gut"	"G_M13"	"G_M2"	"Lung progenitor cells"	"Airway goblet cells"	"Developmental progression"	113	117	135	11
+"Gut"	"G_M8"	"G_M16"	"Gut"	"Pancreatic islets"	"Developmental progression"	123	116	108	189
+"Gut"	"G_M14"	"G_M10"	"Midgut/Hindgut epithelial cells"	"Intestinal enteroendocrine cells"	"Developmental progression"	114	110	150	124
+"PNS_glia"	"PG_M4"	"PG_M2"	"Neural crest (PNS glia)"	"Myelinating Schwann cells"	"Developmental progression"	128	126	168	157
+"PNS_glia"	"PG_M4"	"PG_M6"	"Neural crest (PNS glia)"	"Satellite glial cells"	"Developmental progression"	128	130	168	220
+"PNS_glia"	"PG_M4"	"PG_M3"	"Neural crest (PNS glia)"	"Myelinating Schwann cells (Tgfb2+)"	"Developmental progression"	128	127	168	158
+"PNS_glia"	"PG_M2"	"PG_M5"	"Myelinating Schwann cells"	"Olfactory ensheathing cells"	"Developmental progression"	126	129	157	176
+"PNS_glia"	"PG_M4"	"PG_M5"	"Neural crest (PNS glia)"	"Olfactory ensheathing cells"	"Developmental progression"	128	129	168	176
+"PNS_glia"	"PG_M4"	"PG_M1"	"Neural crest (PNS glia)"	"Melanocyte cells"	"Developmental progression"	128	125	168	140
+"PNS_neurons"	"PN_M4"	"PN_M5"	"Neural crest (PNS neurons)"	"Olfactory sensory neurons"	"Developmental progression"	134	135	169	179
+"PNS_neurons"	"PN_M4"	"PN_M2"	"Neural crest (PNS neurons)"	"Dorsal root ganglion neurons"	"Developmental progression"	134	132	169	78
+"PNS_neurons"	"PN_M4"	"PN_M3"	"Neural crest (PNS neurons)"	"Enteric neurons"	"Developmental progression"	134	133	169	84
+"PNS_neurons"	"PN_M5"	"PN_M1"	"Olfactory sensory neurons"	"Corticofugal neurons"	"Developmental progression"	135	131	179	64
+"PNS_neurons"	"PN_M4"	"PN_M6"	"Neural crest (PNS neurons)"	"Otic sensory neurons"	"Developmental progression"	134	136	169	185
+"PNS_neurons"	"PN_M4"	"PN_M8"	"Neural crest (PNS neurons)"	"Sympathetic neurons"	"Developmental progression"	134	138	169	246
+"PNS_neurons"	"PN_M4"	"PN_M7"	"Neural crest (PNS neurons)"	"Parasympathetic neurons"	"Developmental progression"	134	137	169	190
+"PNS_neurons"	"PN_M4"	"PN_M1"	"Neural crest (PNS neurons)"	"Corticofugal neurons"	"Developmental progression"	134	131	169	64
+"Lateral_plate_mesoderm"	"L_M24"	"L_M16"	"Somatic mesoderm"	"Limb mesenchyme progenitors"	"Developmental progression"	169	160	224	131
+"Lateral_plate_mesoderm"	"L_M7"	"L_M3"	"Extraembryonic mesoderm"	"Allantois"	"Developmental progression"	178	174	88	13
+"Lateral_plate_mesoderm"	"L_M25"	"L_M9"	"Splanchnic mesoderm"	"Foregut mesenchyme"	"Developmental progression"	170	180	241	98
+"Lateral_plate_mesoderm"	"L_M25"	"L_M14"	"Splanchnic mesoderm"	"Hepatic mesenchyme"	"Developmental progression"	170	158	241	113
+"Lateral_plate_mesoderm"	"L_M25"	"L_M19"	"Splanchnic mesoderm"	"Mesothelial cells"	"Developmental progression"	170	163	241	143
+"Lateral_plate_mesoderm"	"L_M26"	"L_M27"	"Vascular smooth muscle cells"	"Vascular smooth muscle cells (Pparg+)"	"Developmental progression"	171	172	258	259
+"Lateral_plate_mesoderm"	"L_M7"	"L_M16"	"Extraembryonic mesoderm"	"Limb mesenchyme progenitors"	"Developmental progression"	178	160	88	131
+"Lateral_plate_mesoderm"	"L_M25"	"L_M21"	"Splanchnic mesoderm"	"Renal stromal cells"	"Developmental progression"	170	166	241	215
+"Lateral_plate_mesoderm"	"L_M13"	"L_M10"	"Gut mesenchyme"	"Gastrointestinal smooth muscle cells"	"Developmental progression"	157	154	109	101
+"Lateral_plate_mesoderm"	"L_M25"	"L_M8"	"Splanchnic mesoderm"	"First heart field"	"Developmental progression"	170	179	241	93
+"Lateral_plate_mesoderm"	"L_M25"	"L_M17"	"Splanchnic mesoderm"	"Lung mesenchyme"	"Developmental progression"	170	161	241	134
+"Lateral_plate_mesoderm"	"L_M25"	"L_M11"	"Splanchnic mesoderm"	"Gonad progenitor cells"	"Developmental progression"	170	155	241	104
+"Lateral_plate_mesoderm"	"L_M24"	"L_M19"	"Somatic mesoderm"	"Mesothelial cells"	"Developmental progression"	169	163	224	143
+"Lateral_plate_mesoderm"	"L_M24"	"L_M20"	"Somatic mesoderm"	"Proepicardium"	"Developmental progression"	169	165	224	211
+"Lateral_plate_mesoderm"	"L_M25"	"L_M20"	"Splanchnic mesoderm"	"Proepicardium"	"Developmental progression"	170	165	241	211
+"Lateral_plate_mesoderm"	"L_M8"	"L_M5"	"First heart field"	"Atrial cardiomyocytes"	"Developmental progression"	179	176	93	28
+"Lateral_plate_mesoderm"	"L_M24"	"L_M22"	"Somatic mesoderm"	"Second heart field"	"Developmental progression"	169	167	224	222
+"Lateral_plate_mesoderm"	"L_M11"	"L_M12"	"Gonad progenitor cells"	"Granulosa cells"	"Developmental progression"	155	156	104	107
+"Lateral_plate_mesoderm"	"L_M25"	"L_M26"	"Splanchnic mesoderm"	"Vascular smooth muscle cells"	"Developmental progression"	170	171	241	258
+"Lateral_plate_mesoderm"	"L_M8"	"L_M28"	"First heart field"	"Ventricular cardiomyocytes"	"Developmental progression"	179	173	93	261
+"Lateral_plate_mesoderm"	"L_M26"	"L_M18"	"Vascular smooth muscle cells"	"Meninges"	"Developmental progression"	171	162	258	141
+"Lateral_plate_mesoderm"	"L_M11"	"L_M1"	"Gonad progenitor cells"	"Adrenocortical cells"	"Developmental progression"	155	153	104	9
+"Lateral_plate_mesoderm"	"L_M26"	"L_M2"	"Vascular smooth muscle cells"	"Airway smooth muscle cells"	"Developmental progression"	171	164	258	12
+"Lateral_plate_mesoderm"	"L_M11"	"L_M23"	"Gonad progenitor cells"	"Sertoli cells"	"Developmental progression"	155	168	104	223
+"Lateral_plate_mesoderm"	"L_M11"	"L_M15"	"Gonad progenitor cells"	"Leydig cells"	"Developmental progression"	155	159	104	130
+"Endothelium"	"En_M7"	"En_M5"	"Hematoendothelial progenitors"	"Endothelium"	"Developmental progression"	62	60	110	83
+"Endothelium"	"En_M5"	"En_M12"	"Endothelium"	"Venous and capillary endothelial cells"	"Developmental progression"	60	56	83	260
+"Endothelium"	"En_M5"	"En_M1"	"Endothelium"	"Arterial endothelial cells"	"Developmental progression"	60	53	83	25
+"Endothelium"	"En_M5"	"En_M2"	"Endothelium"	"Brain capillary endothelial cells"	"Developmental progression"	60	57	83	38
+"Endothelium"	"En_M5"	"En_M11"	"Endothelium"	"Pericytes"	"Developmental progression"	60	55	83	195
+"Endothelium"	"En_M5"	"En_M8"	"Endothelium"	"Liver sinusoidal endothelial cells"	"Developmental progression"	60	63	83	132
+"Endothelium"	"En_M2"	"En_M3"	"Brain capillary endothelial cells"	"Brain pericytes"	"Developmental progression"	57	58	38	39
+"Endothelium"	"En_M5"	"En_M4"	"Endothelium"	"Endocardial cells"	"Developmental progression"	60	59	83	82
+"Endothelium"	"En_M5"	"En_M10"	"Endothelium"	"Microvascular endothelial cells"	"Developmental progression"	60	54	83	146
+"Endothelium"	"En_M5"	"En_M6"	"Endothelium"	"Glomerular endothelial cells"	"Developmental progression"	60	61	83	102
+"Endothelium"	"En_M5"	"En_M9"	"Endothelium"	"Lymphatic vessel endothelial cells"	"Developmental progression"	60	64	83	136
+"Mesoderm"	"M_M18"	"M_M10"	"Sclerotome"	"Fibroblasts"	"Developmental progression"	273	265	221	92
+"Mesoderm"	"M_M18"	"M_M8"	"Sclerotome"	"Early chondrocytes"	"Developmental progression"	273	280	221	80
+"Mesoderm"	"M_M18"	"M_M4"	"Sclerotome"	"Chondrocytes (Atp1a2+)"	"Developmental progression"	273	276	221	49
+"Mesoderm"	"M_M12"	"M_M14"	"Muscle progenitor cells"	"Myoblasts"	"Developmental progression"	267	269	155	159
+"Mesoderm"	"M_M10"	"M_M17"	"Fibroblasts"	"Pre-osteoblasts (Sp7+)"	"Developmental progression"	265	272	92	206
+"Mesoderm"	"M_M2"	"M_M3"	"Adipocyte progenitor cells"	"Brown adipocyte cells"	"Developmental progression"	274	275	7	41
+"Mesoderm"	"M_M9"	"M_M8"	"Facial mesenchyme"	"Early chondrocytes"	"Developmental progression"	281	280	91	80
+"Mesoderm"	"M_M7"	"M_M12"	"Dermomyotome"	"Muscle progenitor cells"	"Developmental progression"	279	267	73	155
+"Mesoderm"	"M_M14"	"M_M16"	"Myoblasts"	"Myotubes"	"Developmental progression"	269	271	159	161
+"Mesoderm"	"M_M7"	"M_M6"	"Dermomyotome"	"Dermatome"	"Developmental progression"	279	278	73	72
+"Mesoderm"	"M_M2"	"M_M1"	"Adipocyte progenitor cells"	"Adipocyte cells (Cyp2e1+)"	"Developmental progression"	274	264	7	6
+"Mesoderm"	"M_M11"	"M_M7"	"Mesodermal progenitors (Tbx6+)"	"Dermomyotome"	"Developmental progression"	266	279	142	73
+"Mesoderm"	"M_M7"	"M_M14"	"Dermomyotome"	"Myoblasts"	"Developmental progression"	279	269	73	159
+"Mesoderm"	"M_M4"	"M_M5"	"Chondrocytes (Atp1a2+)"	"Chondrocytes (Otor+)"	"Developmental progression"	276	277	49	50
+"Mesoderm"	"M_M9"	"M_M17"	"Facial mesenchyme"	"Pre-osteoblasts (Sp7+)"	"Developmental progression"	281	272	91	206
+"Mesoderm"	"M_M13"	"M_M15"	"Muscle progenitor cells (Prdm1+)"	"Myofibroblasts"	"Developmental progression"	268	270	156	160
+"Mesoderm"	"M_M12"	"M_M13"	"Muscle progenitor cells"	"Muscle progenitor cells (Prdm1+)"	"Developmental progression"	267	268	155	156
+"Mesoderm"	"M_M10"	"M_M2"	"Fibroblasts"	"Adipocyte progenitor cells"	"Developmental progression"	265	274	92	7
+"Mesoderm"	"M_M11"	"M_M9"	"Mesodermal progenitors (Tbx6+)"	"Facial mesenchyme"	"Developmental progression"	266	281	142	91
+"Epithelial_cells"	"Ep_M21"	"Ep_M14"	"Placodal area"	"Olfactory epithelial cells"	"Developmental progression"	78	70	200	177
+"Epithelial_cells"	"Ep_M22"	"Ep_M3"	"Pre-epidermal keratinocytes"	"Basal keratinocytes"	"Developmental progression"	79	84	205	31
+"Epithelial_cells"	"Ep_M21"	"Ep_M5"	"Placodal area"	"Branchial arch epithelium"	"Developmental progression"	78	86	200	40
+"Epithelial_cells"	"Ep_M22"	"Ep_M10"	"Pre-epidermal keratinocytes"	"Granular keratinocytes"	"Developmental progression"	79	66	205	105
+"Epithelial_cells"	"Ep_M21"	"Ep_M15"	"Placodal area"	"Olfactory pit cells"	"Developmental progression"	78	71	200	178
+"Epithelial_cells"	"Ep_M22"	"Ep_M2"	"Pre-epidermal keratinocytes"	"Apical ectodermal ridge"	"Developmental progression"	79	76	205	24
+"Epithelial_cells"	"Ep_M20"	"Ep_M19"	"Pituitary/Pineal gland progenitors"	"Pituitary gland cells"	"Developmental progression"	77	75	199	198
+"Epithelial_cells"	"Ep_M5"	"Ep_M9"	"Branchial arch epithelium"	"Dental epithelial cells"	"Developmental progression"	86	90	40	71
+"Epithelial_cells"	"Ep_M5"	"Ep_M26"	"Branchial arch epithelium"	"Tooth junctional epithelium"	"Developmental progression"	86	83	40	253
+"Epithelial_cells"	"Ep_M21"	"Ep_M20"	"Placodal area"	"Pituitary/Pineal gland progenitors"	"Developmental progression"	78	77	200	199
+"Epithelial_cells"	"Ep_M14"	"Ep_M13"	"Olfactory epithelial cells"	"Olfactory bulb cells"	"Developmental progression"	70	69	177	175
+"Epithelial_cells"	"Ep_M21"	"Ep_M16"	"Placodal area"	"Otic epithelial cells"	"Developmental progression"	78	72	200	184
+"Epithelial_cells"	"Ep_M10"	"Ep_M7"	"Granular keratinocytes"	"Conjunctival goblet cells"	"Developmental progression"	66	88	105	59
+"Epithelial_cells"	"Ep_M10"	"Ep_M4"	"Granular keratinocytes"	"Bladder urothelial cells"	"Developmental progression"	66	85	105	34
+"Epithelial_cells"	"Ep_M10"	"Ep_M8"	"Granular keratinocytes"	"Corneal epithelial cells"	"Developmental progression"	66	89	105	62
+"Epithelial_cells"	"Ep_M21"	"Ep_M25"	"Placodal area"	"Thyroid gland cells"	"Developmental progression"	78	82	200	252
+"Epithelial_cells"	"Ep_M21"	"Ep_M24"	"Placodal area"	"Thymic epithelial cells"	"Developmental progression"	78	81	200	251
+"Epithelial_cells"	"Ep_M21"	"Ep_M17"	"Placodal area"	"Parathyroid epithelial cells"	"Developmental progression"	78	73	200	191
+"Epithelial_cells"	"Ep_M24"	"Ep_M5"	"Thymic epithelial cells"	"Branchial arch epithelium"	"Developmental progression"	81	86	251	40
+"Epithelial_cells"	"Ep_M16"	"Ep_M6"	"Otic epithelial cells"	"Cochlear hair cells"	"Developmental progression"	72	87	184	54
+"Epithelial_cells"	"Ep_M21"	"Ep_M12"	"Placodal area"	"Nonsensory cochlear epithelium"	"Developmental progression"	78	68	200	173
+"Epithelial_cells"	"Ep_M5"	"Ep_M17"	"Branchial arch epithelium"	"Parathyroid epithelial cells"	"Developmental progression"	86	73	40	191
+"Epithelial_cells"	"Ep_M15"	"Ep_M11"	"Olfactory pit cells"	"Lens epithelial cells"	"Developmental progression"	71	67	178	129
+"Epithelial_cells"	"Ep_M20"	"Ep_M18"	"Pituitary/Pineal gland progenitors"	"Pineal gland"	"Developmental progression"	77	74	199	197
+"Brain_spinal_cord"	"BS_M54"	"BS_M15"	"Telencephalon"	"Dorsal telencephalon"	"Developmental progression"	257	214	249	79
+"Brain_spinal_cord"	"BS_M20"	"BS_M34"	"Hindbrain"	"Floorplate and p3 domain"	"Developmental progression"	220	235	115	95
+"Brain_spinal_cord"	"BS_M25"	"BS_M23"	"Midbrain"	"Hypothalamus (Sim1+)"	"Developmental progression"	225	223	147	120
+"Brain_spinal_cord"	"BS_M40"	"BS_M35"	"Spinal cord/r7/r8"	"Posterior roof plate"	"Developmental progression"	242	236	234	204
+"Brain_spinal_cord"	"BS_M40"	"BS_M34"	"Spinal cord/r7/r8"	"Floorplate and p3 domain"	"Developmental progression"	242	235	234	95
+"Brain_spinal_cord"	"BS_M20"	"BS_M2"	"Hindbrain"	"Anterior roof plate"	"Developmental progression"	220	219	115	23
+"Brain_spinal_cord"	"BS_M14"	"BS_M15"	"Diencephalon"	"Dorsal telencephalon"	"Developmental progression"	213	214	76	79
+"Brain_spinal_cord"	"BS_M27"	"BS_M2"	"Midbrain-hindbrain boundary"	"Anterior roof plate"	"Developmental progression"	227	219	149	23
+"Brain_spinal_cord"	"BS_M14"	"BS_M23"	"Diencephalon"	"Hypothalamus (Sim1+)"	"Developmental progression"	213	223	76	120
+"Brain_spinal_cord"	"BS_M22"	"BS_M23"	"Hypothalamus"	"Hypothalamus (Sim1+)"	"Developmental progression"	222	223	119	120
+"Brain_spinal_cord"	"BS_M27"	"BS_M34"	"Midbrain-hindbrain boundary"	"Floorplate and p3 domain"	"Developmental progression"	227	235	149	95
+"Brain_spinal_cord"	"BS_M44"	"BS_M18"	"Spinal dI4 interneurons"	"GABAergic neurons (after E13.0)"	"Developmental progression"	246	217	238	100
+"Brain_spinal_cord"	"BS_M45"	"BS_M19"	"Spinal dI5 interneurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	247	218	239	103
+"Brain_spinal_cord"	"BS_M13"	"BS_M19"	"Di/mesencephalon glutamatergic neurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	212	218	75	103
+"Brain_spinal_cord"	"BS_M17"	"BS_M18"	"GABAergic cortical interneurons"	"GABAergic neurons (after E13.0)"	"Developmental progression"	216	217	99	100
+"Brain_spinal_cord"	"BS_M41"	"BS_M19"	"Spinal dI1 interneurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	243	218	235	103
+"Brain_spinal_cord"	"BS_M12"	"BS_M18"	"Di/mesencephalon GABAergic neurons"	"GABAergic neurons (after E13.0)"	"Developmental progression"	211	217	74	100
+"Brain_spinal_cord"	"BS_M11"	"BS_M53"	"Deep-layer neurons"	"Subplate neurons"	"Developmental progression"	210	256	66	243
+"Brain_spinal_cord"	"BS_M21"	"BS_M19"	"Hypothalamic Sim1 neurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	221	218	118	103
+"Brain_spinal_cord"	"BS_M54"	"BS_M24"	"Telencephalon"	"Intermediate neuronal progenitors"	"Developmental progression"	257	224	249	123
+"Brain_spinal_cord"	"BS_M54"	"BS_M17"	"Telencephalon"	"GABAergic cortical interneurons"	"Developmental progression"	257	216	249	99
+"Brain_spinal_cord"	"BS_M48"	"BS_M18"	"Spinal V1 interneurons"	"GABAergic neurons (after E13.0)"	"Developmental progression"	250	217	226	100
+"Brain_spinal_cord"	"BS_M31"	"BS_M40"	"NMPs and spinal cord progenitors"	"Spinal cord/r7/r8"	"Developmental progression"	232	242	162	234
+"Brain_spinal_cord"	"BS_M56"	"BS_M53"	"Upper-layer neurons"	"Subplate neurons"	"Developmental progression"	259	256	255	243
+"Brain_spinal_cord"	"BS_M54"	"BS_M3"	"Telencephalon"	"Astrocytes"	"Developmental progression"	257	230	249	27
+"Brain_spinal_cord"	"BS_M42"	"BS_M19"	"Spinal dI2 interneurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	244	218	236	103
+"Brain_spinal_cord"	"BS_M26"	"BS_M19"	"Midbrain dopaminergic neurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	226	218	148	103
+"Brain_spinal_cord"	"BS_M48"	"BS_M46"	"Spinal V1 interneurons"	"Spinal dI6 interneurons"	"Developmental progression"	250	248	226	240
+"Brain_spinal_cord"	"BS_M40"	"BS_M29"	"Spinal cord/r7/r8"	"Neural progenitor cells (Neurod1+)"	"Developmental progression"	242	229	234	170
+"Brain_spinal_cord"	"BS_M46"	"BS_M18"	"Spinal dI6 interneurons"	"GABAergic neurons (after E13.0)"	"Developmental progression"	248	217	240	100
+"Brain_spinal_cord"	"BS_M50"	"BS_M18"	"Spinal V2b interneurons"	"GABAergic neurons (after E13.0)"	"Developmental progression"	253	217	228	100
+"Brain_spinal_cord"	"BS_M24"	"BS_M11"	"Intermediate neuronal progenitors"	"Deep-layer neurons"	"Developmental progression"	224	210	123	66
+"Brain_spinal_cord"	"BS_M40"	"BS_M48"	"Spinal cord/r7/r8"	"Spinal V1 interneurons"	"Developmental progression"	242	250	234	226
+"Brain_spinal_cord"	"BS_M24"	"BS_M56"	"Intermediate neuronal progenitors"	"Upper-layer neurons"	"Developmental progression"	224	259	123	255
+"Brain_spinal_cord"	"BS_M43"	"BS_M19"	"Spinal dI3 interneurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	245	218	237	103
+"Brain_spinal_cord"	"BS_M42"	"BS_M47"	"Spinal dI2 interneurons"	"Spinal V0 interneurons"	"Developmental progression"	244	249	236	225
+"Brain_spinal_cord"	"BS_M20"	"BS_M3"	"Hindbrain"	"Astrocytes"	"Developmental progression"	220	230	115	27
+"Brain_spinal_cord"	"BS_M40"	"BS_M3"	"Spinal cord/r7/r8"	"Astrocytes"	"Developmental progression"	242	230	234	27
+"Brain_spinal_cord"	"BS_M49"	"BS_M19"	"Spinal V2a interneurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	251	218	227	103
+"Brain_spinal_cord"	"BS_M47"	"BS_M19"	"Spinal V0 interneurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	249	218	225	103
+"Brain_spinal_cord"	"BS_M3"	"BS_M28"	"Astrocytes"	"Multiciliated ependymal cells"	"Developmental progression"	230	228	27	154
+"Brain_spinal_cord"	"BS_M40"	"BS_M45"	"Spinal cord/r7/r8"	"Spinal dI5 interneurons"	"Developmental progression"	242	247	234	239
+"Brain_spinal_cord"	"BS_M40"	"BS_M44"	"Spinal cord/r7/r8"	"Spinal dI4 interneurons"	"Developmental progression"	242	246	234	238
+"Brain_spinal_cord"	"BS_M51"	"BS_M19"	"Spinal V3 interneurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	254	218	229	103
+"Brain_spinal_cord"	"BS_M33"	"BS_M8"	"Oligodendrocyte progenitor cells"	"Committed oligodendrocyte precursors"	"Developmental progression"	234	262	180	57
+"Brain_spinal_cord"	"BS_M3"	"BS_M33"	"Astrocytes"	"Oligodendrocyte progenitor cells"	"Developmental progression"	230	234	27	180
+"Brain_spinal_cord"	"BS_M20"	"BS_M6"	"Hindbrain"	"Cerebellum-related cells"	"Developmental progression"	220	260	115	47
+"Brain_spinal_cord"	"BS_M40"	"BS_M38"	"Spinal cord/r7/r8"	"Spinal cord motor neurons"	"Developmental progression"	242	239	234	232
+"Brain_spinal_cord"	"BS_M45"	"BS_M43"	"Spinal dI5 interneurons"	"Spinal dI3 interneurons"	"Developmental progression"	247	245	239	237
+"Brain_spinal_cord"	"BS_M20"	"BS_M41"	"Hindbrain"	"Spinal dI1 interneurons"	"Developmental progression"	220	243	115	235
+"Brain_spinal_cord"	"BS_M42"	"BS_M5"	"Spinal dI2 interneurons"	"Cerebellar Purkinje cells"	"Developmental progression"	244	252	236	46
+"Brain_spinal_cord"	"BS_M25"	"BS_M13"	"Midbrain"	"Di/mesencephalon glutamatergic neurons"	"Developmental progression"	225	212	147	75
+"Brain_spinal_cord"	"BS_M20"	"BS_M30"	"Hindbrain"	"Neural progenitor cells (Ror1+)"	"Developmental progression"	220	231	115	171
+"Brain_spinal_cord"	"BS_M52"	"BS_M19"	"Striatal projection neurons"	"Glutamatergic neurons (after E13.0)"	"Developmental progression"	255	218	242	103
+"Brain_spinal_cord"	"BS_M15"	"BS_M7"	"Dorsal telencephalon"	"Choroid plexus"	"Developmental progression"	214	261	79	51
+"Brain_spinal_cord"	"BS_M40"	"BS_M42"	"Spinal cord/r7/r8"	"Spinal dI2 interneurons"	"Developmental progression"	242	244	234	236
+"Brain_spinal_cord"	"BS_M54"	"BS_M4"	"Telencephalon"	"Cajal-Retzius cells"	"Developmental progression"	257	241	249	43
+"Brain_spinal_cord"	"BS_M25"	"BS_M12"	"Midbrain"	"Di/mesencephalon GABAergic neurons"	"Developmental progression"	225	211	147	74
+"Brain_spinal_cord"	"BS_M14"	"BS_M55"	"Diencephalon"	"Thalamic neuronal precursors"	"Developmental progression"	213	258	76	250
+"Brain_spinal_cord"	"BS_M2"	"BS_M7"	"Anterior roof plate"	"Choroid plexus"	"Developmental progression"	219	261	23	51
+"Brain_spinal_cord"	"BS_M24"	"BS_M9"	"Intermediate neuronal progenitors"	"Cortical Interneurons (Prox1+)"	"Developmental progression"	224	263	123	63
+"Brain_spinal_cord"	"BS_M34"	"BS_M10"	"Floorplate and p3 domain"	"Cranial motor neurons"	"Developmental progression"	235	209	95	65
+"Brain_spinal_cord"	"BS_M25"	"BS_M52"	"Midbrain"	"Striatal projection neurons"	"Developmental progression"	225	255	147	242
+"Brain_spinal_cord"	"BS_M6"	"BS_M28"	"Cerebellum-related cells"	"Multiciliated ependymal cells"	"Developmental progression"	260	228	47	154
+"Brain_spinal_cord"	"BS_M34"	"BS_M28"	"Floorplate and p3 domain"	"Multiciliated ependymal cells"	"Developmental progression"	235	228	95	154
+"Brain_spinal_cord"	"BS_M23"	"BS_M21"	"Hypothalamus (Sim1+)"	"Hypothalamic Sim1 neurons"	"Developmental progression"	223	221	120	118
+"Brain_spinal_cord"	"BS_M34"	"BS_M32"	"Floorplate and p3 domain"	"Neurons (Slc17a8+)"	"Developmental progression"	235	233	95	172
+"Brain_spinal_cord"	"BS_M40"	"BS_M49"	"Spinal cord/r7/r8"	"Spinal V2a interneurons"	"Developmental progression"	242	251	234	227
+"Brain_spinal_cord"	"BS_M1"	"BS_M26"	"Anterior floor plate"	"Midbrain dopaminergic neurons"	"Developmental progression"	208	226	20	148
+"Brain_spinal_cord"	"BS_M7"	"BS_M16"	"Choroid plexus"	"Ependymal cells"	"Developmental progression"	261	215	51	85
+"Brain_spinal_cord"	"BS_M21"	"BS_M36"	"Hypothalamic Sim1 neurons"	"Precerebellar neurons"	"Developmental progression"	221	237	118	207
+"Brain_spinal_cord"	"BS_M47"	"BS_M36"	"Spinal V0 interneurons"	"Precerebellar neurons"	"Developmental progression"	249	237	225	207
+"Brain_spinal_cord"	"BS_M40"	"BS_M51"	"Spinal cord/r7/r8"	"Spinal V3 interneurons"	"Developmental progression"	242	254	234	229
+"Brain_spinal_cord"	"BS_M40"	"BS_M50"	"Spinal cord/r7/r8"	"Spinal V2b interneurons"	"Developmental progression"	242	253	234	228
+"Brain_spinal_cord"	"BS_M54"	"BS_M33"	"Telencephalon"	"Oligodendrocyte progenitor cells"	"Developmental progression"	257	234	249	180
+"Brain_spinal_cord"	"BS_M20"	"BS_M33"	"Hindbrain"	"Oligodendrocyte progenitor cells"	"Developmental progression"	220	234	115	180
+"Gastrulation_E8.5b"	"Ga_M11"	"B_M11"	"Blood progenitors"	"Hematopoietic stem cells (Cd34+)"	"Dataset equivalence"	27	183	35	111
+"Gastrulation_E8.5b"	"Ga_M29"	"PN_M4"	"Neural crest"	"Neural crest (PNS neurons)"	"Dataset equivalence"	45	134	167	169

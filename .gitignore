@@ -83,3 +83,5 @@ results/ucell/Lateral_plate_mesoderm/qc/*.csv
 
 !results/ucell/merged_all_systems_edge_filtered_with_shh.csv
 !results/ucell/full_scored_edges_with_pregastrulation.csv
+
+!results/ucell/tree**

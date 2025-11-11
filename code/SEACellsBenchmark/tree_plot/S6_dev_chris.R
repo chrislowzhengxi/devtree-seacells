@@ -26,6 +26,7 @@ library(tidygraph)
 library(RColorBrewer)
 library(grid)
 library(scales)   # For adding color scales
+library(viridis)
 
 if (!requireNamespace("gridExtra", quietly = TRUE)) install.packages("gridExtra")
 library(gridExtra)   # for grid.arrange()
@@ -55,13 +56,14 @@ library(grid)
 # work_path = "D:/projects/SHH/result/Qiu_TimeLapse/tree/"
 
 
-# # Chris 
-USER_ROOT <- "/project/imoskowitz/xyang2/chrislowzhengxi"
-# Chris settings
-# QiuFile_path = '/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/'
-QiuFile_path = "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/other/"
-work_path = "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/tree/"
-setwd(work_path)
+# # # Chris 
+# USER_ROOT <- "/project/imoskowitz/xyang2/chrislowzhengxi"
+# # Chris settings
+# # QiuFile_path = '/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/'
+# QiuFile_path = "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/other/"
+# work_path = "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/tree/"
+# setwd(work_path)
+
 
 # # ==== CHRIS PATHS: inputs vs outputs ====
 # USER_ROOT <- "/project/imoskowitz/xyang2/chrislowzhengxi"
@@ -87,18 +89,39 @@ setwd(work_path)
 
 
 
+# ==== PATHS: Read from Holly/Qiu, write to Chris ====
+INPUT_QIU_OTHER   <- "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/other"
+INPUT_HOLLY_TREE  <- "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/tree"
+OUTPUT_CHRIS_TREE <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/tree"
+
+# Make sure your output folder exists
+dir.create(OUTPUT_CHRIS_TREE, recursive = TRUE, showWarnings = FALSE)
+
+# Inputs
+nodes_path   <- file.path(INPUT_QIU_OTHER, "nodes.txt")
+edges_csv    <- file.path("/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell",
+                          "full_scored_edges_with_pregastrulation.csv")
+
+# Early object: prefer your copy if you place one in your output, else use Holly’s
+obj_candidates <- c(
+  file.path(OUTPUT_CHRIS_TREE, "obj_Early_PS.rds"),
+  file.path(INPUT_HOLLY_TREE,  "obj_Early_PS.rds")
+)
+obj_path <- obj_candidates[file.exists(obj_candidates)][1]  # may be NA if neither exists
+
+
 # Put these near the top, after you define QiuFile_path and work_path
 holly_results <- "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/tree/"
 
-obj_candidates <- c(
-  file.path(work_path, "obj_Early_PS.rds"),
-  file.path(holly_results, "obj_Early_PS.rds")
-)
+# obj_candidates <- c(
+#   file.path(work_path, "obj_Early_PS.rds"),
+#   file.path(holly_results, "obj_Early_PS.rds")
+# )
 
-obj_path <- obj_candidates[file.exists(obj_candidates)][1]
-if (is.na(obj_path)) {
-  stop("obj_Early_PS.rds not found in work_path or Holly's results folder.")
-}
+# obj_path <- obj_candidates[file.exists(obj_candidates)][1]
+# if (is.na(obj_path)) {
+#   stop("obj_Early_PS.rds not found in work_path or Holly's results folder.")
+# }
 
 obj_early <- readRDS(obj_path)
 df_cell_early <- obj_early@meta.data
@@ -130,7 +153,8 @@ mergeRedundantCelltype <- function(nodes_df, edges_df,
 # ------------------------------------------------------------
 
 
-nodes = read.table(paste0(QiuFile_path, "nodes.txt"), header=T, as.is=T, sep="\t")
+# nodes = read.table(paste0(QiuFile_path, "nodes.txt"), header=T, as.is=T, sep="\t")
+nodes <- read.table(nodes_path, header = TRUE, sep = "\t", as.is = TRUE)
 dim(nodes)  # [1] 283   4
 head(nodes)
             # system meta_group celltype_new celltype_num
@@ -257,7 +281,9 @@ length((unique(c(edges_sub$x, edges_sub$y))))  # 283
 
 dim(edges_sub) # [1] 366   6
 # tmp = read.table( file= paste0(QiuFile_path, "edges_sub.txt")) # 'No such file or directory'
-write.table(edges_sub, paste0(work_path, "edges_sub.txt"), row.names=F, sep="\t", quote=F)
+# write.table(edges_sub, paste0(work_path, "edges_sub.txt"), row.names=F, sep="\t", quote=F)
+write.table(edges_sub, file.path(OUTPUT_CHRIS_TREE, "edges_sub.txt"),
+            row.names = FALSE, sep = "\t", quote = FALSE)
 
 ## removing redundant nodes ##
 edges_sub$x_y = paste0(edges_sub$x, ":", edges_sub$y)
@@ -289,7 +315,7 @@ print(length(unique(c(edges_x$x, edges_x$y))))  # 262
 print(length(unique(c(edges_x$x_name, edges_x$y_name))))  # 262
 
 dim(edges_x)  # [1] 338   8  #!!!!!!!!!!!!!!!!
-write.table(edges_x, paste0(work_path, "edges_sub.txt"), row.names=F, sep="\t", quote=F)
+write.table(edges_x, file.path(OUTPUT_CHRIS_TREE, "nodes_sub.txt"), row.names=F, sep="\t", quote=F)
 
 # dim(nodes_sub)  # 262   4    #!!!!!!!!!!!!!!!!
 # nodes_sub = nodes[nodes$meta_group %in% c(edges_x$x, edges_x$y),]
@@ -302,7 +328,7 @@ message("nodes_sub rows: ", nrow(nodes_sub))
 message("unique node names in edges_x: ", length(unique(c(edges_x$x_name, edges_x$y_name))))
 
 # Save
-write.table(nodes_sub, paste0(work_path, "nodes_sub.txt"),
+write.table(nodes_sub, file.path(OUTPUT_CHRIS_TREE, "nodes_sub.txt"),
             row.names = FALSE, sep = "\t", quote = FALSE)
 
 
@@ -440,10 +466,10 @@ unique(tbs_final$nodes$system)
  # [9] "Renal"                  "Lateral_plate_mesoderm" "Blood"                  "Brain_spinal_cord"     
 # [13] "Mesoderm"               "Notochord" 
 
- write.table(tbs_final$nodes, file='nodes_filtered.txt', row.names=FALSE, sep='\t') #!!!!!!!
- write.table(tbs_final$edges, file='edges_filtered.txt', row.names=FALSE, sep='\t') #!!!!!!!
- 
- 
+ write.table(tbs_final$nodes, file = file.path("/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/tree/nodes_filtered.txt"), row.names=FALSE, sep='\t') #!!!!!!!
+ write.table(tbs_final$edges, file = file.path("/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/tree/edges_filtered.txt"), row.names=FALSE, sep='\t') #!!!!!!!
+
+
 # Create a graph object
 g <- graph_from_data_frame(d=tbs_final$edges[,c("x_id", "y_id")], 
 							vertices = tbs_final$nodes[,c("new_id", "meta_group", "celltype_new", "system")],
@@ -472,11 +498,83 @@ E(g)$label <- tbs_final$edges$edge_type
 E(g)$arrow.size <- 0.5
 E(g)$edge.width <- 0.5
 E(g)$edge.color <- "grey"
+
+
+# --- Try to attach SHH edge deltas (abs_delta, delta) robustly ---
+attach_edge_deltas <- function(tbs_edges,
+                               search_root = "/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell") {
+  # 1) First, check the already-loaded 'edges' object if it exists
+  candidates <- list()
+  if (exists("edges")) {
+    candidates <- c(candidates, list(edges))
+  }
+
+  # 2) Search the results tree for plausible files
+  found_files <- list.files(search_root,
+                            pattern = "(edge|Edges).*\\.(csv|rds)$",
+                            full.names = TRUE, recursive = TRUE)
+  # Always include your known file last as a fallback (even if it lacks deltas)
+  found_files <- unique(c(found_files,
+                          "/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/full_scored_edges_with_pregastrulation.csv"))
+
+  # Helper to read any file safely
+  read_any <- function(f) {
+    ext <- tolower(tools::file_ext(f))
+    if (ext == "csv") {
+      tryCatch(read.csv(f, check.names = FALSE), error = function(e) NULL)
+    } else if (ext == "rds") {
+      tryCatch(readRDS(f), error = function(e) NULL)
+    } else NULL
+  }
+
+  for (f in found_files) {
+    if (is.character(f)) {
+      df <- read_any(f)
+    } else {
+      df <- f
+      f <- "<in-memory 'edges'>"
+    }
+    if (is.null(df)) next
+
+    # Needs x_name, y_name and the delta columns
+    if (all(c("x_name","y_name") %in% names(df)) &&
+        all(c("abs_delta","delta") %in% names(df))) {
+
+      message("Merging SHH deltas from: ", f)
+      # Build join key on names (stable after collapsing)
+      tbs_edges$.key <- paste(tbs_edges$x_name, tbs_edges$y_name, sep = " :: ")
+      df$.key        <- paste(df$x_name,        df$y_name,        sep = " :: ")
+
+      keep_cols <- c(".key", "abs_delta", "delta")
+      out <- merge(tbs_edges, df[, keep_cols, drop = FALSE], by = ".key", all.x = TRUE)
+      out$.key <- NULL
+      return(out)
+    }
+  }
+
+  message("No file with both 'abs_delta' and 'delta' found. Proceeding without edge deltas.")
+  tbs_edges
+}
+
+# Apply it
+tbs_final$edges <- attach_edge_deltas(tbs_final$edges)
+
+# Flag availability
+have_edge_delta <- all(c("abs_delta","delta") %in% names(tbs_final$edges))
+
+
+# === Add SHH delta edge aesthetics ===
+stopifnot(length(E(g)) == nrow(tbs_final$edges))
+stopifnot(all(c("abs_delta","delta") %in% names(tbs_final$edges)))
+
+E(g)$abs_delta <- tbs_final$edges$abs_delta
+E(g)$delta     <- tbs_final$edges$delta
+
 names(edge.attributes(g))
 #[1] "label"      "arrow.size" "edge.width" "edge.color"
 
 
-pdf("myTree_filtered.pdf", width = 20, height = 6)
+pdf(file.path(OUTPUT_CHRIS_TREE, "myTree_filtered.pdf"), width = 20, height = 6)
 ggraph(g, layout = "tree") + 
   geom_edge_link(arrow = arrow(length = unit(2, 'mm')), end_cap = circle(3, 'mm')) +
   geom_node_point(aes(color = as.factor(system)), size = 4) +
@@ -491,7 +589,7 @@ dev.off()
 sub_sys = unique(tbs_final$nodes$system) %>%
 		setdiff(., c("Pre_gastrulation" , "Gastrulation"))
 
-pdf("myTree_filtered_perSystem.pdf", width = 8, height = 6)
+pdf(file.path(OUTPUT_CHRIS_TREE, "myTree_filtered_perSystem.pdf"), width = 8, height = 6)
 for( i in sub_sys){
 # i="Lateral_plate_mesoderm"
 	g_sub <- g %>%
@@ -551,7 +649,7 @@ dev.off()
 # ======= BEGIN ADD (final DAG plot) =======
 suppressPackageStartupMessages(library(ggraph))
 
-pdf(file.path(work_path, "myTree_filtered_sugiyama.pdf"), width = 20, height = 10)
+pdf(file.path(OUTPUT_CHRIS_TREE, "myTree_filtered_perSystem.pdf"), width = 20, height = 10)
 p <- ggraph(g, layout = "sugiyama") +
   geom_edge_link(arrow = arrow(length = unit(2, "mm")),
                  end_cap = circle(2, "mm"),
@@ -564,7 +662,7 @@ p <- ggraph(g, layout = "sugiyama") +
 print(p)
 dev.off()
 
-pdf(file.path(work_path, "myTree_filtered_sugiyama_unlabeled.pdf"), width = 20, height = 10)
+pdf(file.path(OUTPUT_CHRIS_TREE, "myTree_filtered_sugiyama_unlabeled.pdf"), width = 20, height = 10)
 p2 <- ggraph(g, layout = "sugiyama") +
   geom_edge_link(arrow = arrow(length = unit(2, "mm")),
                  end_cap = circle(2, "mm"),
@@ -574,6 +672,21 @@ p2 <- ggraph(g, layout = "sugiyama") +
   theme_void() +
   theme(legend.position = "bottom", plot.margin = margin(10, 10, 10, 10))
 print(p2)
+dev.off()
+
+
+
+pdf(file.path(OUTPUT_CHRIS_TREE, "myTree_filtered_sugiyama_SHHedges.pdf"), width = 20, height = 10)
+p <- ggraph(g, layout = "sugiyama") +
+  geom_edge_link(aes(edge_width = abs_delta, edge_colour = abs(delta)),
+                 arrow = arrow(length = unit(2, "mm")),
+                 end_cap = circle(2, "mm")) +
+  scale_edge_colour_viridis(name = "|delta|", option = "C", direction = 1) +
+  scale_edge_width(range = c(0.2, 2), guide = guide_legend(title = "abs_delta")) +
+  geom_node_point(aes(color = as.factor(system)), size = 2) +
+  theme_void() +
+  theme(legend.position = "bottom")
+print(p)
 dev.off()
 # ======= END ADD =======
 
