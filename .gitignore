@@ -79,3 +79,7 @@ notebooks/
 .idea/
 results/system_qc/Lateral_plate_mesoderm/figures/umap_Lateral_plate_mesoderm_genes_umap.pdf
 results/ucell/Lateral_plate_mesoderm/qc/*.csv
+
+
+!results/ucell/merged_all_systems_edge_filtered_with_shh.csv
+!results/ucell/full_scored_edges_with_pregastrulation.csv
