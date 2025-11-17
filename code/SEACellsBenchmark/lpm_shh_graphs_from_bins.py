@@ -242,11 +242,19 @@ def main():
     # B) % Low or Middle or High
     # Only Middle+High
     vals_B = dict(zip(tblB["celltype_new"], tblB["pct_midhigh"]))
+
+    if np.isclose(args.low_thr, args.high_thr):
+        title = f"{args.system} – % cells with SHH_UCell_score > {args.high_thr}"
+        vlabel = f"% SHH > {args.high_thr}"
+    else:
+        title = f"{args.system} – % cells with SHH in Middle/High (cutoffs {args.low_thr} / {args.high_thr})"
+        vlabel = "% SHH in Middle/High"
+
     _draw_graph(
         G, pos, vals_B,
-        title=f"{args.system} – % cells with SHH in Middle/High (cutoffs {args.low_thr} / {args.high_thr})",
+        title=title,
         out_png=outdir / f"graph_pct_shh_midhigh_{args.low_thr}_{args.high_thr}.png",
-        vlabel="% SHH in Middle/High"
+        vlabel=vlabel,
     )
 
 
