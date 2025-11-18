@@ -67,6 +67,8 @@ results/shendure_test_small/figures/
 # Ignore all CSVs
 *.csv
 
+R_libs/
+
 # But keep QC summaries or tables
 !results/**/qc/*.csv
 !results/**/summary*.csv
