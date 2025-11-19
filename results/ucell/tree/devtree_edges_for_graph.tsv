@@ -361,4 +361,4 @@ Gastrulation_E8.5b	Ga_M29	PN_M4	Neural crest	Neural crest (PNS neurons)	Dataset 
 Gastrulation_E8.5b	Ga_M32	M_M18	Paraxial mesoderm (Tbx6-)	Sclerotome	Dataset equivalence	0.196667493427993	0.196667493427993	0.0165324893609412	0.213199982788934	48	273
 Gastrulation_E8.5b	Ga_M12	L_M22	Cardiogenic mesoderm	Second heart field	Dataset equivalence	0.0788278012379385	0.0788278012379385	0.0031095907766375	0.081937392014576	28	167
 Gastrulation_E8.5b	Ga_M11	B_M11	Blood progenitors	Hematopoietic stem cells (Cd34+)	Dataset equivalence	0.0153890320550359	0.0153890320550359	0.0004122453548242	0.0158012774098601	27	183
-Lateral_plate_mesoderm	L_M22	L_M5	Second heart field	Atrial cardiomyocytes	Developmental progression	0.063567	-0.063567	NA	NA	167	176
+Lateral_plate_mesoderm	L_M22	L_M5	Second heart field	Atrial cardiomyocytes	Developmental progression	0.063567	-0.063567	0.081937392014576	0.0183703991705546	167	176
