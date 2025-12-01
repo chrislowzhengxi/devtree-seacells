@@ -226,6 +226,8 @@ def plot_violins_by_celltype(adata, system_tag, out_root, score_name=SCORE_NAME)
     print(f"[PLOT] wrote {pdf}")
 
 
+SUBSAMPLE_FRAC = 0.01
+
 def main():
     print("== Scanpy score_genes SHH scoring ==")
     print(f"h5-root   : {H5_ROOT}")
@@ -233,6 +235,7 @@ def main():
     print(f"systems   : {SYSTEMS}")
     print(f"score name: {SCORE_NAME}")
     print(f"log layer : {LOG_LAYER_NAME}")
+    print(f"subsample : {SUBSAMPLE_FRAC}")
 
     for system_tag in SYSTEMS:
         print("\n" + "=" * 60)
@@ -249,6 +252,14 @@ def main():
         # Optional: add system column if not present
         if "system" not in adata.obs.columns:
             adata.obs["system"] = system_tag
+        
+        if SUBSAMPLE_FRAC is not None and SUBSAMPLE_FRAC < 1.0:
+            n = adata.n_obs
+            k = max(1, int(round(n * float(SUBSAMPLE_FRAC))))
+            rng = np.random.default_rng(0)
+            sel = rng.choice(n, size=k, replace=False)
+            adata = adata[adata.obs_names[sel]].copy()
+            print(f"[SUBSAMPLE] {n} → {adata.n_obs} cells (fraction={SUBSAMPLE_FRAC})")
 
         # Create log-normalized layer if it is not already there
         if LOG_LAYER_NAME not in adata.layers:
