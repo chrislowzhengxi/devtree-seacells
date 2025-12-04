@@ -29,11 +29,16 @@ H5_ROOT = Path("/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added")
 
 OUT_ROOT = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes")
 
-# SYSTEMS = ["Mesoderm"]   # F 42701697 amd-hm
-SYSTEMS = ["Blood", "Notochord"]   # R bigmem 42701974
+# SYSTEMS = ["Mesoderm"]   # R 42703522 bigmem
+SYSTEMS = ["Neurons"]  # R 42703535 amd-hm
+
+# SYSTEMS = ["Blood", "Notochord"]   # Done bigmem 42702803
 # SYSTEMS = ["Eye", "PNS_glia", "PNS_neurons", "Renal"]   # Done 42701709 bigmem
 # SYSTEMS = ["Endothelium"]  # Done 42701714 caslake 
 # SYSTEMS = ["Gut"] # Done  42701721 amd
+# SYSTEMS = ["Epithelial_cells"]  # Done 42702528 caslake 
+# SYSTEMS = ["Neuroectoderm"]  # Done bigmem 42702841
+# SYSTEMS = ["Other_Brain_spinal_cord"]   # Done amd-hm 42702828
 
 
 SHH_GENES = ["Gli1", "Ptch1", "Hhip"]
@@ -101,34 +106,29 @@ def ensure_log1p_cpm_layer(adata, layer_name="log1p_cpm", target_sum=1_000_000):
 def run_score_genes_shh(adata, layer_name, score_name=SCORE_NAME):
     """
     Run scanpy.tl.score_genes on SHH_GENES using the specified layer.
-    For older Scanpy (no 'layer' arg), we temporarily set adata.X to that layer.
+    If none of the genes are present, fill scores with 0 and continue.
     """
-
-    # turn var_names into a plain Index to avoid any categorical weirdness
     varnames = pd.Index(adata.var_names.astype(str))
 
-    # keep only genes that are actually present
     present = [g for g in SHH_GENES if g in varnames]
     print(f"Requested SHH genes: {SHH_GENES}")
     print(f"Present in var_names: {present}")
 
     if len(present) == 0:
-        raise ValueError(
-            f"None of {SHH_GENES} found in adata.var_names. "
-            f"Example var_names[:10]: {list(varnames[:10])}"
-        )
+        print(f"[WARN] None of {SHH_GENES} found in adata.var_names for this system.")
+        print("[WARN] Filling adata.obs['{score_name}'] with zeros and skipping score_genes.")
+        adata.obs[score_name] = 0.0
+        return adata.obs[score_name]
 
-    # make sure the layer exists
     if layer_name not in adata.layers:
         raise KeyError(f"Layer '{layer_name}' not found in adata.layers")
 
-    # Temporarily point X to the chosen layer
     print(f"[SCORE_GENES] Using layer '{layer_name}' as adata.X for scoring.")
     adata.X = adata.layers[layer_name].copy()
 
     sc.tl.score_genes(
         adata,
-        gene_list=present,       # only the genes we actually found
+        gene_list=present,
         ctrl_as_ref=False,
         ctrl_size=50,
         gene_pool=None,
@@ -141,8 +141,8 @@ def run_score_genes_shh(adata, layer_name, score_name=SCORE_NAME):
 
     print(f"[SCORE_GENES] Wrote scores to adata.obs['{score_name}'].")
     print(adata.obs[score_name].describe())
-
     return adata.obs[score_name]
+
 
 # def run_score_genes_shh(adata, layer_name, score_name=SCORE_NAME):
 #     """
