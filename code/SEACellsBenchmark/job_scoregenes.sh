@@ -15,8 +15,8 @@
 ##SBATCH --mem=200G
 ##SBATCH --mem=256G
 ##SBATCH --mem=512G
-#SBATCH --mem=700G
-##SBATCH --mem=1T
+##SBATCH --mem=700G
+#SBATCH --mem=1T
 ##SBATCH --mem=2T
 
 
@@ -70,4 +70,6 @@ PY
 
 # Run (no activation needed)
 cd /project/imoskowitz/xyang2/chrislowzhengxi/code/SEACellsBenchmark/
-$PY scanpy_scoregenes_shh_LPM.py
+# $PY scanpy_scoregenes_shh_LPM.py
+$PY merge_brain_spinal_summaries.py
+
