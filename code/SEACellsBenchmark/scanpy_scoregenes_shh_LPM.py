@@ -30,7 +30,7 @@ H5_ROOT = Path("/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added")
 OUT_ROOT = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes")
 
 # SYSTEMS = ["Mesoderm"]   # R 42703522 bigmem
-SYSTEMS = ["Neurons"]  # R 42703535 amd-hm
+# SYSTEMS = ["Neurons"]  # Done 42703535 amd-hm
 
 # SYSTEMS = ["Blood", "Notochord"]   # Done bigmem 42702803
 # SYSTEMS = ["Eye", "PNS_glia", "PNS_neurons", "Renal"]   # Done 42701709 bigmem
@@ -39,6 +39,8 @@ SYSTEMS = ["Neurons"]  # R 42703535 amd-hm
 # SYSTEMS = ["Epithelial_cells"]  # Done 42702528 caslake 
 # SYSTEMS = ["Neuroectoderm"]  # Done bigmem 42702841
 # SYSTEMS = ["Other_Brain_spinal_cord"]   # Done amd-hm 42702828
+
+SYSTEMS = ["Blood"]   # R 42857416 # Done bigmem 42702803
 
 
 SHH_GENES = ["Gli1", "Ptch1", "Hhip"]
