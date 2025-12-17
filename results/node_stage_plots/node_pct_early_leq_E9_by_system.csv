@@ -1,0 +1,29 @@
+system,node,n_cells_total,n_cells_with_stage,n_cells_early_leq_E9,pct_early_among_staged,pct_early_among_all,celltype_new,celltype_num
+Lateral_plate_mesoderm,L_M1,3048,3012,0,0.0,0.0,Adrenocortical cells,3048
+Lateral_plate_mesoderm,L_M10,12120,11861,0,0.0,0.0,Gastrointestinal smooth muscle cells,12120
+Lateral_plate_mesoderm,L_M11,4598,4558,0,0.0,0.0,Gonad progenitor cells,4598
+Lateral_plate_mesoderm,L_M12,108,108,0,0.0,0.0,Granulosa cells,108
+Lateral_plate_mesoderm,L_M13,61542,60627,3026,0.0499117554884787,0.0491696727438172,Gut mesenchyme,61542
+Lateral_plate_mesoderm,L_M14,28242,27547,699,0.0253748139543325,0.0247503717867006,Hepatic mesenchyme,28242
+Lateral_plate_mesoderm,L_M15,294,294,0,0.0,0.0,Leydig cells,294
+Lateral_plate_mesoderm,L_M16,223422,222719,23,0.0001032691418334,0.0001029442042413,Limb mesenchyme progenitors,223422
+Lateral_plate_mesoderm,L_M17,74124,71695,0,0.0,0.0,Lung mesenchyme,74124
+Lateral_plate_mesoderm,L_M18,6376,6165,0,0.0,0.0,Meninges,6376
+Lateral_plate_mesoderm,L_M19,59211,57732,0,0.0,0.0,Mesothelial cells,59211
+Lateral_plate_mesoderm,L_M2,6938,6843,0,0.0,0.0,Airway smooth muscle cells,6938
+Lateral_plate_mesoderm,L_M20,9654,9452,348,0.0368176047397376,0.0360472343070229,Proepicardium,9654
+Lateral_plate_mesoderm,L_M21,22908,22277,0,0.0,0.0,Renal stromal cells,22908
+Lateral_plate_mesoderm,L_M22,3537,3537,1168,0.3302233531241165,0.3302233531241165,Second heart field,3537
+Lateral_plate_mesoderm,L_M23,1719,1719,0,0.0,0.0,Sertoli cells,1719
+Lateral_plate_mesoderm,L_M24,126741,126741,13203,0.1041730773782753,0.1041730773782753,Somatic mesoderm,126741
+Lateral_plate_mesoderm,L_M25,127703,126235,9488,0.075161405315483,0.0742973931700899,Splanchnic mesoderm,127703
+Lateral_plate_mesoderm,L_M26,24161,23229,0,0.0,0.0,Vascular smooth muscle cells,24161
+Lateral_plate_mesoderm,L_M27,11440,11384,0,0.0,0.0,Vascular smooth muscle cells (Pparg+),11440
+Lateral_plate_mesoderm,L_M28,3735,3727,0,0.0,0.0,Ventricular cardiomyocytes,3735
+Lateral_plate_mesoderm,L_M3,31010,31010,5517,0.1779103514995162,0.1779103514995162,Allantois,31010
+Lateral_plate_mesoderm,L_M4,25520,25256,2761,0.1093205574912892,0.1081896551724137,Amniotic mesoderm,25520
+Lateral_plate_mesoderm,L_M5,1286,1274,0,0.0,0.0,Atrial cardiomyocytes,1286
+Lateral_plate_mesoderm,L_M6,19285,19283,3842,0.1992428564020121,0.1992221934145709,Cardiopharyngeal mesoderm,19285
+Lateral_plate_mesoderm,L_M7,57543,57543,21063,0.3660393097335905,0.3660393097335905,Extraembryonic mesoderm,57543
+Lateral_plate_mesoderm,L_M8,28647,28641,4103,0.1432561712230718,0.1432261667888435,First heart field,28647
+Lateral_plate_mesoderm,L_M9,17991,17982,717,0.0398732065398732,0.0398532599633149,Foregut mesenchyme,17991

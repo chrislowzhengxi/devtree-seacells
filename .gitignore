@@ -99,3 +99,4 @@ results/ucell/Lateral_plate_mesoderm/qc/*.csv
 !/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/tree/qc
 
 !results/ucell/histograms/**
+!results/node_stage_plots**
