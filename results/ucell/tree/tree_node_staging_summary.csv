@@ -1,0 +1,232 @@
+system,celltype_new,n_cells,median_collection_day,frac_before_E9,pct_before_E9
+Blood,Activated T cells,1304,18.5,0.0,0.0
+Blood,Adipose tissue macrophages,2295,18.0,0.0,0.0
+Blood,B cell progenitors,1091,16.0,0.0,0.0
+Blood,B cells,19810,17.75,0.0,0.0
+Blood,Border-associated macrophages,44202,15.25,2.2623410705397947e-05,0.0022623410705397947
+Blood,Border-associated macrophages (Ms4a8a+),1739,17.75,0.0034502587694077054,0.3450258769407705
+Blood,Conventional dendritic cells,2711,16.5,0.0,0.0
+Blood,Definitive early erythroblasts (CD36-),801843,15.5,6.2356346566597205e-06,0.0006235634656659721
+Blood,Definitive erythroblasts (CD36+),75904,16.0,0.0,0.0
+Blood,Granulocytes,3000,15.75,0.0,0.0
+Blood,Hematopoietic stem cells (Cd34+),33790,14.25,0.0002071618822136727,0.020716188221367268
+Blood,Hematopoietic stem cells (Mpo+),16073,16.0,0.0,0.0
+Blood,Kupffer cells,20086,16.25,0.0,0.0
+Blood,Mast cells,13724,16.5,0.0,0.0
+Blood,Megakaryocyte-erythroid progenitors,11684,13.5,0.0005135227661759672,0.05135227661759672
+Blood,Megakaryocytes,12849,13.0,0.006926609074636159,0.6926609074636159
+Blood,Microglia,4814,14.75,0.0,0.0
+Blood,Monocytes,19886,16.25,5.0286633812732576e-05,0.005028663381273258
+Blood,Monocytic myeloid-derived suppressor cells,15537,17.0,0.0,0.0
+Blood,Natural killer cells,1441,17.0,0.0013879250520471894,0.13879250520471895
+Blood,Osteoclasts,2236,16.5,0.0,0.0
+Blood,PMN myeloid-derived suppressor cells,7503,18.0,0.0,0.0
+Blood,Plasmacytoid dendritic cells,709,16.25,0.0,0.0
+Blood,Primitive erythroid cells,108609,10.25,0.06884328186430222,6.884328186430222
+Blood,Regulatory T cells,4961,17.0,0.0,0.0
+Blood,T cells,22941,18.25,0.0,0.0
+Blood,T-NK progenitors,1083,14.75,0.0009233610341643582,0.09233610341643582
+Brain_spinal_cord,Anterior floor plate,16272,10.5,0.058321042281219274,5.832104228121928
+Brain_spinal_cord,Anterior roof plate,16098,9.75,0.10131693378059387,10.131693378059387
+Brain_spinal_cord,Astrocytes,54953,16.25,0.0,0.0
+Brain_spinal_cord,Cajal-Retzius cells,69992,13.5,0.0,0.0
+Brain_spinal_cord,Cerebellar Purkinje cells,22233,13.5,0.0,0.0
+Brain_spinal_cord,Cerebellum-related cells,4362,16.5,0.0,0.0
+Brain_spinal_cord,Choroid plexus,7519,14.0,0.0,0.0
+Brain_spinal_cord,Committed oligodendrocyte precursors,517,18.25,0.0,0.0
+Brain_spinal_cord,Cortical Interneurons (Prox1+),2868,17.0,0.0,0.0
+Brain_spinal_cord,Cranial motor neurons,21340,10.75,0.007450796626054358,0.7450796626054358
+Brain_spinal_cord,Deep-layer neurons,173279,15.25,0.0,0.0
+Brain_spinal_cord,Di/mesencephalon GABAergic neurons,15589,12.0,0.0,0.0
+Brain_spinal_cord,Di/mesencephalon glutamatergic neurons,30999,12.0,9.677731539727088e-05,0.009677731539727088
+Brain_spinal_cord,Diencephalon,77607,10.5,0.04460937802002397,4.460937802002396
+Brain_spinal_cord,Dorsal telencephalon,29602,11.25,0.01729612863995676,1.7296128639956758
+Brain_spinal_cord,Ependymal cells,2876,17.0,0.0,0.0
+Brain_spinal_cord,Floorplate and p3 domain,44983,9.75,0.08776648956272369,8.77664895627237
+Brain_spinal_cord,GABAergic cortical interneurons,396663,15.0,0.0,0.0
+Brain_spinal_cord,GABAergic neurons (after E13.0),222705,15.0,0.0,0.0
+Brain_spinal_cord,Glutamatergic neurons (after E13.0),399589,15.0,0.0,0.0
+Brain_spinal_cord,Hindbrain,197031,10.0,0.0898183534570702,8.98183534570702
+Brain_spinal_cord,Hypothalamic Sim1 neurons,19592,12.0,0.0007145773785218457,0.07145773785218457
+Brain_spinal_cord,Hypothalamus,53292,10.5,0.02585753959318472,2.5857539593184717
+Brain_spinal_cord,Hypothalamus (Sim1+),14611,10.0,0.029019232085415098,2.90192320854151
+Brain_spinal_cord,Intermediate neuronal progenitors,39765,14.0,0.0,0.0
+Brain_spinal_cord,Midbrain,144922,11.25,0.02393011413035978,2.3930114130359783
+Brain_spinal_cord,Midbrain dopaminergic neurons,5495,12.0,0.0,0.0
+Brain_spinal_cord,Midbrain-hindbrain boundary,66069,9.75,0.2211475881275636,22.11475881275636
+Brain_spinal_cord,Multiciliated ependymal cells,4597,17.0,0.0,0.0
+Brain_spinal_cord,NMPs and spinal cord progenitors,53726,9.25,0.39593492908461453,39.59349290846145
+Brain_spinal_cord,Neural progenitor cells (Neurod1+),23221,11.0,0.003402092933120882,0.3402092933120882
+Brain_spinal_cord,Neural progenitor cells (Ror1+),12210,17.5,0.0,0.0
+Brain_spinal_cord,Neurons (Slc17a8+),1955,12.25,0.0,0.0
+Brain_spinal_cord,Oligodendrocyte progenitor cells,11190,17.5,0.0,0.0
+Brain_spinal_cord,Posterior roof plate,11618,9.75,0.2239628163195042,22.396281631950423
+Brain_spinal_cord,Precerebellar neurons,1286,12.25,0.0,0.0
+Brain_spinal_cord,Spinal V0 interneurons,9397,11.25,0.0,0.0
+Brain_spinal_cord,Spinal V1 interneurons,31325,11.25,0.000446927374301676,0.0446927374301676
+Brain_spinal_cord,Spinal V2a interneurons,11065,11.5,0.0002711251694532309,0.02711251694532309
+Brain_spinal_cord,Spinal V2b interneurons,8575,11.5,0.0,0.0
+Brain_spinal_cord,Spinal V3 interneurons,4440,11.5,0.0,0.0
+Brain_spinal_cord,Spinal cord dorsal progenitors (after E13.0),8315,13.25,0.0,0.0
+Brain_spinal_cord,Spinal cord motor neurons,31656,10.5,0.0010108668182966893,0.10108668182966893
+Brain_spinal_cord,Spinal cord ventral progenitors (after E13.0),2020,13.25,0.0,0.0
+Brain_spinal_cord,Spinal cord/r7/r8,395472,10.0,0.06670004450378282,6.670004450378282
+Brain_spinal_cord,Spinal dI1 interneurons,35714,11.5,0.0,0.0
+Brain_spinal_cord,Spinal dI2 interneurons,21843,11.25,0.00032046880007325,0.032046880007325
+Brain_spinal_cord,Spinal dI3 interneurons,5430,11.75,0.0,0.0
+Brain_spinal_cord,Spinal dI4 interneurons,38632,12.0,0.0,0.0
+Brain_spinal_cord,Spinal dI5 interneurons,39157,11.75,0.0,0.0
+Brain_spinal_cord,Spinal dI6 interneurons,10964,11.5,0.0,0.0
+Brain_spinal_cord,Striatal projection neurons,6235,10.0,0.013151563753007217,1.3151563753007216
+Brain_spinal_cord,Subplate neurons,36014,17.75,0.0,0.0
+Brain_spinal_cord,Telencephalon,423466,12.5,0.00697576664950669,0.6975766649506691
+Brain_spinal_cord,Thalamic neuronal precursors,60233,14.333,0.0,0.0
+Brain_spinal_cord,Upper-layer neurons,98025,17.5,0.0,0.0
+Endothelium,Arterial endothelial cells,23467,10.0,0.09681680657945199,9.681680657945199
+Endothelium,Brain capillary endothelial cells,11681,13.0,8.56091088091773e-05,0.008560910880917729
+Endothelium,Brain pericytes,1690,16.0,0.0,0.0
+Endothelium,Endocardial cells,12239,10.0,0.05278209004003595,5.278209004003595
+Endothelium,Endothelium,89566,10.0,0.05556796105665096,5.5567961056650965
+Endothelium,Glomerular endothelial cells,10480,16.75,0.0,0.0
+Endothelium,Hematoendothelial progenitors,9693,9.0,0.5868152274837511,58.681522748375116
+Endothelium,Liver sinusoidal endothelial cells,18639,16.25,0.0,0.0
+Endothelium,Lymphatic vessel endothelial cells,10346,16.75,0.0,0.0
+Endothelium,Microvascular endothelial cells,2932,18.0,0.00034106412005457026,0.034106412005457026
+Endothelium,Pericytes,11742,14.25,0.0042582183614375746,0.42582183614375746
+Endothelium,Venous and capillary endothelial cells,29887,17.5,0.0,0.0
+Epithelial_cells,Amniotic ectoderm,11509,9.75,0.21643930836736466,21.643930836736466
+Epithelial_cells,Apical ectodermal ridge,6330,10.25,0.0001579778830963665,0.01579778830963665
+Epithelial_cells,Basal keratinocytes,13524,16.5,0.0,0.0
+Epithelial_cells,Bladder urothelial cells,547,17.0,0.0,0.0
+Epithelial_cells,Branchial arch epithelium,30699,14.0,6.51487019121144e-05,0.006514870191211441
+Epithelial_cells,Cochlear hair cells,260,17.0,0.0,0.0
+Epithelial_cells,Conjunctival goblet cells,569,17.0,0.0,0.0
+Epithelial_cells,Corneal epithelial cells,894,16.75,0.0,0.0
+Epithelial_cells,Dental epithelial cells,4351,16.75,0.0,0.0
+Epithelial_cells,Granular keratinocytes,34770,15.0,0.0,0.0
+Epithelial_cells,Lens epithelial cells,666,16.0,0.0,0.0
+Epithelial_cells,Nonsensory cochlear epithelium,30,18.0,0.0,0.0
+Epithelial_cells,Olfactory bulb cells,3654,14.333,0.0,0.0
+Epithelial_cells,Olfactory epithelial cells,30293,11.0,0.028224342257287163,2.8224342257287165
+Epithelial_cells,Olfactory pit cells,2080,9.75,0.057692307692307696,5.769230769230769
+Epithelial_cells,Otic epithelial cells,26676,10.25,0.07339931024141551,7.339931024141551
+Epithelial_cells,Parathyroid epithelial cells,204,13.75,0.0,0.0
+Epithelial_cells,Pineal gland,156,17.75,0.0,0.0
+Epithelial_cells,Pituitary gland cells,3187,15.0,0.0,0.0
+Epithelial_cells,Pituitary/Pineal gland progenitors,2431,12.25,0.0,0.0
+Epithelial_cells,Placodal area,59993,9.5,0.2506125714666711,25.06125714666711
+Epithelial_cells,Pre-epidermal keratinocytes,114345,10.0,0.07096068914250732,7.096068914250732
+Epithelial_cells,Primordial germ cells,1401,14.25,0.042112776588151324,4.211277658815132
+Epithelial_cells,Thymic epithelial cells,1014,15.5,0.0,0.0
+Epithelial_cells,Thyroid gland cells,987,16.5,0.00303951367781155,0.303951367781155
+Epithelial_cells,Tooth junctional epithelium,907,17.75,0.0,0.0
+Eye,Amacrine cells,2609,18.25,0.0,0.0
+Eye,Amacrine/Horizontal precursor cells,2382,17.0,0.0,0.0
+Eye,Bipolar precursor cells,1111,18.0,0.0,0.0
+Eye,Cholinergic amacrine cells,580,17.75,0.0,0.0
+Eye,Ciliary margin cells,583,13.5,0.0,0.0
+Eye,Cone precursor cells,2854,17.25,0.0,0.0
+Eye,Eye field,42528,9.5,0.3226815274642588,32.26815274642588
+Eye,Horizontal cells,488,16.5,0.0,0.0
+Eye,Iris pigment epithelium,242,16.5,0.0,0.0
+Eye,Naive retinal progenitor cells,23031,16.75,0.0,0.0
+Eye,Optic stalk,3450,10.75,0.0,0.0
+Eye,PV-containing retinal ganglion cells,822,15.75,0.0,0.0
+Eye,Photoreceptor precursor cells,1541,18.0,0.0,0.0
+Eye,Retinal ganglion cells,7184,16.0,0.0,0.0
+Eye,Retinal pigment cells,1878,12.5,0.0,0.0
+Eye,Retinal progenitor cells,4869,16.75,0.0,0.0
+Eye,Rod precursor cells,467,18.5,0.0,0.0
+Eye,Suprachiasmatic nucleus,4304,14.0,0.00046468401486988845,0.046468401486988845
+Gut,Airway club cells,2265,18.25,0.0,0.0
+Gut,Airway goblet cells,135,17.75,0.0,0.0
+Gut,Alveolar Type 1 cells,5304,18.25,0.0,0.0
+Gut,Alveolar Type 2 cells,7181,18.25,0.0,0.0
+Gut,Biliary epithelial cells,1115,16.0,0.0,0.0
+Gut,Extraembryonic visceral endoderm,1660,8.5,0.9114457831325301,91.144578313253
+Gut,Foregut epithelial cells,4026,16.75,0.0,0.0
+Gut,Gut,21284,9.75,0.19051869949257658,19.051869949257657
+Gut,Hepatocytes,161618,16.5,0.0008786150057543096,0.08786150057543096
+Gut,Intestinal enteroendocrine cells,220,17.0,0.0,0.0
+Gut,Intestinal goblet cells,955,16.75,0.0,0.0
+Gut,Lung cells (Eln+),254,18.0,0.0,0.0
+Gut,Lung progenitor cells,28817,16.25,0.0,0.0
+Gut,Midgut/Hindgut epithelial cells,30315,16.5,0.0,0.0
+Gut,Pancreatic acinar cells,3612,15.75,0.0,0.0
+Gut,Pancreatic islets,985,15.75,0.0010152284263959391,0.10152284263959391
+Lateral_plate_mesoderm,Adrenocortical cells,2184,16.75,0.0,0.0
+Lateral_plate_mesoderm,Airway smooth muscle cells,5021,16.75,0.0,0.0
+Lateral_plate_mesoderm,Allantois,31010,9.5,0.17791035149951628,17.79103514995163
+Lateral_plate_mesoderm,Amniotic mesoderm,25495,9.75,0.1082957442635811,10.82957442635811
+Lateral_plate_mesoderm,Atrial cardiomyocytes,1017,16.0,0.0,0.0
+Lateral_plate_mesoderm,Cardiopharyngeal mesoderm,19279,9.75,0.19928419523834223,19.928419523834222
+Lateral_plate_mesoderm,Extraembryonic mesoderm,57523,9.25,0.36616657684752185,36.616657684752184
+Lateral_plate_mesoderm,First heart field,28644,9.75,0.14324116743471582,14.324116743471581
+Lateral_plate_mesoderm,Foregut mesenchyme,17985,10.0,0.039866555462885735,3.9866555462885733
+Lateral_plate_mesoderm,Gastrointestinal smooth muscle cells,8084,16.5,0.0,0.0
+Lateral_plate_mesoderm,Gonad progenitor cells,4269,11.0,0.0,0.0
+Lateral_plate_mesoderm,Granulosa cells,76,17.25,0.0,0.0
+Lateral_plate_mesoderm,Gut mesenchyme,57852,11.0,0.05230588397981055,5.230588397981055
+Lateral_plate_mesoderm,Hepatic mesenchyme,25205,12.0,0.027732592739535808,2.7732592739535806
+Lateral_plate_mesoderm,Leydig cells,245,16.25,0.0,0.0
+Lateral_plate_mesoderm,Limb mesenchyme progenitors,223405,11.25,0.00010295203777892169,0.010295203777892168
+Lateral_plate_mesoderm,Lung mesenchyme,62687,16.0,0.0,0.0
+Lateral_plate_mesoderm,Meninges,5274,14.0,0.0,0.0
+Lateral_plate_mesoderm,Mesothelial cells,38610,14.0,0.0,0.0
+Lateral_plate_mesoderm,Proepicardium,9653,10.0,0.03605096861079457,3.605096861079457
+Lateral_plate_mesoderm,Renal stromal cells,12901,16.75,0.0,0.0
+Lateral_plate_mesoderm,Second heart field,3537,9.25,0.3302233531241165,33.02233531241165
+Lateral_plate_mesoderm,Sertoli cells,1220,16.0,0.0,0.0
+Lateral_plate_mesoderm,Somatic mesoderm,126739,9.75,0.10417472127758622,10.417472127758622
+Lateral_plate_mesoderm,Splanchnic mesoderm,125162,10.5,0.07580575574056024,7.580575574056024
+Lateral_plate_mesoderm,Vascular smooth muscle cells,16881,16.25,0.0,0.0
+Lateral_plate_mesoderm,Vascular smooth muscle cells (Pparg+),7440,17.25,0.0,0.0
+Lateral_plate_mesoderm,Ventricular cardiomyocytes,2223,16.75,0.0,0.0
+Mesoderm,Adipocyte cells (Cyp2e1+),4767,18.25,0.0,0.0
+Mesoderm,Adipocyte progenitor cells,19318,16.5,0.0,0.0
+Mesoderm,Brown adipocyte cells,42631,18.25,0.0,0.0
+Mesoderm,Chondrocytes (Atp1a2+),100724,13.25,0.0,0.0
+Mesoderm,Chondrocytes (Otor+),6933,16.5,0.0,0.0
+Mesoderm,Dermatome,167071,14.25,0.0,0.0
+Mesoderm,Dermomyotome,131044,9.75,0.09413632062513354,9.413632062513354
+Mesoderm,Early chondrocytes,135965,13.5,7.354833964623249e-06,0.0007354833964623249
+Mesoderm,Facial mesenchyme,379325,10.25,0.03766954458577737,3.766954458577737
+Mesoderm,Fibroblasts,506623,14.75,1.9738543256030617e-06,0.00019738543256030616
+Mesoderm,Mesodermal progenitors (Tbx6+),50325,9.25,0.387123695976155,38.7123695976155
+Mesoderm,Muscle progenitor cells,27017,11.5,0.002516933782433283,0.25169337824332827
+Mesoderm,Muscle progenitor cells (Prdm1+),5017,10.25,0.004185768387482559,0.4185768387482559
+Mesoderm,Myoblasts,160599,14.333,0.0,0.0
+Mesoderm,Myofibroblasts,42052,14.75,0.0,0.0
+Mesoderm,Myotubes,22555,16.5,0.0,0.0
+Mesoderm,Pre-osteoblasts (Sp7+),89417,16.75,0.0,0.0
+Mesoderm,Sclerotome,476291,10.5,0.04470586259240674,4.470586259240674
+Notochord,Ciliated nodal cells,60,8.0,1.0,100.0
+Notochord,Notochord,3747,9.5,0.31411796103549505,31.411796103549506
+PNS_glia,Melanocyte cells,2364,14.333,0.0,0.0
+PNS_glia,Myelinating Schwann cells,30156,14.0,0.0,0.0
+PNS_glia,Myelinating Schwann cells (Tgfb2+),5874,13.75,0.0,0.0
+PNS_glia,Neural crest (PNS glia),69779,10.0,0.1336648561888247,13.36648561888247
+PNS_glia,Olfactory ensheathing cells,2067,16.75,0.0,0.0
+PNS_glia,Satellite glial cells,4659,15.0,0.0,0.0
+PNS_neurons,Corticofugal neurons,1456,16.75,0.0,0.0
+PNS_neurons,Dorsal root ganglion neurons,9766,14.333,0.0,0.0
+PNS_neurons,Enteric neurons,4666,10.0,0.00964423489069867,0.9644234890698671
+PNS_neurons,Neural crest (PNS neurons),51136,11.0,0.002933354192740926,0.2933354192740926
+PNS_neurons,Olfactory sensory neurons,21895,15.25,0.0,0.0
+PNS_neurons,Otic sensory neurons,7767,11.0,0.000772499034376207,0.0772499034376207
+PNS_neurons,Parasympathetic neurons,5547,15.75,0.0,0.0
+PNS_neurons,Sympathetic neurons,13357,14.75,0.0,0.0
+Renal,Anterior intermediate mesoderm,7836,9.75,0.16653905053598775,16.653905053598773
+Renal,Ascending loop of Henle,1735,18.25,0.0,0.0
+Renal,Collecting duct intercalated cells,183,18.0,0.0,0.0
+Renal,Collecting duct principal cells,846,17.75,0.0,0.0
+Renal,Connecting tubule,254,18.0,0.0,0.0
+Renal,Distal convoluted tubule,642,18.0,0.0,0.0
+Renal,Metanephric mesenchyme,16939,16.25,0.0,0.0
+Renal,Nephron progenitors,11799,16.75,0.0,0.0
+Renal,Podocytes,2439,17.75,0.0,0.0
+Renal,Posterior intermediate mesoderm,10598,9.75,0.09407435365163239,9.407435365163238
+Renal,Proximal tubule cells,7700,18.0,0.0,0.0
+Renal,Renal pericytes and mesangial cells,7260,9.75,0.05509641873278237,5.5096418732782375
+Renal,Ureteric bud,3856,15.25,0.0,0.0
+Renal,Ureteric bud stalk,264,14.25,0.0,0.0

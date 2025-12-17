@@ -69,6 +69,10 @@ results/shendure_test_small/figures/
 
 R_libs/
 
+.RData
+.Rhistory
+Rplots.pdf
+
 # But keep QC summaries or tables
 !results/**/qc/*.csv
 !results/**/summary*.csv
@@ -87,3 +91,6 @@ results/ucell/Lateral_plate_mesoderm/qc/*.csv
 !results/ucell/full_scored_edges_with_pregastrulation.csv
 
 !results/ucell/tree**
+
+!results/score_genes/*/*_edge_filtered_with_shh_scoregenes.csv
+!results/ucell/*/*_edge_filtered_with_shh_scoregenes.csv

@@ -1,0 +1,28 @@
+celltype_new,n_cells,median,mean,q90,frac>0,variance,std
+Activated T cells,6621,0.0,0.0,0.0,0.0,0.0,0.0
+Adipose tissue macrophages,4190,0.0,0.0,0.0,0.0,0.0,0.0
+B cell progenitors,1295,0.0,0.0,0.0,0.0,0.0,0.0
+B cells,43057,0.0,0.0,0.0,0.0,0.0,0.0
+Border-associated macrophages,65191,0.0,0.0,0.0,0.0,0.0,0.0
+Border-associated macrophages (Ms4a8a+),4736,0.0,0.0,0.0,0.0,0.0,0.0
+Conventional dendritic cells,4582,0.0,0.0,0.0,0.0,0.0,0.0
+Definitive early erythroblasts (CD36-),929291,0.0,0.0,0.0,0.0,0.0,0.0
+Definitive erythroblasts (CD36+),92446,0.0,0.0,0.0,0.0,0.0,0.0
+Granulocytes,3547,0.0,0.0,0.0,0.0,0.0,0.0
+Hematopoietic stem cells (Cd34+),37750,0.0,0.0,0.0,0.0,0.0,0.0
+Hematopoietic stem cells (Mpo+),23128,0.0,0.0,0.0,0.0,0.0,0.0
+Kupffer cells,33417,0.0,0.0,0.0,0.0,0.0,0.0
+Mast cells,23828,0.0,0.0,0.0,0.0,0.0,0.0
+Megakaryocyte-erythroid progenitors,13436,0.0,0.0,0.0,0.0,0.0,0.0
+Megakaryocytes,14777,0.0,0.0,0.0,0.0,0.0,0.0
+Microglia,8382,0.0,0.0,0.0,0.0,0.0,0.0
+Monocytes,29268,0.0,0.0,0.0,0.0,0.0,0.0
+Monocytic myeloid-derived suppressor cells,24741,0.0,0.0,0.0,0.0,0.0,0.0
+Natural killer cells,2961,0.0,0.0,0.0,0.0,0.0,0.0
+Osteoclasts,3323,0.0,0.0,0.0,0.0,0.0,0.0
+PMN myeloid-derived suppressor cells,15382,0.0,0.0,0.0,0.0,0.0,0.0
+Plasmacytoid dendritic cells,1101,0.0,0.0,0.0,0.0,0.0,0.0
+Primitive erythroid cells,108610,0.0,0.0,0.0,0.0,0.0,0.0
+Regulatory T cells,9800,0.0,0.0,0.0,0.0,0.0,0.0
+T cells,70028,0.0,0.0,0.0,0.0,0.0,0.0
+T-NK progenitors,1901,0.0,0.0,0.0,0.0,0.0,0.0
