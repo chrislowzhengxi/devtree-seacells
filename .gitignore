@@ -94,3 +94,6 @@ results/ucell/Lateral_plate_mesoderm/qc/*.csv
 
 !results/score_genes/*/*_edge_filtered_with_shh_scoregenes.csv
 !results/ucell/*/*_edge_filtered_with_shh_scoregenes.csv
+
+
+!/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/tree/qc
