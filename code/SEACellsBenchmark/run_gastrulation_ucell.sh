@@ -5,19 +5,19 @@
 #SBATCH --account=pi-imoskowitz
 ##SBATCH --account=pi-xyang2
 
-#SBATCH --partition=bigmem
+##SBATCH --partition=bigmem
 ##SBATCH --partition=caslake
-##SBATCH --partition=amd-hm
+#SBATCH --partition=amd-hm
 ##SBATCH --partition=amd
 
 ## Tune these as needed:
-#SBATCH --mem=256G
-##SBATCH --mem=128G
+#SBATCH --mem=700G
+##SBATCH --mem=256G
 ##SBATCH --mem=512G
 #SBATCH --cpus-per-task=32
 
-#SBATCH --time=04:00:00
-##SBATCH --time=1-00:00:00
+##SBATCH --time=04:00:00
+#SBATCH --time=1-00:00:00
 
 #SBATCH --mail-type=END,FAIL
 #SBATCH --mail-user=chrislowzhengxi@uchicago.edu

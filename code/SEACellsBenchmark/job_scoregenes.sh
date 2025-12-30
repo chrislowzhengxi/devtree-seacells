@@ -5,18 +5,18 @@
 #SBATCH --account=pi-imoskowitz
 ##SBATCH --account=pi-xyang2
 
-#SBATCH --partition=bigmem
+##SBATCH --partition=bigmem
 ##SBATCH --partition=caslake
-##SBATCH --partition=amd-hm
+#SBATCH --partition=amd-hm
 ##SBATCH --partition=amd
 
 ##SBATCH --mem=64G
 ##SBATCH --mem=128G
 ##SBATCH --mem=200G
-#SBATCH --mem=256G
+##SBATCH --mem=256G
 ##SBATCH --mem=512G
 ##SBATCH --mem=700G
-##SBATCH --mem=1T
+#SBATCH --mem=1T
 ##SBATCH --mem=2T
 
 
@@ -71,5 +71,5 @@ PY
 # Run (no activation needed)
 cd /project/imoskowitz/xyang2/chrislowzhengxi/code/SEACellsBenchmark/
 # $PY scanpy_scoregenes_shh_LPM.py
-$PY scanpy_scoregenes_shh_LPM.py
+$PY scanpy_scoregenes_shh_new.py
 

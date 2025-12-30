@@ -14,8 +14,11 @@ message("== Gastrulation UCell + Edge integration ==")
 # ------------------------------------------------------------------
 system_tag    <- "Gastrulation"
 
-sce_in        <- "/project/imoskowitz/xyang2/chrislowzhengxi/data/gastrulation/mouse_gastrulation_sce_overlap_pd_labeled.rds"
-sce_out_ucell <- "/project/imoskowitz/xyang2/chrislowzhengxi/data/gastrulation/mouse_gastrulation_sce_overlap_pd_labeled_ucell.rds"
+# R 43754043 amd-hm
+# sce_in        <- "/project/imoskowitz/xyang2/chrislowzhengxi/data/gastrulation/mouse_gastrulation_sce_overlap_pd_labeled.rds"
+sce_in <- "/project/imoskowitz/xyang2/chrislowzhengxi/data/gastrulation/mouse_gastrulation_sce_clean_singlet.rds"
+# sce_out_ucell <- "/project/imoskowitz/xyang2/chrislowzhengxi/data/gastrulation/mouse_gastrulation_sce_overlap_pd_labeled_ucell.rds"
+sce_out_ucell <- "/project/imoskowitz/xyang2/chrislowzhengxi/data/gastrulation/mouse_gastrulation_sce_clean_singlet_ucell.rds"
 
 edges_txt     <- "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/other/edges.txt"
 nodes_txt     <- "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/other/nodes.txt"
@@ -42,19 +45,55 @@ message(sprintf("[INFO] ncores=%d", ncores))
 message("[LOAD] ", sce_in)
 sce <- readRDS(sce_in)
 
-stopifnot("celltype_update" %in% colnames(colData(sce)))
+# stopifnot("celltype_update" %in% colnames(colData(sce)))
+# if (!("system" %in% colnames(colData(sce)))) {
+#   colData(sce)$system <- system_tag
+# }
+# Ensure celltype_update exists (new singlet h5ad only has 'celltype')
+if (!("celltype_update" %in% colnames(colData(sce)))) {
+  if ("celltype" %in% colnames(colData(sce))) {
+    colData(sce)$celltype_update <- colData(sce)$celltype
+    message("[INFO] celltype_update created from celltype")
+  } else {
+    stop("Neither celltype_update nor celltype found in colData(sce)")
+  }
+}
+
 if (!("system" %in% colnames(colData(sce)))) {
   colData(sce)$system <- system_tag
 }
 
+
+
+# # ------------------------------------------------------------------
+# # Ensure SYMBOL rownames for UCell (your SCE rownames are Ensembl IDs)
+# # ------------------------------------------------------------------
+# syms <- as.character(rowData(sce)$SYMBOL)
+# keep <- !is.na(syms) & nzchar(syms)
+# sce  <- sce[keep, , drop = FALSE]
+# syms <- syms[keep]
+# rownames(sce) <- make.unique(syms)
 # ------------------------------------------------------------------
-# Ensure SYMBOL rownames for UCell (your SCE rownames are Ensembl IDs)
+# Ensure rownames are gene symbols (robust to h5ad conversion)
 # ------------------------------------------------------------------
-syms <- as.character(rowData(sce)$SYMBOL)
-keep <- !is.na(syms) & nzchar(syms)
-sce  <- sce[keep, , drop = FALSE]
-syms <- syms[keep]
-rownames(sce) <- make.unique(syms)
+symbol_candidates <- c(
+  "SYMBOL", "symbol", "gene_symbol", "Gene", "gene",
+  "feature_name", "features"
+)
+
+sym_col <- symbol_candidates[symbol_candidates %in% colnames(rowData(sce))][1]
+
+if (!is.na(sym_col)) {
+  syms <- trimws(as.character(rowData(sce)[[sym_col]]))
+  keep <- !is.na(syms) & nzchar(syms)
+  sce  <- sce[keep, , drop = FALSE]
+  syms <- syms[keep]
+  rownames(sce) <- make.unique(syms)
+  message("[INFO] rownames set from rowData(sce)$", sym_col)
+} else {
+  message("[WARN] No symbol column found; keeping existing rownames(sce)")
+}
+
 
 # Column-compressed sparse for speed
 cts <- counts(sce)
@@ -66,9 +105,22 @@ rm(cts); invisible(gc())
 # ------------------------------------------------------------------
 # UCell SHH scoring
 # ------------------------------------------------------------------
+# sig_genes <- c("Gli1","Ptch1","Hhip")
+# present   <- sig_genes[sig_genes %in% rownames(sce)]
+# if (!length(present)) stop("None of Gli1/Ptch1/Hhip found after SYMBOL mapping.")
 sig_genes <- c("Gli1","Ptch1","Hhip")
-present   <- sig_genes[sig_genes %in% rownames(sce)]
-if (!length(present)) stop("None of Gli1/Ptch1/Hhip found after SYMBOL mapping.")
+
+rn_lower <- tolower(rownames(sce))
+present  <- sig_genes[tolower(sig_genes) %in% rn_lower]
+
+if (!length(present)) {
+  stop("Signature genes not found. Check gene symbol mapping.")
+}
+
+# map back to exact rowname casing
+present <- rownames(sce)[match(tolower(present), rn_lower)]
+
+
 if (length(present) < length(sig_genes)) {
   message("[WARN] Missing: ", paste(setdiff(sig_genes, present), collapse = ", "))
 }
