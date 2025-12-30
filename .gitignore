@@ -100,3 +100,5 @@ results/ucell/Lateral_plate_mesoderm/qc/*.csv
 
 !results/ucell/histograms/**
 !results/node_stage_plots**
+
+!results/score_genes/tree**
