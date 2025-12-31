@@ -31,7 +31,7 @@
 # import scanpy as sc
 # from pathlib import Path
 
-# base = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes")
+# base = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new")
 
 # systems_to_merge = ["Other_Brain_spinal_cord", "Neurons"]
 # merged_system = "Brain_spinal_cord"
@@ -112,7 +112,7 @@ from pathlib import Path
 # -----------------------------
 merged_system = "Brain_spinal_cord"
 
-score_base = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes")
+score_base = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new")
 summary_path = score_base / merged_system / "qc" / f"{merged_system}_SHH_scoregenes_summary.csv"
 
 tree_edge_file = Path("/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/tree/edges_filtered.txt")

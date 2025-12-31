@@ -9,7 +9,7 @@ ucell_devtree = Path(
 
 # Target Scanpy combined file
 scanpy_full = Path(
-    "/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes/full_scored_edges_with_pregastrulation_scoregenes.csv"
+    "/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new/full_scored_edges_with_pregastrulation_scoregenes.csv"
 )
 
 print("[LOAD] UCell devtree:", ucell_devtree)

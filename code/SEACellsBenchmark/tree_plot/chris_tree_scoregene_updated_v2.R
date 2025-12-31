@@ -11,7 +11,7 @@ library(scales)
 library(RColorBrewer)
 library(tidyr)
 
-OUTPUT_CHRIS_TREE <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes/tree"
+OUTPUT_CHRIS_TREE <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new/tree"
 
 # 1) Load graph built by chris_tree_updated.R
 g <- readRDS(file.path(OUTPUT_CHRIS_TREE, "devtree_graph.rds"))

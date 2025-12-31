@@ -6,9 +6,9 @@ from pathlib import Path
 # -----------------------------
 # FILES
 # -----------------------------
-merged_file = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes/merged_all_systems_edge_filtered_with_shh_scoregenes.csv")
+merged_file = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new/merged_all_systems_edge_filtered_with_shh_scoregenes.csv")
 edges_file  = Path("/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/other/edges.txt")
-out_file    = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes/full_scored_edges_with_pregastrulation_scoregenes.csv")
+out_file    = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new/full_scored_edges_with_pregastrulation_scoregenes.csv")
 
 # -----------------------------
 # LOAD main merged Scanpy edges

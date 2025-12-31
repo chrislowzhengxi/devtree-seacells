@@ -42,28 +42,70 @@ def build_nodes_from_edges(df_edges: pd.DataFrame) -> pd.DataFrame:
     return df_nodes
 
 
+# def plot_mean_vs_pct_scanpy(df_nodes: pd.DataFrame, out_png: str, title: str):
+#     x = df_nodes["mean_scanpy"].to_numpy()
+#     y = df_nodes["pct_scanpy"].to_numpy()
+
+#     rho = pd.Series(x).corr(pd.Series(y), method="spearman")
+
+#     plt.figure(figsize=(6.5, 5.5))
+#     plt.scatter(x, y, s=14)
+
+#     # regression line for visualization
+#     if len(x) >= 2:
+#         m, b = np.polyfit(x, y, 1)
+#         xs = np.array([np.min(x), np.max(x)])
+#         ys = m * xs + b
+#         plt.plot(xs, ys)
+
+#     plt.xlabel("mean_scanpy (node mean)")
+#     plt.ylabel("%_scanpy (node frac>threshold)")
+#     plt.title(f"{title}\nSpearman rho = {rho:.3f}")
+
+#     plt.tight_layout()
+#     plt.savefig(out_png, dpi=300)
+#     print(f"[SAVE] {out_png}")
+
+
 def plot_mean_vs_pct_scanpy(df_nodes: pd.DataFrame, out_png: str, title: str):
+    rho = df_nodes["mean_scanpy"].corr(df_nodes["pct_scanpy"], method="spearman")
+
+    plt.figure(figsize=(7.5, 6))
+
+    # plot each system separately
+    for system in sorted(df_nodes["system"].unique()):
+        sub = df_nodes[df_nodes["system"] == system]
+        plt.scatter(
+            sub["mean_scanpy"],
+            sub["pct_scanpy"],
+            s=18,
+            alpha=0.8,
+            label=system
+        )
+
+    # regression line across ALL nodes
     x = df_nodes["mean_scanpy"].to_numpy()
     y = df_nodes["pct_scanpy"].to_numpy()
 
-    rho = pd.Series(x).corr(pd.Series(y), method="spearman")
-
-    plt.figure(figsize=(6.5, 5.5))
-    plt.scatter(x, y, s=14)
-
-    # regression line for visualization
     if len(x) >= 2:
         m, b = np.polyfit(x, y, 1)
-        xs = np.array([np.min(x), np.max(x)])
+        xs = np.array([x.min(), x.max()])
         ys = m * xs + b
         plt.plot(xs, ys)
 
     plt.xlabel("mean_scanpy (node mean)")
-    plt.ylabel("%_scanpy (node frac>threshold)")
+    plt.ylabel("%_scanpy (node frac > threshold)")
     plt.title(f"{title}\nSpearman rho = {rho:.3f}")
 
+    plt.legend(
+        loc="center left",
+        bbox_to_anchor=(1.02, 0.5),
+        frameon=False
+    )
+
     plt.tight_layout()
-    plt.savefig(out_png, dpi=300)
+    plt.savefig(out_png, dpi=300, bbox_inches="tight")
+    plt.close()
     print(f"[SAVE] {out_png}")
 
 

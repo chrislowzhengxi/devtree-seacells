@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 
 # Paths
-base = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes")
+base = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new")
 
 full_path = base / "full_scored_edges_with_pregastrulation_scoregenes.csv"
 gastr_path = base / "Gastrulation" / "Gastrulation_edge_filtered_with_shh_scoregenes.csv"

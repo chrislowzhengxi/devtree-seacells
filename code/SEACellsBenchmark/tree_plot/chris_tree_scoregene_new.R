@@ -176,8 +176,8 @@ library(scales)
 library(grid)
 
 INPUT_QIU_OTHER    <- "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/other"
-EDGES_CSV          <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes/full_scored_edges_with_pregastrulation_scoregenes.csv"
-OUTPUT_CHRIS_TREE  <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes/tree"
+EDGES_CSV          <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new/full_scored_edges_with_pregastrulation_scoregenes.csv"
+OUTPUT_CHRIS_TREE  <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new/tree"
 dir.create(OUTPUT_CHRIS_TREE, recursive = TRUE, showWarnings = FALSE)
 
 # --- Load inputs ---

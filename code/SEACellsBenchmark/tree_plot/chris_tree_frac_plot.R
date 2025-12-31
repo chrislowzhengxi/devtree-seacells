@@ -15,7 +15,8 @@ library(ggraph)
 library(colorspace)
 library(scales)
 
-tree_dir <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/tree"
+# tree_dir <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/tree"
+tree_dir <- "/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new/tree"
 
 # ---------- 1) Load inputs ----------
 

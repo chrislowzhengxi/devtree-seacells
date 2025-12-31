@@ -26,7 +26,8 @@ OUT_ROOT = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_
 # SYSTEMS = ["Blood"]  # Done
 # SYSTEMS = ["Endothelium", "Epithelial_cells", "Eye", "Gut", "Notochord", "PNS_glia", "PNS_neurons", "Renal", "Lateral_plate_mesoderm", "Neurons"]
 # amd-hm 43754137
-SYSTEMS = ["Other_Brain_spinal_cord", "Mesoderm"]  # 43754199
+# SYSTEMS = ["Other_Brain_spinal_cord", "Mesoderm"]  # 43754199
+SYSTEMS = ["Lateral_plate_mesoderm"]
 
 SHH_GENES = ["Gli1", "Ptch1", "Hhip"]
 SCORE_NAME = "SHH_scoregenes"
@@ -150,12 +151,91 @@ def save_outputs(adata, system_tag):
     print(f"[PLOT] wrote {png}")
 
 
+# def integrate_shh_scoregenes_with_edges_and_plot(system_tag: str, out_root: Path):
+#     """
+#     Use SHH_scoregenes per-node summary to build an edge table using Scanpy scores.
+#     """
+#     import numpy as np
+
+#     score_csv = out_root / system_tag / "qc" / f"{system_tag}_{SCORE_NAME}_summary.csv"
+#     if not score_csv.exists():
+#         print(f"[EDGE] Missing score summary: {score_csv}")
+#         return
+
+#     scores = pd.read_csv(score_csv)
+
+#     if "variance" not in scores.columns:
+#         scores["variance"] = np.nan
+#     if "std" not in scores.columns:
+#         scores["std"] = np.sqrt(scores["variance"])
+
+#     scores = scores.rename(columns={
+#         "celltype_new": "node_name",
+#         "mean": "sh_score",
+#         "n_cells": "n"
+#     })
+
+#     edge_file = Path(
+#         "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/tree/edges_filtered.txt"
+#     )
+#     if not edge_file.exists():
+#         print(f"[EDGE] Missing edge file: {edge_file}")
+#         return
+
+#     edges = pd.read_csv(edge_file, sep="\t")
+#     edges = edges.loc[edges["system"] == system_tag].copy()
+
+#     edges = edges.merge(
+#         scores.rename(columns={
+#             "node_name": "x_name",
+#             "sh_score": "sh_x",
+#             "variance": "variance_x",
+#             "std": "std_x",
+#             "n": "n_x"
+#         }),
+#         on="x_name", how="left"
+#     )
+
+#     edges = edges.merge(
+#         scores.rename(columns={
+#             "node_name": "y_name",
+#             "sh_score": "sh_y",
+#             "variance": "variance_y",
+#             "std": "std_y",
+#             "n": "n_y"
+#         }),
+#         on="y_name", how="left"
+#     )
+
+#     edges["abs_delta"] = (edges["sh_x"] - edges["sh_y"]).abs()
+#     edges["delta"] = edges["sh_y"] - edges["sh_x"]
+
+#     pooled_std = np.sqrt((edges["variance_x"] + edges["variance_y"]) / 2.0)
+#     edges["cohens_d"] = edges["delta"] / pooled_std.replace(0, np.nan)
+
+#     outdir = out_root / system_tag
+#     outdir.mkdir(parents=True, exist_ok=True)
+
+#     out_csv = outdir / f"{system_tag}_edge_filtered_with_shh_scoregenes.csv"
+#     out_txt = outdir / f"{system_tag}_edge_filtered_with_shh_scoregenes.txt"
+
+#     edges.to_csv(out_csv, index=False)
+#     edges.to_csv(out_txt, sep="\t", index=False, na_rep="")
+
+#     print(f"[EDGE] wrote {out_csv}")
+
+
 def integrate_shh_scoregenes_with_edges_and_plot(system_tag: str, out_root: Path):
     """
     Use SHH_scoregenes per-node summary to build an edge table using Scanpy scores.
     """
     import numpy as np
+    import pandas as pd
+    from pathlib import Path
 
+    # --------------------------------------------------
+    # 1) Load per-node SHH scoregenes summary
+    # --------------------------------------------------
     score_csv = out_root / system_tag / "qc" / f"{system_tag}_{SCORE_NAME}_summary.csv"
     if not score_csv.exists():
         print(f"[EDGE] Missing score summary: {score_csv}")
@@ -174,6 +254,9 @@ def integrate_shh_scoregenes_with_edges_and_plot(system_tag: str, out_root: Path
         "n_cells": "n"
     })
 
+    # --------------------------------------------------
+    # 2) Load edges
+    # --------------------------------------------------
     edge_file = Path(
         "/project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/tree/edges_filtered.txt"
     )
@@ -184,6 +267,35 @@ def integrate_shh_scoregenes_with_edges_and_plot(system_tag: str, out_root: Path
     edges = pd.read_csv(edge_file, sep="\t")
     edges = edges.loc[edges["system"] == system_tag].copy()
 
+    # --------------------------------------------------
+    # 3) LPM special-case fix (SHF -> Atrial CM)
+    # --------------------------------------------------
+    if system_tag == "Lateral_plate_mesoderm":
+        has_edge = (
+            (edges["x_name"] == "Second heart field") &
+            (edges["y_name"] == "Atrial cardiomyocytes")
+        ).any()
+
+        if not has_edge:
+            print("[EDGE][FIX] Adding missing SHF -> Atrial cardiomyocytes edge")
+
+            new_row = {
+                "system": system_tag,
+                "x": "L_M22",
+                "y": "L_M5",
+                "x_name": "Second heart field",
+                "y_name": "Atrial cardiomyocytes",
+                "edge_type": "Developmental progression",
+            }
+
+            edges = pd.concat(
+                [edges, pd.DataFrame([new_row])],
+                ignore_index=True
+            )
+
+    # --------------------------------------------------
+    # 4) Merge SHH scores onto x and y nodes
+    # --------------------------------------------------
     edges = edges.merge(
         scores.rename(columns={
             "node_name": "x_name",
@@ -192,7 +304,8 @@ def integrate_shh_scoregenes_with_edges_and_plot(system_tag: str, out_root: Path
             "std": "std_x",
             "n": "n_x"
         }),
-        on="x_name", how="left"
+        on="x_name",
+        how="left"
     )
 
     edges = edges.merge(
@@ -203,15 +316,23 @@ def integrate_shh_scoregenes_with_edges_and_plot(system_tag: str, out_root: Path
             "std": "std_y",
             "n": "n_y"
         }),
-        on="y_name", how="left"
+        on="y_name",
+        how="left"
     )
 
+    # --------------------------------------------------
+    # 5) Deltas and effect sizes
+    # --------------------------------------------------
     edges["abs_delta"] = (edges["sh_x"] - edges["sh_y"]).abs()
     edges["delta"] = edges["sh_y"] - edges["sh_x"]
 
     pooled_std = np.sqrt((edges["variance_x"] + edges["variance_y"]) / 2.0)
     edges["cohens_d"] = edges["delta"] / pooled_std.replace(0, np.nan)
+    edges["cohens_d"] = edges["cohens_d"].round(4)
 
+    # --------------------------------------------------
+    # 6) Write outputs
+    # --------------------------------------------------
     outdir = out_root / system_tag
     outdir.mkdir(parents=True, exist_ok=True)
 
@@ -222,7 +343,6 @@ def integrate_shh_scoregenes_with_edges_and_plot(system_tag: str, out_root: Path
     edges.to_csv(out_txt, sep="\t", index=False, na_rep="")
 
     print(f"[EDGE] wrote {out_csv}")
-
 
 
 def main():

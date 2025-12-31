@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 
 # Base directory for Scanpy score-gen codes
-base = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes")
+base = Path("/project/imoskowitz/xyang2/chrislowzhengxi/results/score_genes_new")
 
 # The full list of systems
 systems = [
