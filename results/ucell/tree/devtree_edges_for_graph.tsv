@@ -7,61 +7,19 @@ Pre_gastrulation	PGa_M5	PGa_M6	8-cell	Morula	Developmental progression	0.0496668
 Pre_gastrulation	PGa_M6	PGa_M7	Morula	Inner cell mass	Developmental progression	0.0333524714245279	0.0333524714245279	-0.0260435901372464	0.00730888128728157	6	7
 Pre_gastrulation	PGa_M6	PGa_M8	Morula	Trophectoderm	Developmental progression	0.00569784416857406	0.00569784416857406	0.00255680806334571	0.00825465223191977	6	8
 Pre_gastrulation	PGa_M8	PGa_M9	Trophectoderm	Extraembryonic ectoderm	Developmental progression	0.0149412719070293	0.0149412719070293	-0.00632485184687164	0.00861642006015765	8	9
-Pre_gastrulation	PGa_M7	PGa_M10	Inner cell mass	Hypoblast	Developmental progression	0.043168975167495	0.043168975167495	-0.000336023150085776	0.0428329520174092	7	10
+Pre_gastrulation	PGa_M7	PGa_M10	Inner cell mass	Hypoblast	Developmental progression	0.043168975167495	0.043168975167495	-0.00033602315008577	0.0428329520174092	7	10
 Pre_gastrulation	PGa_M10	PGa_M11	Hypoblast	Parietal endoderm	Developmental progression	0.00893257822377929	0.00893257822377929	-0.0170608785514716	-0.00812830032769231	10	11
 Pre_gastrulation	PGa_M10	PGa_M12	Hypoblast	Visceral endoderm	Developmental progression	0.0278328140786873	-0.0278328140786873	0.0175879594972566	-0.0102448545814307	10	12
 Pre_gastrulation	PGa_M12	PGa_M13	Visceral endoderm	Extraembryonic visceral endoderm	Developmental progression	0.0318312932735365	-0.0318312932735365	0.015555838708579	-0.0162754545649576	12	13
 Pre_gastrulation	PGa_M12	PGa_M14	Visceral endoderm	Embryonic visceral endoderm	Developmental progression	0.0109989745002856	0.0109989745002856	0.00132061395122432	0.0123195884515099	12	14
 Pre_gastrulation	PGa_M7	PGa_M15	Inner cell mass	Epiblast	Developmental progression	0.0116291359981384	-0.0116291359981384	0.00935018684504091	-0.0022789491530975	7	15
-Pre_gastrulation	PGa_M15	PGa_M16	Epiblast	Primitive streak	Developmental progression	0.000382719718414203	0.000382719718414203	-0.0171858492576648	-0.0168031295392506	15	16
+Pre_gastrulation	PGa_M15	PGa_M16	Epiblast	Primitive streak	Developmental progression	0.0003827197184142	0.0003827197184142	-0.0171858492576648	-0.0168031295392506	15	16
 Pre_gastrulation	PGa_M14	Ga_M4	Embryonic visceral endoderm	Embryonic visceral endoderm	Dataset equivalence	0.0238646399954748	-0.0238646399954748	0.00737501568164998	-0.0164896243138248	14	20
 Pre_gastrulation	PGa_M9	Ga_M1	Extraembryonic ectoderm	Extraembryonic ectoderm	Dataset equivalence	0.032189507773074	0.032189507773074	-0.01917765201658	0.013011855756494	9	17
 Pre_gastrulation	PGa_M15	Ga_M5	Epiblast	Epiblast	Dataset equivalence	0.00270392260207661	-0.00270392260207661	0.0175690060261455	0.0148650834240688	15	21
-Pre_gastrulation	PGa_M13	Ga_M3	Extraembryonic visceral endoderm	Extraembryonic visceral endoderm	Dataset equivalence	0.011861603585829	0.011861603585829	-0.000998518219725058	0.0108630853661039	13	19
+Pre_gastrulation	PGa_M13	Ga_M3	Extraembryonic visceral endoderm	Extraembryonic visceral endoderm	Dataset equivalence	0.011861603585829	0.011861603585829	-0.00099851821972505	0.0108630853661039	13	19
 Pre_gastrulation	PGa_M16	Ga_M6	Primitive streak	Primitive streak	Dataset equivalence	0.00961294687486867	-0.00961294687486867	-0.00369724727090521	-0.0133101941457739	16	22
 Pre_gastrulation	PGa_M11	Ga_M2	Parietal endoderm	Parietal endoderm	Dataset equivalence	0.0182618173494132	0.0182618173494132	-0.0136185908880788	0.0046432264613344	11	18
-Gastrulation	Ga_M10	Ga_M16	Anterior primitive streak	Definitive endoderm	Developmental progression	0.0008988730792401	-0.0008988730792401	0.0011593878312803	0.0002605147520401	26	32
-Gastrulation	Ga_M11	Ga_M33	Blood progenitors	Primitive erythroid cells	Developmental progression	1.82524335166588e-05	1.82524335166588e-05	0.0004122453548242	0.0004304977883409	27	49
-Gastrulation	Ga_M5	Ga_M6	Epiblast	Primitive streak	Developmental progression	3.72891561074408e-05	3.72891561074408e-05	0.0005461285412677	0.0005834176973751	21	22
-Gastrulation	Ga_M31	Ga_M25	Paraxial mesoderm (Tbx6+)	Intermediate mesoderm	Developmental progression	0.0020017368434559	0.0020017368434559	0.0069135722626425	0.0089153091060985	47	41
-Gastrulation	Ga_M4	Ga_M21	Embryonic visceral endoderm	Gut	Developmental progression	0.0170433672672069	0.0170433672672069	0.0010089065255731	0.0180522737927801	20	37
-Gastrulation	Ga_M15	Ga_M36	Definitive ectoderm	Surface ectoderm	Developmental progression	0.0005082564283151	-0.0005082564283151	0.0031198247049996	0.0026115682766845	31	52
-Gastrulation	Ga_M18	Ga_M7	Extraembryonic mesoderm	Allantois	Developmental progression	0.0194769924697331	-0.0194769924697331	0.0240241077019411	0.0045471152322079	34	23
-Gastrulation	Ga_M13	Ga_M32	Cardiopharyngeal mesoderm	Paraxial mesoderm (Tbx6-)	Developmental progression	0.006546541353313	0.006546541353313	0.0099859480076282	0.0165324893609412	29	48
-Gastrulation	Ga_M5	Ga_M15	Epiblast	Definitive ectoderm	Developmental progression	0.0025736961637319	0.0025736961637319	0.0005461285412677	0.0031198247049996	21	31
-Gastrulation	Ga_M14	Ga_M31	CLE and NMPs	Paraxial mesoderm (Tbx6+)	Developmental progression	0.0008219367569445	0.0008219367569445	0.006091635505698	0.0069135722626425	30	47
-Gastrulation	Ga_M15	Ga_M35	Definitive ectoderm	Spinal cord	Developmental progression	0.0125553174138633	0.0125553174138633	0.0031198247049996	0.015675142118863	31	51
-Gastrulation	Ga_M28	Ga_M31	Nascent mesoderm	Paraxial mesoderm (Tbx6+)	Developmental progression	0.0036909864701604	0.0036909864701604	0.0032225857924821	0.0069135722626425	44	47
-Gastrulation	Ga_M15	Ga_M27	Definitive ectoderm	Midbrain	Developmental progression	0.0007214709880875	0.0007214709880875	0.0031198247049996	0.0038412956930872	31	43
-Gastrulation	Ga_M14	Ga_M35	CLE and NMPs	Spinal cord	Developmental progression	0.009583506613165	0.009583506613165	0.006091635505698	0.015675142118863	30	51
-Gastrulation	Ga_M26	Ga_M25	Lateral plate mesoderm	Intermediate mesoderm	Developmental progression	0.0091154833142287	-0.0091154833142287	0.0180307924203273	0.0089153091060985	42	41
-Gastrulation	Ga_M15	Ga_M20	Definitive ectoderm	Forebrain	Developmental progression	0.0060921339296321	0.0060921339296321	0.0031198247049996	0.0092119586346318	31	36
-Gastrulation	Ga_M6	Ga_M28	Primitive streak	Nascent mesoderm	Developmental progression	0.0026391680951069	0.0026391680951069	0.0005834176973751	0.0032225857924821	22	44
-Gastrulation	Ga_M23	Ga_M11	Hematoendothelial progenitors	Blood progenitors	Developmental progression	0.0006877460915875	-0.0006877460915875	0.0010999914464117	0.0004122453548242	39	27
-Gastrulation	Ga_M36	Ga_M8	Surface ectoderm	Amniotic ectoderm	Developmental progression	0.0010515597949203	-0.0010515597949203	0.0026115682766845	0.0015600084817642	52	24
-Gastrulation	Ga_M28	Ga_M18	Nascent mesoderm	Extraembryonic mesoderm	Developmental progression	0.0208015219094589	0.0208015219094589	0.0032225857924821	0.0240241077019411	44	34
-Gastrulation	Ga_M16	Ga_M21	Definitive endoderm	Gut	Developmental progression	0.0177917590407399	0.0177917590407399	0.0002605147520401	0.0180522737927801	32	37
-Gastrulation	Ga_M18	Ga_M22	Extraembryonic mesoderm	Gut mesenchyme	Developmental progression	0.0503497055479284	0.0503497055479284	0.0240241077019411	0.0743738132498696	34	38
-Gastrulation	Ga_M23	Ga_M17	Hematoendothelial progenitors	Endothelium	Developmental progression	0.0003554791133047	-0.0003554791133047	0.0010999914464117	0.000744512333107	39	33
-Gastrulation	Ga_M18	Ga_M9	Extraembryonic mesoderm	Amniotic mesoderm	Developmental progression	0.0156367620229287	-0.0156367620229287	0.0240241077019411	0.0083873456790123	34	25
-Gastrulation	Ga_M36	Ga_M14	Surface ectoderm	CLE and NMPs	Developmental progression	0.0034800672290134	0.0034800672290134	0.0026115682766845	0.006091635505698	52	30
-Gastrulation	Ga_M26	Ga_M9	Lateral plate mesoderm	Amniotic mesoderm	Developmental progression	0.0096434467413149	-0.0096434467413149	0.0180307924203273	0.0083873456790123	42	25
-Gastrulation	Ga_M26	Ga_M12	Lateral plate mesoderm	Cardiogenic mesoderm	Developmental progression	0.0149212016436897	-0.0149212016436897	0.0180307924203273	0.0031095907766375	42	28
-Gastrulation	Ga_M15	Ga_M24	Definitive ectoderm	Hindbrain	Developmental progression	0.0071845680598582	0.0071845680598582	0.0031198247049996	0.0103043927648578	31	40
-Gastrulation	Ga_M7	Ga_M23	Allantois	Hematoendothelial progenitors	Developmental progression	0.0034471237857961	-0.0034471237857961	0.0045471152322079	0.0010999914464117	23	39
-Gastrulation	Ga_M28	Ga_M23	Nascent mesoderm	Hematoendothelial progenitors	Developmental progression	0.0021225943460704	-0.0021225943460704	0.0032225857924821	0.0010999914464117	44	39
-Gastrulation	Ga_M15	Ga_M34	Definitive ectoderm	Primordial germ cells	Developmental progression	0.0010908773365786	-0.0010908773365786	0.0031198247049996	0.002028947368421	31	50
-Gastrulation	Ga_M15	Ga_M29	Definitive ectoderm	Neural crest	Developmental progression	0.0028428945154481	-0.0028428945154481	0.0031198247049996	0.0002769301895515	31	45
-Gastrulation	Ga_M6	Ga_M34	Primitive streak	Primordial germ cells	Developmental progression	0.0014455296710458	0.0014455296710458	0.0005834176973751	0.002028947368421	22	50
-Gastrulation	Ga_M26	Ga_M22	Lateral plate mesoderm	Gut mesenchyme	Developmental progression	0.0563430208295422	0.0563430208295422	0.0180307924203273	0.0743738132498696	42	38
-Gastrulation	Ga_M10	Ga_M30	Anterior primitive streak	Notochord	Developmental progression	0.0303051313097094	0.0303051313097094	0.0011593878312803	0.0314645191409897	26	46
-Gastrulation	Ga_M6	Ga_M10	Primitive streak	Anterior primitive streak	Developmental progression	0.0005759701339051	0.0005759701339051	0.0005834176973751	0.0011593878312803	22	26
-Gastrulation	Ga_M28	Ga_M13	Nascent mesoderm	Cardiopharyngeal mesoderm	Developmental progression	0.006763362215146	0.006763362215146	0.0032225857924821	0.0099859480076282	44	29
-Gastrulation	Ga_M28	Ga_M34	Nascent mesoderm	Primordial germ cells	Developmental progression	0.0011936384240611	-0.0011936384240611	0.0032225857924821	0.002028947368421	44	50
-Gastrulation	Ga_M35	Ga_M19	Spinal cord	Floor plate	Developmental progression	0.0809006546080964	0.0809006546080964	0.015675142118863	0.0965757967269595	51	35
-Gastrulation	Ga_M14	Ga_M34	CLE and NMPs	Primordial germ cells	Developmental progression	0.0040626881372769	-0.0040626881372769	0.006091635505698	0.002028947368421	30	50
-Gastrulation	Ga_M28	Ga_M26	Nascent mesoderm	Lateral plate mesoderm	Developmental progression	0.0148082066278451	0.0148082066278451	0.0032225857924821	0.0180307924203273	44	42
-Gastrulation	Ga_M28	Ga_M32	Nascent mesoderm	Paraxial mesoderm (Tbx6-)	Developmental progression	0.013309903568459	0.013309903568459	0.0032225857924821	0.0165324893609412	44	48
 Notochord	No_M1	No_M2	Notochord	Ciliated nodal cells	Developmental progression	0.013803	0.013803	0.283269485903814	0.297072222222222	282	283
 Blood	B_M8	B_M9	Definitive early erythroblasts (CD36-)	Definitive erythroblasts (CD36+)	Developmental progression	0.014862	-0.014862	0.0188329592727741	0.0039714439901251	206	207
 Blood	B_M11	B_M18	Hematopoietic stem cells (Cd34+)	Monocytes	Developmental progression	0.010105	-0.010105	0.0158012774098601	0.0056960540901705	183	190
@@ -361,4 +319,46 @@ Gastrulation_E8.5b	Ga_M29	PN_M4	Neural crest	Neural crest (PNS neurons)	Dataset 
 Gastrulation_E8.5b	Ga_M32	M_M18	Paraxial mesoderm (Tbx6-)	Sclerotome	Dataset equivalence	0.196667493427993	0.196667493427993	0.0165324893609412	0.213199982788934	48	273
 Gastrulation_E8.5b	Ga_M12	L_M22	Cardiogenic mesoderm	Second heart field	Dataset equivalence	0.0788278012379385	0.0788278012379385	0.0031095907766375	0.081937392014576	28	167
 Gastrulation_E8.5b	Ga_M11	B_M11	Blood progenitors	Hematopoietic stem cells (Cd34+)	Dataset equivalence	0.0153890320550359	0.0153890320550359	0.0004122453548242	0.0158012774098601	27	183
+Gastrulation	Ga_M10	Ga_M16	Anterior primitive streak	Definitive endoderm	Developmental progression	NA	NA	NA	NA	26	32
+Gastrulation	Ga_M11	Ga_M33	Blood progenitors	Primitive erythroid cells	Developmental progression	NA	NA	NA	NA	27	49
+Gastrulation	Ga_M5	Ga_M6	Epiblast	Primitive streak	Developmental progression	NA	NA	0.00054818311025986	NA	21	22
+Gastrulation	Ga_M31	Ga_M25	Paraxial mesoderm (Tbx6+)	Intermediate mesoderm	Developmental progression	NA	NA	NA	0.00755111236271472	47	41
+Gastrulation	Ga_M4	Ga_M21	Embryonic visceral endoderm	Gut	Developmental progression	NA	NA	NA	0.0175498281786941	20	37
+Gastrulation	Ga_M15	Ga_M36	Definitive ectoderm	Surface ectoderm	Developmental progression	NA	NA	NA	0.00236789983284448	31	52
+Gastrulation	Ga_M18	Ga_M7	Extraembryonic mesoderm	Allantois	Developmental progression	NA	NA	NA	0.00258302808302808	34	23
+Gastrulation	Ga_M13	Ga_M32	Cardiopharyngeal mesoderm	Paraxial mesoderm (Tbx6-)	Developmental progression	NA	NA	NA	NA	29	48
+Gastrulation	Ga_M5	Ga_M15	Epiblast	Definitive ectoderm	Developmental progression	NA	NA	0.00054818311025986	NA	21	31
+Gastrulation	Ga_M14	Ga_M31	CLE and NMPs	Paraxial mesoderm (Tbx6+)	Developmental progression	NA	NA	NA	NA	30	47
+Gastrulation	Ga_M15	Ga_M35	Definitive ectoderm	Spinal cord	Developmental progression	NA	NA	NA	0.0187464117792626	31	51
+Gastrulation	Ga_M28	Ga_M31	Nascent mesoderm	Paraxial mesoderm (Tbx6+)	Developmental progression	NA	NA	0.00300795544948289	NA	44	47
+Gastrulation	Ga_M15	Ga_M27	Definitive ectoderm	Midbrain	Developmental progression	NA	NA	NA	NA	31	43
+Gastrulation	Ga_M14	Ga_M35	CLE and NMPs	Spinal cord	Developmental progression	NA	NA	NA	0.0187464117792626	30	51
+Gastrulation	Ga_M26	Ga_M25	Lateral plate mesoderm	Intermediate mesoderm	Developmental progression	NA	NA	NA	0.00755111236271472	42	41
+Gastrulation	Ga_M15	Ga_M20	Definitive ectoderm	Forebrain	Developmental progression	NA	NA	NA	NA	31	36
+Gastrulation	Ga_M6	Ga_M28	Primitive streak	Nascent mesoderm	Developmental progression	NA	NA	NA	0.00300795544948289	22	44
+Gastrulation	Ga_M23	Ga_M11	Hematoendothelial progenitors	Blood progenitors	Developmental progression	NA	NA	NA	NA	39	27
+Gastrulation	Ga_M36	Ga_M8	Surface ectoderm	Amniotic ectoderm	Developmental progression	NA	NA	0.00236789983284448	NA	52	24
+Gastrulation	Ga_M28	Ga_M18	Nascent mesoderm	Extraembryonic mesoderm	Developmental progression	NA	NA	0.00300795544948289	NA	44	34
+Gastrulation	Ga_M16	Ga_M21	Definitive endoderm	Gut	Developmental progression	NA	NA	NA	0.0175498281786941	32	37
+Gastrulation	Ga_M18	Ga_M22	Extraembryonic mesoderm	Gut mesenchyme	Developmental progression	NA	NA	NA	NA	34	38
+Gastrulation	Ga_M23	Ga_M17	Hematoendothelial progenitors	Endothelium	Developmental progression	NA	NA	NA	0.000517937679376794	39	33
+Gastrulation	Ga_M18	Ga_M9	Extraembryonic mesoderm	Amniotic mesoderm	Developmental progression	NA	NA	NA	NA	34	25
+Gastrulation	Ga_M36	Ga_M14	Surface ectoderm	CLE and NMPs	Developmental progression	NA	NA	0.00236789983284448	NA	52	30
+Gastrulation	Ga_M26	Ga_M9	Lateral plate mesoderm	Amniotic mesoderm	Developmental progression	NA	NA	NA	NA	42	25
+Gastrulation	Ga_M26	Ga_M12	Lateral plate mesoderm	Cardiogenic mesoderm	Developmental progression	NA	NA	NA	NA	42	28
+Gastrulation	Ga_M15	Ga_M24	Definitive ectoderm	Hindbrain	Developmental progression	NA	NA	NA	NA	31	40
+Gastrulation	Ga_M7	Ga_M23	Allantois	Hematoendothelial progenitors	Developmental progression	NA	NA	0.00258302808302808	NA	23	39
+Gastrulation	Ga_M28	Ga_M23	Nascent mesoderm	Hematoendothelial progenitors	Developmental progression	NA	NA	0.00300795544948289	NA	44	39
+Gastrulation	Ga_M15	Ga_M34	Definitive ectoderm	Primordial germ cells	Developmental progression	NA	NA	NA	NA	31	50
+Gastrulation	Ga_M15	Ga_M29	Definitive ectoderm	Neural crest	Developmental progression	NA	NA	NA	0.000321007502679529	31	45
+Gastrulation	Ga_M6	Ga_M34	Primitive streak	Primordial germ cells	Developmental progression	NA	NA	NA	NA	22	50
+Gastrulation	Ga_M26	Ga_M22	Lateral plate mesoderm	Gut mesenchyme	Developmental progression	NA	NA	NA	NA	42	38
+Gastrulation	Ga_M10	Ga_M30	Anterior primitive streak	Notochord	Developmental progression	NA	NA	NA	0.0360098180076628	26	46
+Gastrulation	Ga_M6	Ga_M10	Primitive streak	Anterior primitive streak	Developmental progression	NA	NA	NA	NA	22	26
+Gastrulation	Ga_M28	Ga_M13	Nascent mesoderm	Cardiopharyngeal mesoderm	Developmental progression	NA	NA	0.00300795544948289	NA	44	29
+Gastrulation	Ga_M28	Ga_M34	Nascent mesoderm	Primordial germ cells	Developmental progression	NA	NA	0.00300795544948289	NA	44	50
+Gastrulation	Ga_M35	Ga_M19	Spinal cord	Floor plate	Developmental progression	NA	NA	0.0187464117792626	NA	51	35
+Gastrulation	Ga_M14	Ga_M34	CLE and NMPs	Primordial germ cells	Developmental progression	NA	NA	NA	NA	30	50
+Gastrulation	Ga_M28	Ga_M26	Nascent mesoderm	Lateral plate mesoderm	Developmental progression	NA	NA	0.00300795544948289	NA	44	42
+Gastrulation	Ga_M28	Ga_M32	Nascent mesoderm	Paraxial mesoderm (Tbx6-)	Developmental progression	NA	NA	0.00300795544948289	NA	44	48
 Lateral_plate_mesoderm	L_M22	L_M5	Second heart field	Atrial cardiomyocytes	Developmental progression	0.063567	-0.063567	0.081937392014576	0.0183703991705546	167	176

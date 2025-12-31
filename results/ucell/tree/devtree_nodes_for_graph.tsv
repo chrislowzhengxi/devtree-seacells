@@ -18,39 +18,39 @@ Pre_gastrulation	PGa_M16	Primitive streak	-0.0102501884050779	16
 Gastrulation	Ga_M1	Extraembryonic ectoderm	0.013011855756494	17
 Gastrulation	Ga_M2	Parietal endoderm	0.0046432264613344	18
 Gastrulation	Ga_M3	Extraembryonic visceral endoderm	0.0108630853661039	19
-Gastrulation	Ga_M4	Embryonic visceral endoderm	-0.00774035889412585	20
-Gastrulation	Ga_M5	Epiblast	0.0053191135022014	21
-Gastrulation	Ga_M6	Primitive streak	-0.0021953046712547	22
-Gastrulation	Ga_M7	Allantois	0.0045471152322079	23
+Gastrulation	Ga_M4	Embryonic visceral endoderm	-0.0164896243138248	20
+Gastrulation	Ga_M5	Epiblast	0.00532048321486284	21
+Gastrulation	Ga_M6	Primitive streak	-0.0133101941457739	22
+Gastrulation	Ga_M7	Allantois	0.00323772379942135	23
 Gastrulation	Ga_M8	Amniotic ectoderm	0.0015600084817642	24
 Gastrulation	Ga_M9	Amniotic mesoderm	0.0083873456790123	25
-Gastrulation	Ga_M10	Anterior primitive streak	0.0011593878312803	26
+Gastrulation	Ga_M10	Anterior primitive streak	NA	26
 Gastrulation	Ga_M11	Blood progenitors	0.0004122453548242	27
 Gastrulation	Ga_M12	Cardiogenic mesoderm	0.0031095907766375	28
 Gastrulation	Ga_M13	Cardiopharyngeal mesoderm	0.0099859480076282	29
 Gastrulation	Ga_M14	CLE and NMPs	0.006091635505698	30
-Gastrulation	Ga_M15	Definitive ectoderm	0.0031198247049996	31
-Gastrulation	Ga_M16	Definitive endoderm	0.0002605147520401	32
-Gastrulation	Ga_M17	Endothelium	0.000744512333107	33
+Gastrulation	Ga_M15	Definitive ectoderm	NA	31
+Gastrulation	Ga_M16	Definitive endoderm	NA	32
+Gastrulation	Ga_M17	Endothelium	0.000687868669674448	33
 Gastrulation	Ga_M18	Extraembryonic mesoderm	0.0240241077019411	34
 Gastrulation	Ga_M19	Floor plate	0.0965757967269595	35
 Gastrulation	Ga_M20	Forebrain	0.0092119586346318	36
-Gastrulation	Ga_M21	Gut	0.0180522737927801	37
+Gastrulation	Ga_M21	Gut	0.0177173100500561	37
 Gastrulation	Ga_M22	Gut mesenchyme	0.0743738132498696	38
 Gastrulation	Ga_M23	Hematoendothelial progenitors	0.0010999914464117	39
 Gastrulation	Ga_M24	Hindbrain	0.0103043927648578	40
-Gastrulation	Ga_M25	Intermediate mesoderm	0.0089153091060985	41
+Gastrulation	Ga_M25	Intermediate mesoderm	0.00823321073440661	41
 Gastrulation	Ga_M26	Lateral plate mesoderm	0.0180307924203273	42
 Gastrulation	Ga_M27	Midbrain	0.0038412956930872	43
-Gastrulation	Ga_M28	Nascent mesoderm	0.0032225857924821	44
-Gastrulation	Ga_M29	Neural crest	0.0002769301895515	45
-Gastrulation	Ga_M30	Notochord	0.0314645191409897	46
+Gastrulation	Ga_M28	Nascent mesoderm	0.00300795544948289	44
+Gastrulation	Ga_M29	Neural crest	0.000287949517833507	45
+Gastrulation	Ga_M30	Notochord	0.0337371685743263	46
 Gastrulation	Ga_M31	Paraxial mesoderm (Tbx6+)	0.0069135722626425	47
 Gastrulation	Ga_M32	Paraxial mesoderm (Tbx6-)	0.0165324893609412	48
 Gastrulation	Ga_M33	Primitive erythroid cells	0.0004304977883409	49
 Gastrulation	Ga_M34	Primordial germ cells	0.002028947368421	50
-Gastrulation	Ga_M35	Spinal cord	0.015675142118863	51
-Gastrulation	Ga_M36	Surface ectoderm	0.0026115682766845	52
+Gastrulation	Ga_M35	Spinal cord	0.0175179039151028	51
+Gastrulation	Ga_M36	Surface ectoderm	0.00250713894361021	52
 Endothelium	En_M1	Arterial endothelial cells	NA	53
 Endothelium	En_M10	Microvascular endothelial cells	0.0209879089615931	54
 Endothelium	En_M11	Pericytes	0.0609145183604095	55
