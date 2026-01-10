@@ -4,6 +4,41 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+SYSTEMS_IN_ORDER = [
+    "Blood",
+    "Brain_spinal_cord",
+    "Endothelium",
+    "Epithelial_cells",
+    "Eye",
+    "Gastrulation",
+    "Gut",
+    "Lateral_plate_mesoderm",
+    "Mesoderm",
+    "Notochord",
+    "PNS_glia",
+    "PNS_neurons",
+    "Pre_gastrulation",
+    "Renal",
+]
+
+PALETTE = {
+    "Blood": "#E41A1C",
+    "Brain_spinal_cord": "#864F70",
+    "Endothelium": "#3881AF",
+    "Epithelial_cells": "#449C74",
+    "Eye": "#6FBF73",
+    "Gastrulation": "#806B87",
+    "Gut": "#AF597D",
+    "Lateral_plate_mesoderm": "#C65A14",
+    "Mesoderm": "#FFA60F",
+    "Notochord": "#FFEB2B",
+    "PNS_glia": "#DCBD2E",
+    "PNS_neurons": "#AC6228",
+    "Pre_gastrulation": "lightgrey",
+    "Renal": "#F781BF",
+}
+
+
 
 def build_nodes_from_edges(df_edges: pd.DataFrame) -> pd.DataFrame:
     df_x = pd.DataFrame()
@@ -32,10 +67,25 @@ def build_nodes_from_edges(df_edges: pd.DataFrame) -> pd.DataFrame:
 
     df_nodes_raw = pd.concat([df_x, df_y], axis=0, ignore_index=True)
 
-    df_nodes = df_nodes_raw.drop_duplicates(
-        subset=["system", "node_id"],
-        keep="first"
-    ).copy()
+    # df_nodes = df_nodes_raw.drop_duplicates(
+    #     subset=["system", "node_id"],
+    #     keep="first"
+    # ).copy()
+    df_nodes = (
+        df_nodes_raw
+        .groupby(["system", "node_id"], as_index=False)
+        .agg({
+            "mean_ucell": "mean",
+            "pct_ucell": "mean",
+            "n_cells": "max",
+            "median": "mean",
+            "q90": "mean",
+            "variance": "mean",
+            "std": "mean",
+            "node_name": "first",
+        })
+    )
+
 
     df_nodes = df_nodes.replace([np.inf, -np.inf], np.nan)
     df_nodes = df_nodes.dropna(subset=["mean_ucell", "pct_ucell"])
@@ -43,26 +93,70 @@ def build_nodes_from_edges(df_edges: pd.DataFrame) -> pd.DataFrame:
     return df_nodes
 
 
+# def plot_mean_vs_pct_ucell(df_nodes: pd.DataFrame, out_png: str, title: str):
+#     x = df_nodes["mean_ucell"].to_numpy(dtype=float)
+#     y = df_nodes["pct_ucell"].to_numpy(dtype=float)
+
+#     rho = pd.Series(x).corr(pd.Series(y), method="spearman")
+
+#     plt.figure(figsize=(6.5, 5.5))
+#     plt.scatter(x, y, s=12)
+
+#     if len(x) >= 2:
+#         m, b = np.polyfit(x, y, 1)
+#         xs = np.array([np.min(x), np.max(x)], dtype=float)
+#         ys = m * xs + b
+#         plt.plot(xs, ys)
+
+#     plt.xlabel("mean_UCell (node mean)")
+#     plt.ylabel("%_UCell (node frac>0)")
+#     plt.title(f"{title}\nSpearman rho = {rho:.3f}")
+#     plt.tight_layout()
+#     plt.savefig(out_png)
+#     plt.close()
+#     print(f"[SAVE] {out_png}")
+
+
 def plot_mean_vs_pct_ucell(df_nodes: pd.DataFrame, out_png: str, title: str):
-    x = df_nodes["mean_ucell"].to_numpy(dtype=float)
-    y = df_nodes["pct_ucell"].to_numpy(dtype=float)
+    rho = df_nodes["mean_ucell"].corr(df_nodes["pct_ucell"], method="spearman")
 
-    rho = pd.Series(x).corr(pd.Series(y), method="spearman")
+    plt.figure(figsize=(6.8, 5.8))
 
-    plt.figure(figsize=(6.5, 5.5))
-    plt.scatter(x, y, s=12)
+    for system in SYSTEMS_IN_ORDER:
+        sub = df_nodes[df_nodes["system"] == system]
+        if len(sub) == 0:
+            continue
 
-    if len(x) >= 2:
-        m, b = np.polyfit(x, y, 1)
-        xs = np.array([np.min(x), np.max(x)], dtype=float)
-        ys = m * xs + b
-        plt.plot(xs, ys)
+        plt.scatter(
+            sub["mean_ucell"],
+            sub["pct_ucell"],
+            s=18,
+            color=PALETTE.get(system, "black"),
+            label=system,
+            alpha=0.9,
+            edgecolors="none",
+        )
+
+    # regression line (all points)
+    x = df_nodes["mean_ucell"].to_numpy()
+    y = df_nodes["pct_ucell"].to_numpy()
+    m, b = np.polyfit(x, y, 1)
+    xs = np.array([x.min(), x.max()])
+    plt.plot(xs, m * xs + b, color="black", linewidth=2)
 
     plt.xlabel("mean_UCell (node mean)")
     plt.ylabel("%_UCell (node frac>0)")
     plt.title(f"{title}\nSpearman rho = {rho:.3f}")
+
+    plt.legend(
+        loc="best",
+        fontsize=8,
+        frameon=False,
+        markerscale=1.2,
+    )
+
     plt.tight_layout()
-    plt.savefig(out_png, dpi=300)
+    plt.savefig(out_png)
     plt.close()
     print(f"[SAVE] {out_png}")
 
@@ -97,7 +191,7 @@ def main():
                 sub.to_csv(out_nodes_csv, index=False)
                 print(f"[SAVE] {out_nodes_csv}")
 
-            out_png = os.path.join(args.out_dir, f"{safe_name(sys)}_dot_meanUCell_vs_pctUCell.png")
+            out_png = os.path.join(args.out_dir, f"{safe_name(sys)}_dot_meanUCell_vs_pctUCell.pdf")
             plot_mean_vs_pct_ucell(
                 sub,
                 out_png=out_png,
@@ -109,7 +203,7 @@ def main():
             df_nodes.to_csv(out_nodes_csv, index=False)
             print(f"[SAVE] {out_nodes_csv}")
 
-        out_png = os.path.join(args.out_dir, "ALL_systems_dot_meanUCell_vs_pctUCell.png")
+        out_png = os.path.join(args.out_dir, "ALL_systems_dot_meanUCell_vs_pctUCell.pdf")
         plot_mean_vs_pct_ucell(
             df_nodes,
             out_png=out_png,

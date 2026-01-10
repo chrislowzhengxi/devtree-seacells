@@ -5,6 +5,42 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
+SYSTEMS_IN_ORDER = [
+    "Blood",
+    "Brain_spinal_cord",
+    "Endothelium",
+    "Epithelial_cells",
+    "Eye",
+    "Gastrulation",
+    "Gut",
+    "Lateral_plate_mesoderm",
+    "Mesoderm",
+    "Notochord",
+    "PNS_glia",
+    "PNS_neurons",
+    "Pre_gastrulation",
+    "Renal",
+]
+
+PALETTE = {
+    "Blood": "#E41A1C",
+    "Brain_spinal_cord": "#864F70",
+    "Endothelium": "#3881AF",
+    "Epithelial_cells": "#449C74",
+    "Eye": "#6FBF73",
+    "Gastrulation": "#806B87",
+    "Gut": "#AF597D",
+    "Lateral_plate_mesoderm": "#C65A14",
+    "Mesoderm": "#FFA60F",
+    "Notochord": "#FFEB2B",
+    "PNS_glia": "#DCBD2E",
+    "PNS_neurons": "#AC6228",
+    "Pre_gastrulation": "lightgrey",
+    "Renal": "#F781BF",
+}
+
+
+
 def build_nodes_from_edges(df_edges: pd.DataFrame) -> pd.DataFrame:
     # x-side nodes
     df_x = pd.DataFrame()
@@ -74,13 +110,26 @@ def plot_mean_vs_pct_scanpy(df_nodes: pd.DataFrame, out_png: str, title: str):
 
     # plot each system separately
     for system in sorted(df_nodes["system"].unique()):
+        # sub = df_nodes[df_nodes["system"] == system]
+        # plt.scatter(
+        #     sub["mean_scanpy"],
+        #     sub["pct_scanpy"],
+        #     s=18,
+        #     alpha=0.8,
+        #     label=system
+        # )
         sub = df_nodes[df_nodes["system"] == system]
+        if len(sub) == 0:
+            continue
+
         plt.scatter(
             sub["mean_scanpy"],
             sub["pct_scanpy"],
             s=18,
-            alpha=0.8,
-            label=system
+            color=PALETTE.get(system, "black"),
+            alpha=0.85,
+            label=system,
+            edgecolors="none",
         )
 
     # regression line across ALL nodes
@@ -103,17 +152,27 @@ def plot_mean_vs_pct_scanpy(df_nodes: pd.DataFrame, out_png: str, title: str):
         frameon=False
     )
 
+
     plt.tight_layout()
+
+    # PNG
     plt.savefig(out_png, dpi=300, bbox_inches="tight")
+
+    # PDF (vector)
+    out_pdf = out_png.replace(".png", ".pdf")
+    plt.savefig(out_pdf, bbox_inches="tight")
+
     plt.close()
     print(f"[SAVE] {out_png}")
+    print(f"[SAVE] {out_pdf}")
+
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--edges_csv", required=True)
     ap.add_argument("--out_dir", required=True)
-    ap.add_argument("--system_name", default="Lateral_plate_mesoderm")
+    ap.add_argument("--system_name", default="ALL")
     args = ap.parse_args()
 
     os.makedirs(args.out_dir, exist_ok=True)

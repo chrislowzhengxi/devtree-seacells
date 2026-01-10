@@ -1,134 +1,40 @@
-# import argparse
-# import os
-# import numpy as np
-# import pandas as pd
-# import matplotlib.pyplot as plt
-
-
-# def build_nodes_from_edges(df_edges: pd.DataFrame, prefix: str) -> pd.DataFrame:
-#     # prefix is just for column naming downstream, not used for reading
-#     df_x = pd.DataFrame()
-#     df_x["system"] = df_edges["system"].astype(str)
-#     df_x["node_id"] = df_edges["x"].astype(str)
-#     df_x[f"mean_{prefix}"] = df_edges["sh_x"].astype(float)
-#     df_x[f"pct_{prefix}"] = df_edges["frac>0_x"].astype(float)
-
-#     df_y = pd.DataFrame()
-#     df_y["system"] = df_edges["system"].astype(str)
-#     df_y["node_id"] = df_edges["y"].astype(str)
-#     df_y[f"mean_{prefix}"] = df_edges["sh_y"].astype(float)
-#     df_y[f"pct_{prefix}"] = df_edges["frac>0_y"].astype(float)
-
-#     df_nodes = pd.concat([df_x, df_y], axis=0, ignore_index=True)
-#     df_nodes = df_nodes.drop_duplicates(subset=["system", "node_id"], keep="first").copy()
-
-#     df_nodes = df_nodes.replace([np.inf, -np.inf], np.nan)
-#     df_nodes = df_nodes.dropna(subset=[f"mean_{prefix}", f"pct_{prefix}"])
-
-#     return df_nodes
-
-
-# def plot_colored_by_system(df, xcol, ycol, out_png, title, legend_top_n=12):
-#     rho = df[xcol].corr(df[ycol], method="spearman")
-
-#     sys_counts = df["system"].value_counts()
-#     top_systems = list(sys_counts.index[:legend_top_n]) if legend_top_n > 0 else []
-
-#     plt.figure(figsize=(7.2, 6.2))
-
-#     for sys in top_systems:
-#         sub = df[df["system"] == sys]
-#         plt.scatter(sub[xcol], sub[ycol], s=12, label=sys)
-
-#     if len(top_systems) > 0:
-#         other = df[~df["system"].isin(top_systems)]
-#         if len(other) > 0:
-#             plt.scatter(other[xcol], other[ycol], s=12)
-
-#     # regression line for all points (visual only)
-#     x = df[xcol].to_numpy(dtype=float)
-#     y = df[ycol].to_numpy(dtype=float)
-#     if len(x) >= 2:
-#         m, b = np.polyfit(x, y, 1)
-#         xs = np.array([np.min(x), np.max(x)], dtype=float)
-#         ys = m * xs + b
-#         plt.plot(xs, ys)
-
-#     plt.xlabel(xcol)
-#     plt.ylabel(ycol)
-#     plt.title(f"{title}\nSpearman rho = {rho:.3f}")
-
-#     if legend_top_n > 0:
-#         plt.legend(loc="best", fontsize=8, frameon=False)
-
-#     plt.tight_layout()
-#     os.makedirs(os.path.dirname(out_png), exist_ok=True)
-#     plt.savefig(out_png, dpi=300)
-#     plt.close()
-#     print(f"[SAVE] {out_png}")
-
-
-# def main():
-#     ap = argparse.ArgumentParser()
-#     ap.add_argument("--ucell_edges", required=True)
-#     ap.add_argument("--scanpy_edges", required=True)
-#     ap.add_argument("--out_dir", required=True)
-#     ap.add_argument("--legend_top_n", type=int, default=12)
-#     args = ap.parse_args()
-
-#     df_ucell_edges = pd.read_csv(args.ucell_edges)
-#     df_scanpy_edges = pd.read_csv(args.scanpy_edges)
-#     df_scanpy_edges = df_scanpy_edges[df_scanpy_edges["system"] != "Gastrulation_E8.5b"].copy()
-
-#     needed = ["system", "x", "y", "sh_x", "sh_y", "frac>0_x", "frac>0_y"]
-#     df_scanpy_edges = df_scanpy_edges.dropna(subset=needed).copy()
-
-#     df_ucell_nodes = build_nodes_from_edges(df_ucell_edges, prefix="ucell")
-#     df_scanpy_nodes = build_nodes_from_edges(df_scanpy_edges, prefix="scanpy")
-
-#     # merge to align node sets
-#     df = df_ucell_nodes.merge(df_scanpy_nodes, on=["system", "node_id"], how="inner")
-
-#     # 1) mean_scanpy vs %_scanpy
-#     plot_colored_by_system(
-#         df=df,
-#         xcol="mean_scanpy",
-#         ycol="pct_scanpy",
-#         out_png=os.path.join(args.out_dir, "ALL_systems_dot_meanScanpy_vs_pctScanpy_coloredBySystem.png"),
-#         title="ALL systems: mean_scanpy vs %_scanpy (colored by system)",
-#         legend_top_n=args.legend_top_n,
-#     )
-
-#     # 2) mean_UCell vs mean_scanpy
-#     plot_colored_by_system(
-#         df=df,
-#         xcol="mean_ucell",
-#         ycol="mean_scanpy",
-#         out_png=os.path.join(args.out_dir, "ALL_systems_dot_meanUCell_vs_meanScanpy_coloredBySystem.png"),
-#         title="ALL systems: mean_UCell vs mean_scanpy (colored by system)",
-#         legend_top_n=args.legend_top_n,
-#     )
-
-#     # 3) %_UCell vs %_scanpy
-#     plot_colored_by_system(
-#         df=df,
-#         xcol="pct_ucell",
-#         ycol="pct_scanpy",
-#         out_png=os.path.join(args.out_dir, "ALL_systems_dot_pctUCell_vs_pctScanpy_coloredBySystem.png"),
-#         title="ALL systems: %_UCell vs %_scanpy (colored by system)",
-#         legend_top_n=args.legend_top_n,
-#     )
-
-
-# if __name__ == "__main__":
-#     main()
-
-
 import argparse
 import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
+SYSTEMS_IN_ORDER = [
+    "Blood",
+    "Brain_spinal_cord",
+    "Endothelium",
+    "Epithelial_cells",
+    "Eye",
+    "Gastrulation",
+    "Gut",
+    "Lateral_plate_mesoderm",
+    "Mesoderm",
+    "Notochord",
+    "PNS_glia",
+    "PNS_neurons",
+    "Renal",
+]
+
+PALETTE = {
+    "Blood": "#E41A1C",
+    "Brain_spinal_cord": "#864F70",
+    "Endothelium": "#3881AF",
+    "Epithelial_cells": "#449C74",
+    "Eye": "#6FBF73",
+    "Gastrulation": "#806B87",
+    "Gut": "#AF597D",
+    "Lateral_plate_mesoderm": "#C65A14",
+    "Mesoderm": "#FFA60F",
+    "Notochord": "#FFEB2B",
+    "PNS_glia": "#DCBD2E",
+    "PNS_neurons": "#AC6228",
+    "Renal": "#F781BF",
+}
 
 
 def build_nodes_from_edges(df_edges: pd.DataFrame, prefix: str) -> pd.DataFrame:
@@ -160,9 +66,25 @@ def plot_colored_by_system(df, xcol, ycol, out_png, title):
 
     plt.figure(figsize=(7.4, 6.2))
 
-    for sys in sorted(df["system"].unique()):
+    # for sys in sorted(df["system"].unique()):
+    #     sub = df[df["system"] == sys]
+    #     plt.scatter(sub[xcol], sub[ycol], s=14, label=sys)
+
+    for sys in SYSTEMS_IN_ORDER:
         sub = df[df["system"] == sys]
-        plt.scatter(sub[xcol], sub[ycol], s=14, label=sys)
+        if len(sub) == 0:
+            continue
+
+        plt.scatter(
+            sub[xcol],
+            sub[ycol],
+            s=18,
+            color=PALETTE.get(sys, "black"),
+            alpha=0.85,
+            label=sys,
+            edgecolors="none",
+        )
+
 
     # regression line
     if len(df) >= 2:
@@ -208,11 +130,13 @@ def main():
         how="outer"
     )
 
+    df = df[df["system"] != "Pre_gastrulation"].copy()
+
     plot_colored_by_system(
         df,
         "mean_ucell",
         "mean_scanpy",
-        os.path.join(args.out_dir, "ALL_meanUCell_vs_meanScanpy.png"),
+        os.path.join(args.out_dir, "ALL_meanUCell_vs_meanScanpy.pdf"),
         "ALL systems: mean_UCell vs mean_scanpy (colored by system)",
     )
 
@@ -220,7 +144,7 @@ def main():
         df,
         "pct_ucell",
         "pct_scanpy",
-        os.path.join(args.out_dir, "ALL_pctUCell_vs_pctScanpy.png"),
+        os.path.join(args.out_dir, "ALL_pctUCell_vs_pctScanpy.pdf"),
         "ALL systems: %_UCell vs %_scanpy (colored by system)",
     )
 
@@ -228,10 +152,13 @@ def main():
         df,
         "mean_scanpy",
         "pct_scanpy",
-        os.path.join(args.out_dir, "ALL_meanScanpy_vs_pctScanpy.png"),
+        os.path.join(args.out_dir, "ALL_meanScanpy_vs_pctScanpy.pdf"),
         "ALL systems: mean_scanpy vs %_scanpy (colored by system)",
     )
 
 
 if __name__ == "__main__":
     main()
+
+
+
