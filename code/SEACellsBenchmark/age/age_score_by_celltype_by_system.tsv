@@ -7,13 +7,13 @@ Blood	Microglia	4642	167.61999138302457
 Blood	T-NK progenitors	987	173.59270516717325
 Blood	Border-associated macrophages	42271	174.3246197156443
 Blood	Definitive early erythroblasts (CD36-)	741363	177.95703319426516
-Blood	Granulocytes	2845	183.51353251318102
+Blood	Granulocytes	2845	183.51353251318105
 Blood	B cell progenitors	1023	190.9090909090909
-Blood	Hematopoietic stem cells (Mpo+)	15396	196.37334372564302
+Blood	Hematopoietic stem cells (Mpo+)	15396	196.37334372564305
 Blood	Definitive erythroblasts (CD36+)	73181	198.67878274415492
 Blood	Kupffer cells	19084	199.47138964577655
 Blood	Plasmacytoid dendritic cells	685	200.1021897810219
-Blood	Monocytes	19516	201.30221356835418
+Blood	Monocytes	19516	201.30221356835415
 Blood	Conventional dendritic cells	2600	202.12153846153845
 Blood	Mast cells	13184	205.17324029126215
 Blood	Osteoclasts	2147	207.84257102934328
@@ -21,11 +21,67 @@ Blood	Natural killer cells	1400	215.30142857142857
 Blood	Monocytic myeloid-derived suppressor cells	15310	215.98628347485305
 Blood	Regulatory T cells	4765	216.06925498426023
 Blood	Border-associated macrophages (Ms4a8a+)	1728	221.07638888888889
-Blood	B cells	19693	227.87721525415122
+Blood	B cells	19693	227.8772152541512
 Blood	PMN myeloid-derived suppressor cells	7462	231.55320289466633
-Blood	Adipose tissue macrophages	2293	232.63148713475798
+Blood	Adipose tissue macrophages	2293	232.631487134758
 Blood	T cells	22815	237.15739644970415
 Blood	Activated T cells	1304	249.59815950920245
+Brain_spinal_cord	Spinal cord dorsal progenitors (after E13.0)	8087	9.551626066526524
+Brain_spinal_cord	Spinal cord ventral progenitors (after E13.0)	1965	10.283969465648855
+Brain_spinal_cord	NMPs and spinal cord progenitors	53719	28.92228075727396
+Brain_spinal_cord	Striatal projection neurons	6235	40.238011226944664
+Brain_spinal_cord	Spinal dI3 interneurons	5430	41.18674033149171
+Brain_spinal_cord	Midbrain-hindbrain boundary	66056	41.420673368051354
+Brain_spinal_cord	Anterior roof plate	16080	45.76194029850746
+Brain_spinal_cord	Precerebellar neurons	1286	46.52566096423017
+Brain_spinal_cord	Spinal V0 interneurons	9397	48.33138235607109
+Brain_spinal_cord	Posterior roof plate	11564	48.342960913178835
+Brain_spinal_cord	Floorplate and p3 domain	44899	49.6645359584846
+Brain_spinal_cord	Spinal dI6 interneurons	10964	49.82342210871945
+Brain_spinal_cord	Spinal dI1 interneurons	35714	51.697709581676655
+Brain_spinal_cord	Midbrain dopaminergic neurons	5495	51.807461328480436
+Brain_spinal_cord	Spinal V3 interneurons	4440	52.127027027027026
+Brain_spinal_cord	Spinal cord motor neurons	31602	52.61401177140687
+Brain_spinal_cord	Spinal V1 interneurons	31325	52.843288108539504
+Brain_spinal_cord	Neurons (Slc17a8+)	1938	53.869969040247675
+Brain_spinal_cord	Spinal dI2 interneurons	21843	54.27194066749073
+Brain_spinal_cord	GABAergic neurons (after E13.0)	205268	54.88970516592942
+Brain_spinal_cord	Spinal V2b interneurons	8575	55.17061224489796
+Brain_spinal_cord	Spinal cord/r7/r8	395141	55.24201234496041
+Brain_spinal_cord	Spinal V2a interneurons	11065	55.93095345684591
+Brain_spinal_cord	Di/mesencephalon GABAergic neurons	15589	56.80697928026172
+Brain_spinal_cord	Spinal dI5 interneurons	39157	56.82662103838394
+Brain_spinal_cord	Hypothalamus (Sim1+)	14571	57.179328803788344
+Brain_spinal_cord	Glutamatergic neurons (after E13.0)	372925	57.293584500905006
+Brain_spinal_cord	Hindbrain	196381	58.93865496152886
+Brain_spinal_cord	Ependymal cells	2872	59.201949860724234
+Brain_spinal_cord	Neural progenitor cells (Neurod1+)	23099	61.31694012727824
+Brain_spinal_cord	Spinal dI4 interneurons	38632	63.09008076206254
+Brain_spinal_cord	Di/mesencephalon glutamatergic neurons	30999	63.79579986451176
+Brain_spinal_cord	Anterior floor plate	16234	68.01318221017617
+Brain_spinal_cord	Hypothalamic Sim1 neurons	19592	69.27807268272764
+Brain_spinal_cord	Diencephalon	77273	71.9117932524944
+Brain_spinal_cord	Hypothalamus	52884	73.17982754708419
+Brain_spinal_cord	Cranial motor neurons	20964	80.65140240412136
+Brain_spinal_cord	Dorsal telencephalon	29378	83.26250936074614
+Brain_spinal_cord	Midbrain	143471	83.546291585059
+Brain_spinal_cord	Cerebellar Purkinje cells	21825	89.81388316151202
+Brain_spinal_cord	Intermediate neuronal progenitors	37282	104.67474920873345
+Brain_spinal_cord	Cerebellum-related cells	4226	105.05821107430194
+Brain_spinal_cord	Telencephalon	413590	105.6160883967214
+Brain_spinal_cord	Cajal-Retzius cells	67799	107.93929113998732
+Brain_spinal_cord	Choroid plexus	7264	109.89151982378854
+Brain_spinal_cord	Cortical Interneurons (Prox1+)	2800	115.78285714285714
+Brain_spinal_cord	Deep-layer neurons	164552	123.1566799552725
+Brain_spinal_cord	Upper-layer neurons	96626	124.57423467803697
+Brain_spinal_cord	Thalamic neuronal precursors	57266	126.67684140676842
+Brain_spinal_cord	Oligodendrocyte progenitor cells	10900	128.59706422018348
+Brain_spinal_cord	Committed oligodendrocyte precursors	512	128.98828125
+Brain_spinal_cord	Subplate neurons	35716	132.29868966289618
+Brain_spinal_cord	Astrocytes	52629	136.67400102605026
+Brain_spinal_cord	GABAergic cortical interneurons	380281	141.56633647224027
+Brain_spinal_cord	Neural progenitor cells (Ror1+)	12037	154.286782420869
+Brain_spinal_cord	Multiciliated ependymal cells	4451	164.39272073691305
 Endothelium	Hematoendothelial progenitors	9693	23.57660167130919
 Endothelium	Endothelium	87850	66.25058622652249
 Endothelium	Endocardial cells	12185	70.33762823143209
@@ -33,10 +89,10 @@ Endothelium	Arterial endothelial cells	23238	88.36405886909372
 Endothelium	Brain capillary endothelial cells	11258	130.07283709362233
 Endothelium	Pericytes	11678	153.8508306216818
 Endothelium	Brain pericytes	1609	174.89123679303916
-Endothelium	Liver sinusoidal endothelial cells	18008	193.09917814304754
+Endothelium	Liver sinusoidal endothelial cells	18008	193.0991781430475
 Endothelium	Lymphatic vessel endothelial cells	9999	197.36093609360935
-Endothelium	Glomerular endothelial cells	10331	211.72722872906786
-Endothelium	Venous and capillary endothelial cells	29811	223.67394585891114
+Endothelium	Glomerular endothelial cells	10331	211.72722872906783
+Endothelium	Venous and capillary endothelial cells	29811	223.6739458589111
 Endothelium	Microvascular endothelial cells	2888	226.46883656509695
 Epithelial_cells	Placodal area	59952	37.796737389911925
 Epithelial_cells	Amniotic ectoderm	11493	39.65753067084312
@@ -45,42 +101,42 @@ Epithelial_cells	Apical ectodermal ridge	6328	58.04962073324905
 Epithelial_cells	Pre-epidermal keratinocytes	112634	68.69843919242857
 Epithelial_cells	Otic epithelial cells	26153	79.68577218674722
 Epithelial_cells	Olfactory epithelial cells	29880	86.04779116465863
-Epithelial_cells	Pituitary/Pineal gland progenitors	2366	116.17328825021133
+Epithelial_cells	Pituitary/Pineal gland progenitors	2366	116.17328825021131
 Epithelial_cells	Primordial germ cells	1384	135.6112716763006
 Epithelial_cells	Branchial arch epithelium	29374	148.4110437802138
-Epithelial_cells	Parathyroid epithelial cells	199	149.87939698492463
+Epithelial_cells	Parathyroid epithelial cells	199	149.87939698492465
 Epithelial_cells	Olfactory bulb cells	3454	162.9258830341633
 Epithelial_cells	Granular keratinocytes	33413	163.4994163948164
 Epithelial_cells	Lens epithelial cells	654	180.3119266055046
-Epithelial_cells	Pituitary gland cells	2980	184.01073825503354
+Epithelial_cells	Pituitary gland cells	2980	184.01073825503352
 Epithelial_cells	Thymic epithelial cells	912	189.5065789473684
 Epithelial_cells	Thyroid gland cells	936	200.1153846153846
 Epithelial_cells	Basal keratinocytes	13356	203.63072776280325
-Epithelial_cells	Dental epithelial cells	4112	204.71060311284046
+Epithelial_cells	Dental epithelial cells	4112	204.7106031128405
 Epithelial_cells	Cochlear hair cells	248	212.1290322580645
 Epithelial_cells	Corneal epithelial cells	894	212.3489932885906
 Epithelial_cells	Conjunctival goblet cells	566	217.0600706713781
 Epithelial_cells	Bladder urothelial cells	536	217.88059701492537
-Epithelial_cells	Tooth junctional epithelium	905	225.30165745856354
+Epithelial_cells	Tooth junctional epithelium	905	225.3016574585635
 Epithelial_cells	Pineal gland	155	229.81935483870967
 Epithelial_cells	Nonsensory cochlear epithelium	30	231.4
 Eye	Eye field	42457	42.037449654945
 Eye	Optic stalk	3437	75.8946755891766
-Eye	Retinal pigment cells	1850	130.67027027027027
+Eye	Retinal pigment cells	1850	130.6702702702703
 Eye	Ciliary margin cells	553	143.5117540687161
 Eye	Suprachiasmatic nucleus	4116	155.09475218658892
-Eye	Retinal ganglion cells	6903	192.88222511951327
+Eye	Retinal ganglion cells	6903	192.8822251195133
 Eye	PV-containing retinal ganglion cells	742	195.9946091644205
-Eye	Naive retinal progenitor cells	22496	198.40007112375534
+Eye	Naive retinal progenitor cells	22496	198.40007112375537
 Eye	Iris pigment epithelium	236	205.04237288135593
-Eye	Retinal progenitor cells	4757	206.32835820895522
+Eye	Retinal progenitor cells	4757	206.3283582089552
 Eye	Horizontal cells	471	208.59872611464968
 Eye	Amacrine/Horizontal precursor cells	2320	211.83362068965516
 Eye	Cone precursor cells	2793	215.59183673469389
 Eye	Cholinergic amacrine cells	580	229.10689655172413
 Eye	Bipolar precursor cells	1105	230.51945701357465
 Eye	Photoreceptor precursor cells	1540	235.05974025974027
-Eye	Amacrine cells	2609	239.25028746646223
+Eye	Amacrine cells	2609	239.25028746646225
 Eye	Rod precursor cells	467	249.7901498929336
 Gastrulation	Epiblast	11315	11.864781263809103
 Gastrulation	Primitive streak	7573	13.526739733262907
@@ -91,7 +147,7 @@ Gastrulation	Embryonic visceral endoderm	1260	18.9
 Gastrulation	Definitive endoderm	354	19.915254237288135
 Gastrulation	Extraembryonic ectoderm	10351	21.528354748333495
 Gastrulation	Primordial germ cells	380	23.352631578947367
-Gastrulation	Extraembryonic visceral endoderm	8894	26.191814706543738
+Gastrulation	Extraembryonic visceral endoderm	8894	26.191814706543735
 Gastrulation	Definitive ectoderm	6516	30.74585635359116
 Gastrulation	Notochord	952	30.78781512605042
 Gastrulation	Blood progenitors	2978	31.811282740094025
@@ -114,7 +170,7 @@ Gastrulation	Spinal cord	2150	42.88744186046512
 Gastrulation	Cardiogenic mesoderm	877	43.47776510832383
 Gastrulation	Endothelium	982	43.753564154786154
 Gastrulation	Forebrain	1429	44.372288313505955
-Gastrulation	Floor plate	258	44.651162790697676
+Gastrulation	Floor plate	258	44.65116279069768
 Gastrulation	Midbrain	1228	44.960912052117266
 Gastrulation	Hindbrain	1075	45.36
 Gastrulation	Neural crest	721	46.70180305131761
@@ -124,7 +180,7 @@ Gut	Pancreatic islets	932	175.59656652360516
 Gut	Pancreatic acinar cells	3480	178.75689655172414
 Gut	Biliary epithelial cells	1066	189.03377110694183
 Gut	Lung progenitor cells	28164	190.24243715381337
-Gut	Foregut epithelial cells	3988	193.19608826479438
+Gut	Foregut epithelial cells	3988	193.1960882647944
 Gut	Hepatocytes	156655	193.30421627142445
 Gut	Midgut/Hindgut epithelial cells	29802	206.90738876585465
 Gut	Intestinal goblet cells	952	209.14915966386556
@@ -134,7 +190,7 @@ Gut	Lung cells (Eln+)	254	235.13385826771653
 Gut	Airway club cells	2265	241.7801324503311
 Gut	Alveolar Type 1 cells	5304	243.9445701357466
 Gut	Alveolar Type 2 cells	7181	246.2105556329202
-Lateral_plate_mesoderm	Extraembryonic mesoderm	57523	29.146045929454306
+Lateral_plate_mesoderm	Extraembryonic mesoderm	57523	29.146045929454303
 Lateral_plate_mesoderm	Second heart field	3537	31.608142493638677
 Lateral_plate_mesoderm	Allantois	31010	37.013866494679135
 Lateral_plate_mesoderm	Cardiopharyngeal mesoderm	19277	39.60180526015459
@@ -155,7 +211,7 @@ Lateral_plate_mesoderm	Lung mesenchyme	60258	186.1941650901125
 Lateral_plate_mesoderm	Sertoli cells	1220	188.07049180327868
 Lateral_plate_mesoderm	Vascular smooth muscle cells	15949	193.91861558718415
 Lateral_plate_mesoderm	Leydig cells	245	203.0938775510204
-Lateral_plate_mesoderm	Gastrointestinal smooth muscle cells	7825	204.00230031948882
+Lateral_plate_mesoderm	Gastrointestinal smooth muscle cells	7825	204.0023003194888
 Lateral_plate_mesoderm	Renal stromal cells	12270	206.5232273838631
 Lateral_plate_mesoderm	Adrenocortical cells	2148	210.3072625698324
 Lateral_plate_mesoderm	Airway smooth muscle cells	4926	211.0937880633374
@@ -175,19 +231,19 @@ Mesoderm	Myofibroblasts	39998	164.56092804640232
 Mesoderm	Myoblasts	149216	164.72616877546645
 Mesoderm	Fibroblasts	473634	170.01540429952243
 Mesoderm	Myotubes	22340	188.9094897045658
-Mesoderm	Adipocyte progenitor cells	19151	203.78163020207822
+Mesoderm	Adipocyte progenitor cells	19151	203.78163020207825
 Mesoderm	Chondrocytes (Otor+)	6521	207.51019782241988
-Mesoderm	Pre-osteoblasts (Sp7+)	86242	210.29387073583638
+Mesoderm	Pre-osteoblasts (Sp7+)	86242	210.2938707358364
 Mesoderm	Brown adipocyte cells	42631	240.0931716356642
-Mesoderm	Adipocyte cells (Cyp2e1+)	4767	244.94776589049718
-Notochord	Ciliated nodal cells	60	3.9999999999999996
+Mesoderm	Adipocyte cells (Cyp2e1+)	4767	244.9477658904972
+Notochord	Ciliated nodal cells	60	4
 Notochord	Notochord	3745	33.848331108144194
-PNS_glia	Neural crest (PNS glia)	69628	52.239759866720284
+PNS_glia	Neural crest (PNS glia)	69628	52.23975986672029
 PNS_glia	Myelinating Schwann cells	28658	144.81778212017588
 PNS_glia	Myelinating Schwann cells (Tgfb2+)	5617	146.49100943564181
 PNS_glia	Melanocyte cells	2274	157.64116094986807
 PNS_glia	Satellite glial cells	4304	184.03299256505576
-PNS_glia	Olfactory ensheathing cells	1991	199.47061778001006
+PNS_glia	Olfactory ensheathing cells	1991	199.4706177800101
 PNS_neurons	Enteric neurons	4640	64.57887931034483
 PNS_neurons	Neural crest (PNS neurons)	50974	77.26350688586338
 PNS_neurons	Otic sensory neurons	7640	78.32041884816753

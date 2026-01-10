@@ -24,4 +24,4 @@ mkdir -p "$R_LIBS_USER"
 cd /project/imoskowitz/xyang2/chrislowzhengxi/code/SEACellsBenchmark/age
 
 # ---- Run ----
-Rscript --vanilla compute_weighted_age_all_systems.R
+Rscript --vanilla append_brain_spinal_cord_age.R

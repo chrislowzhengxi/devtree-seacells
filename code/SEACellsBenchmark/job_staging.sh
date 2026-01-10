@@ -4,12 +4,12 @@
 #SBATCH --error=outs/add_staging_all_%j.err
 #SBATCH --account=pi-imoskowitz
 
-##SBATCH --partition=amd-hm
-#SBATCH --partition=bigmem
+#SBATCH --partition=amd-hm
+##SBATCH --partition=bigmem
 ##SBATCH --partition=amd
 ##SBATCH --partition=caslake
 
-#SBATCH --mem=256G
+#SBATCH --mem=700G
 #SBATCH --cpus-per-task=1
 #SBATCH --time=02:00:00
 
@@ -59,4 +59,4 @@ $PY add_staging_to_all_systems.py \
   --h5-root /project/imoskowitz/xyang2/SHH/Qiu_TimeLapse/results/raw_added \
   --csv-meta /project/imoskowitz/xyang2/chrislowzhengxi/data/df_cell_celltyp_new_merged.csv \
   --out-root /project/imoskowitz/xyang2/chrislowzhengxi/results/raw_added_with_staging \
-  --systems Notochord PNS_glia PNS_neurons Renal Other_Brain_spinal_cord Neurons
+  --systems Other_Brain_spinal_cord Neurons
