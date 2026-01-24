@@ -1,5 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 # -------------------------
 # Matplotlib settings
@@ -15,7 +16,6 @@ AGE_TSV = (
     "SEACellsBenchmark/age/"
     "age_mean_and_weighted_by_celltype_by_system_final.tsv"
 )
-UCELL_TSV = "celltype_ucell_summary_by_system.tsv"
 
 SYSTEMS_IN_ORDER = [
     "Blood",
@@ -52,20 +52,12 @@ PALETTE = {
 # -------------------------
 # Load data
 # -------------------------
-age = pd.read_csv(AGE_TSV, sep="\t")
-ucell = pd.read_csv(UCELL_TSV, sep="\t")
-
-# Inner join (same as ggplot code)
-df = age.merge(
-    ucell,
-    on=["system", "celltype_new"],
-    how="inner"
-)
+df = pd.read_csv(AGE_TSV, sep="\t")
 
 # -------------------------
 # Plot
 # -------------------------
-fig, ax = plt.subplots(figsize=(6, 5))
+fig, ax = plt.subplots(figsize=(7.5, 5))
 
 for system in SYSTEMS_IN_ORDER:
     sub = df[df["system"] == system]
@@ -73,8 +65,8 @@ for system in SYSTEMS_IN_ORDER:
         continue
 
     ax.scatter(
+        sub["age_mean"],
         sub["age_weighted"],
-        sub["mean_ucell"],
         label=system,
         color=PALETTE.get(system, "gray"),
         s=30,
@@ -82,9 +74,26 @@ for system in SYSTEMS_IN_ORDER:
         edgecolors="none",
     )
 
-ax.set_xlabel("Weighted developmental age (hours)")
-ax.set_ylabel("Mean SHH UCell score")
-ax.set_title("SHH activity vs developmental age")
+# -------------------------
+# Reference diagonal y = x
+# -------------------------
+xmin = min(df["age_mean"].min(), df["age_weighted"].min())
+xmax = max(df["age_mean"].max(), df["age_weighted"].max())
+ax.plot(
+    [xmin, xmax],
+    [xmin, xmax],
+    linestyle="--",
+    linewidth=1,
+    color="black",
+    alpha=0.6,
+)
+
+# -------------------------
+# Labels and legend
+# -------------------------
+ax.set_xlabel("Mean developmental age")
+ax.set_ylabel("Weighted developmental age")
+ax.set_title("Weighted vs mean developmental age by cell type")
 
 ax.legend(
     title="system",
@@ -94,7 +103,7 @@ ax.legend(
 )
 
 plt.tight_layout()
-plt.savefig("scatter_age_vs_ucell_mean.pdf")
+plt.savefig("scatter_mean_vs_weighted_age.pdf")
 plt.close()
 
-print("Wrote scatter_age_vs_ucell_mean.pdf")
+print("Wrote scatter_mean_vs_weighted_age.pdf")

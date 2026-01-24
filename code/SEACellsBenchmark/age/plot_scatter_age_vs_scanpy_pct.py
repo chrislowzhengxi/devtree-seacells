@@ -10,7 +10,11 @@ plt.rcParams['ps.fonttype'] = 42
 # -------------------------
 # Constants
 # -------------------------
-AGE_TSV = "age_score_by_celltype_by_system.tsv"
+AGE_TSV = (
+    "/project/imoskowitz/xyang2/chrislowzhengxi/code/"
+    "SEACellsBenchmark/age/"
+    "age_mean_and_weighted_by_celltype_by_system_final.tsv"
+)
 SCANPY_TSV = "celltype_scanpy_summary_by_system.tsv"
 
 SYSTEMS_IN_ORDER = [

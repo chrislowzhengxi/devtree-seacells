@@ -1,8 +1,16 @@
 #!/bin/bash -l
 #SBATCH --job-name=node_stage_tbl
 #SBATCH --account=pi-imoskowitz
+##SBATCH --partition=bigmem
 #SBATCH --partition=amd-hm
-#SBATCH --mem=700G
+##SBATCH --partition=caslake
+
+
+##SBATCH --mem=64GB
+
+#SBATCH --mem=500GB
+#SBATCH --mem=1200GB
+
 #SBATCH --cpus-per-task=1
 #SBATCH --time=12:00:00
 #SBATCH --output=/project/imoskowitz/xyang2/chrislowzhengxi/code/SEACellsBenchmark/outs/node_stage_tbl_%j.out
@@ -16,4 +24,4 @@ export R_HOME="$ENVROOT/lib/R"
 
 cd /project/imoskowitz/xyang2/chrislowzhengxi/code/SEACellsBenchmark/age
 
-Rscript chris_build_node_staging_table.R
+Rscript compute_mean_and_shh_weighted_age_all_systems.R
