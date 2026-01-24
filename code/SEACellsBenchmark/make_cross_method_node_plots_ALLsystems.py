@@ -4,6 +4,9 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+plt.rcParams['pdf.fonttype'] = 42  
+plt.rcParams['ps.fonttype'] = 42
+
 SYSTEMS_IN_ORDER = [
     "Blood",
     "Brain_spinal_cord",
@@ -24,15 +27,15 @@ PALETTE = {
     "Blood": "#E41A1C",
     "Brain_spinal_cord": "#864F70",
     "Endothelium": "#3881AF",
-    "Epithelial_cells": "#449C74",
+    "Epithelial_cells": "#00CED1",
     "Eye": "#6FBF73",
-    "Gastrulation": "#806B87",
-    "Gut": "#AF597D",
+    "Gastrulation": "#CAB2D6",
+    "Gut": "#6A3D9A",
     "Lateral_plate_mesoderm": "#C65A14",
-    "Mesoderm": "#FFA60F",
+    "Mesoderm": "#D3D3D3",
     "Notochord": "#FFEB2B",
     "PNS_glia": "#DCBD2E",
-    "PNS_neurons": "#AC6228",
+    "PNS_neurons": "#800000",
     "Renal": "#F781BF",
 }
 

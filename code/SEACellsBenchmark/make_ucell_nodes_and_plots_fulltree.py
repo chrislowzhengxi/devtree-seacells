@@ -1,8 +1,17 @@
+"""
+python /project/imoskowitz/xyang2/chrislowzhengxi/code/SEACellsBenchmark/make_ucell_nodes_and_plots_fulltree.py \
+  --edges_csv /project/imoskowitz/xyang2/chrislowzhengxi/results/ucell/tree/full_scored_edges_with_pregastrulation.csv \
+  --out_dir /project/imoskowitz/xyang2/chrislowzhengxi/results/LPM_cross_method \
+  --write_nodes_csv
+"""
 import argparse
 import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+
+plt.rcParams['pdf.fonttype'] = 42  
+plt.rcParams['ps.fonttype'] = 42
 
 SYSTEMS_IN_ORDER = [
     "Blood",
@@ -25,18 +34,18 @@ PALETTE = {
     "Blood": "#E41A1C",
     "Brain_spinal_cord": "#864F70",
     "Endothelium": "#3881AF",
-    "Epithelial_cells": "#449C74",
+    "Epithelial_cells": "#00CED1",
     "Eye": "#6FBF73",
-    "Gastrulation": "#806B87",
-    "Gut": "#AF597D",
+    "Gastrulation": "#CAB2D6",
+    "Gut": "#6A3D9A",
     "Lateral_plate_mesoderm": "#C65A14",
-    "Mesoderm": "#FFA60F",
+    "Mesoderm": "#D3D3D3",
     "Notochord": "#FFEB2B",
     "PNS_glia": "#DCBD2E",
-    "PNS_neurons": "#AC6228",
-    "Pre_gastrulation": "lightgrey",
+    "PNS_neurons": "#800000",
     "Renal": "#F781BF",
 }
+
 
 
 
