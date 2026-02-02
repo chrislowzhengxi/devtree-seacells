@@ -78,17 +78,60 @@ pdf(
   height = 12
 )
 
+# p_mean <- ggraph(g, layout = "tree") +
+#     geom_edge_link(
+#     aes(
+#         edge_colour = delta,
+#         edge_width  = pmax(abs(delta), 0.002)
+#     ),
+#     arrow = arrow(length = unit(2, "mm")),
+#     end_cap = circle(2, "mm"),
+#     alpha = 0.85,
+#     show.legend = TRUE
+#     )+
+#   geom_node_point(
+#     aes(
+#       colour = age_mean,
+#       size = delta_size
+#     ),
+#     alpha = 0.9
+#   ) +
+#   scale_colour_gradientn(
+#     colours = age_pal_orange,
+#     name = "Mean age",
+#     na.value = "grey85"
+#   ) +
+#   scale_size_continuous(
+#     range = c(1.5, 7),
+#     name = "|delta_delta|"
+#   ) +
+#   theme_void() +
+#   theme(
+#     legend.position = "bottom",
+#     plot.margin = margin(10, 10, 10, 10)
+#   )
 p_mean <- ggraph(g, layout = "tree") +
-    geom_edge_link(
+  geom_edge_link(
     aes(
-        edge_colour = delta,
-        edge_width  = pmax(abs(delta), 0.002)
+      edge_colour = delta,
+      edge_width  = pmax(abs(delta), 0.002)
     ),
     arrow = arrow(length = unit(2, "mm")),
     end_cap = circle(2, "mm"),
     alpha = 0.85,
     show.legend = TRUE
-    )+
+  ) +
+  scale_edge_colour_gradient2(
+    low = "blue",
+    mid = "grey80",
+    high = "red",
+    midpoint = 0,
+    name = "Edge delta"
+  ) +
+  scale_edge_width(
+    range = c(0.25, 1.2),
+    name = "|edge delta|"
+  ) +
   geom_node_point(
     aes(
       colour = age_mean,
@@ -110,6 +153,7 @@ p_mean <- ggraph(g, layout = "tree") +
     legend.position = "bottom",
     plot.margin = margin(10, 10, 10, 10)
   )
+
 
 print(p_mean)
 dev.off()
